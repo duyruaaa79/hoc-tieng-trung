@@ -259,6 +259,13 @@ nav.tabs button[aria-selected="true"] .d{background:var(--accent)}
 .grab{width:38px;height:4px;background:var(--line);border-radius:2px;margin:8px auto 0}
 #btnEn{font-size:12px;font-weight:800;letter-spacing:.5px;background:var(--jade);color:#fff;border-color:var(--jade)}
 @media(max-width:400px){header .in{gap:7px}.who-btn{padding:6px 9px}}
+#updBar{position:fixed;left:12px;right:12px;bottom:70px;z-index:70;display:flex;align-items:center;gap:10px;
+  background:var(--jade);color:#fff;border-radius:14px;padding:11px 13px;font-size:13.5px;
+  box-shadow:0 10px 26px rgba(0,0,0,.25)}
+#updBar b{flex:1;min-width:0;font-weight:600}
+#updBar button{background:#fff;color:var(--jade);border:none;border-radius:9px;padding:7px 13px;
+  font-size:13px;font-weight:700;cursor:pointer;flex:none}
+#updBar .x{background:transparent;color:#fff;font-weight:400;padding:7px 4px}
 footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
 </style>
 </head>
@@ -295,7 +302,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
   <h2>Các bài</h2>
   <div class="sum" id="allSum"></div>
   <div id="lesList"></div>
-  <footer>Tiến độ lưu trong trình duyệt này. Muốn thêm bài mới, gửi ảnh bài đó cho Claude và nhờ bổ sung vào file.</footer>
+  <footer><span id="verTxt"></span>Tiến độ lưu trong trình duyệt này. Muốn thêm bài mới, gửi ảnh bài đó cho Claude và nhờ bổ sung vào file.</footer>
 </section>
 
 <section class="view" id="v-text">
@@ -2146,6 +2153,42 @@ if(S.pack&&S.pack.data){try{applyPack(S.pack.data,true)}catch(e){}}
 else if((S.mine||[]).length){try{rebuildLessons()}catch(e){}}
 mineRender();
 whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
+
+/* ---------- tự phát hiện bản mới trên GitHub ---------- */
+const APP_VER="2026-10-08.5";
+(function(){const e=document.getElementById("verTxt");
+  if(e)e.textContent="Bản "+APP_VER+" · ";})();
+function updBar(v){
+  if(document.getElementById("updBar"))return;
+  const b=document.createElement("div");b.id="updBar";
+  b.innerHTML='<b>Đã có bản mới ('+v+')</b><button id="updGo">Cập nhật</button><button class="x" id="updX">✕</button>';
+  document.body.appendChild(b);
+  document.getElementById("updGo").addEventListener("click",()=>{
+    try{if(window.caches&&caches.keys)caches.keys().then(k=>k.forEach(x=>caches.delete(x)))}catch(err){}
+    location.replace(location.pathname+"?v="+Date.now());
+  });
+  document.getElementById("updX").addEventListener("click",()=>b.remove());
+}
+async function verCheck(force){
+  try{
+    const host=location.hostname;
+    if(!/\.github\.io$/i.test(host))return;
+    if(!force&&S.verAt&&Date.now()-S.verAt<36e5)return;
+    S.verAt=Date.now();save();
+    const owner=host.split(".")[0];
+    const repo=location.pathname.split("/").filter(Boolean)[0];
+    if(!repo)return;
+    const url="https://raw.githubusercontent.com/"+owner+"/"+repo+"/main/index.html?t="+Date.now();
+    const r=await fetch(url,{cache:"no-store"});
+    if(!r.ok)return;
+    const t=await r.text();
+    const m=/const APP_VER="([^"]+)"/.exec(t);
+    if(m&&m[1]!==APP_VER)updBar(m[1]);
+  }catch(e){}
+}
+setTimeout(()=>verCheck(false),1800);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)verCheck(false)});
+
 if(S.cloud&&S.cloud.url&&S.cloud.code)setTimeout(()=>cloudSync(true),900);
 if(S.src){srcMsg("");setTimeout(()=>fetchPack(S.src,true),400)}
 else if(location.protocol!=="file:"&&!(S.pack&&S.pack.data)){
@@ -2162,20 +2205,25 @@ $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";
 /* ===== app tiếng Anh ===== */
 #enApp{position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;display:none}
 #enApp.on{display:block}
-#enApp nav.tabs .in{grid-template-columns:repeat(3,1fr)}
+#enApp nav.tabs .in{grid-template-columns:repeat(4,1fr)}
 #enApp .wrap{padding-bottom:84px}
 .enbadge{flex:none;background:var(--jade);color:#fff;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:700;letter-spacing:.4px}
 .eline{content-visibility:auto;contain-intrinsic-size:auto 120px;background:var(--card);border:1px solid var(--line);
-  border-left:3px solid transparent;border-radius:var(--r);padding:13px 14px;margin-bottom:9px;cursor:pointer}
+  border-left:3px solid transparent;border-radius:var(--r);padding:13px 14px;margin-bottom:9px}
 .eline.now{border-left-color:var(--accent);background:var(--accent-soft)}
-.eline .en{font-size:16px;line-height:1.65}
+.eline .en{font-size:16px;line-height:1.75}
+.eline .en w{cursor:pointer;border-bottom:1px dotted transparent;padding:0 .5px}
+.eline .en w:active,.eline .en w.hit{border-bottom-color:var(--accent);color:var(--accent)}
 .eline .vi{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.6}
-.eline .say{margin-top:9px}
+.eline .say{margin-top:9px;display:flex;gap:7px;flex-wrap:wrap}
 .hidevi .eline .vi{display:none}
+.hideen .eline .en{filter:blur(5px)}
+.hideen .eline.now .en{filter:none}
 .esay{background:var(--card2);border:1px solid var(--line);color:var(--muted);border-radius:9px;
   padding:5px 11px;font-size:12.5px;cursor:pointer}
 .eword{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);
   border-radius:12px;padding:11px 13px;margin-bottom:8px}
+.eword.mk{border-color:var(--warn)}
 .eword .ew{flex:1;min-width:0}
 .eword .ew b{display:block;font-size:15.5px}
 .eword .ew i{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:1px}
@@ -2186,6 +2234,7 @@ $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";
 .edots i.due{background:var(--accent);border-color:var(--accent)}
 .ecard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 18px;text-align:center;margin-bottom:12px}
 .ecard .q{font-size:26px;font-weight:650;line-height:1.4;word-break:break-word}
+.ecard .q.sm{font-size:19px}
 .ecard .ipa{font-size:13px;color:var(--muted);margin-top:6px}
 .ecard .a{font-size:17px;color:var(--jade);margin-top:14px;min-height:24px}
 .ecard .tag{font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
@@ -2198,6 +2247,15 @@ $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";
 .eok{color:var(--jade);font-weight:600}.eno{color:var(--accent);font-weight:600}
 .ediff s{color:var(--accent);text-decoration:line-through;opacity:.75}
 .ediff b{color:var(--jade)}
+.qopts button{display:block;width:100%;text-align:left;margin-bottom:8px}
+.qopts button.ok{background:var(--jade);border-color:var(--jade);color:#fff}
+.qopts button.no{background:var(--accent);border-color:var(--accent);color:#fff}
+#enPop{position:fixed;left:12px;right:12px;bottom:76px;z-index:80;background:var(--card);
+  border:1px solid var(--line);border-radius:16px;padding:14px;display:none;box-shadow:0 14px 34px rgba(0,0,0,.28)}
+#enPop.on{display:block}
+#enPop .pw{font-size:21px;font-weight:650}
+#enPop .pi{font-size:13px;color:var(--muted);margin-top:2px}
+#enPop .pm{font-size:14.5px;margin-top:8px}
 </style>
 
 <div id="enApp">
@@ -2207,10 +2265,32 @@ $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";
       <div class="s" id="enS">Chạm để đổi bài ▾</div>
     </button>
     <span class="enbadge">EN</span>
+    <button class="icon" id="enSet">⚙</button>
     <button class="icon" id="enBack">✕</button>
   </div></header>
   <div class="wrap">
-    <section class="view on" id="e-text">
+
+    <section class="view on" id="e-home">
+      <div class="stats">
+        <div class="stat"><b id="eKnown">0</b><span>từ đã thuộc</span></div>
+        <div class="stat go"><b id="eDueN">0</b><span>từ đến hạn ôn</span></div>
+        <div class="stat"><b id="eAcc">—</b><span>đúng khi làm bài</span></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="row"><b style="font-size:14px" id="ePgName">Tiến độ</b><div class="sp"></div>
+          <span class="score" id="ePgTxt" style="margin:0"></span></div>
+        <div class="bar"><i id="ePgBar"></i></div>
+        <p class="hint" id="eLast"></p>
+      </div>
+      <h2>Hôm nay nên làm</h2>
+      <div id="eTodos"></div>
+      <h2>Các bài</h2>
+      <div class="sum" id="eAllSum"></div>
+      <div id="eLesList"></div>
+      <footer>Bài khoá lấy từ file ôn nói của bạn. Tiến độ tiếng Anh lưu riêng, không ảnh hưởng phần tiếng Trung.</footer>
+    </section>
+
+    <section class="view" id="e-text">
       <div class="card">
         <div class="row">
           <button class="btn" id="enPlay" style="flex:1">▶︎ Nghe cả bài</button>
@@ -2219,18 +2299,16 @@ $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";
         <div class="bar" id="enBar" style="cursor:pointer"><i id="enBarI"></i></div>
         <p class="hint" id="enProg">Chạm vào thanh để nhảy tới câu bất kỳ.</p>
         <div class="row" style="margin-top:11px">
-          <div class="seg" id="enSegVi">
-            <button data-v="1" aria-pressed="true">Có tiếng Việt</button>
-            <button data-v="0" aria-pressed="false">Ẩn tiếng Việt</button>
+          <div class="seg" id="enSegMode">
+            <button data-m="listen" aria-pressed="true">Nghe</button>
+            <button data-m="dict" aria-pressed="false">Chép chính tả</button>
+            <button data-m="shadow" aria-pressed="false">Đọc theo</button>
           </div>
         </div>
-        <div class="row" style="margin-top:9px">
-          <span class="hint" style="margin:0;flex:none">Tốc độ</span>
-          <input type="range" id="enRate" min="0.5" max="1.2" step="0.05" style="flex:1">
-          <span class="hint" style="margin:0;flex:none" id="enRateV">0.90x</span>
-        </div>
+        <p class="hint" id="enModeHint">Nghe lần lượt từng câu, có tiếng Việt bên dưới.</p>
       </div>
       <div id="enLines"></div>
+      <p class="hint">Chạm vào bất kỳ từ nào trong câu để tra nghĩa và thêm vào danh sách ôn.</p>
     </section>
 
     <section class="view" id="e-vocab">
@@ -2247,25 +2325,83 @@ $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";
     <section class="view" id="e-drill">
       <div class="row" style="margin-bottom:11px">
         <div class="seg" id="enSegD">
-          <button data-d="fill" aria-pressed="true">Điền từ</button>
+          <button data-d="quiz" aria-pressed="true">Trắc nghiệm</button>
+          <button data-d="fill" aria-pressed="false">Điền từ</button>
           <button data-d="scr" aria-pressed="false">Sắp xếp</button>
-          <button data-d="dict" aria-pressed="false">Nghe chép</button>
+          <button data-d="dictd" aria-pressed="false">Nghe chép</button>
           <button data-d="tran" aria-pressed="false">Dịch</button>
         </div>
       </div>
+      <div class="sum" id="eScore"></div>
       <div id="enDrill"></div>
     </section>
   </div>
+
   <nav class="tabs"><div class="in" id="enTabs">
-    <button data-e="text" aria-selected="true"><span class="d"></span>Bài khoá</button>
+    <button data-e="home" aria-selected="true"><span class="d"></span>Trang chủ</button>
+    <button data-e="text" aria-selected="false"><span class="d"></span>Bài khoá</button>
     <button data-e="vocab" aria-selected="false"><span class="d"></span>Từ vựng</button>
     <button data-e="drill" aria-selected="false"><span class="d"></span>Luyện tập</button>
   </div></nav>
+
+  <div id="enPop">
+    <div class="row"><div style="flex:1;min-width:0">
+      <div class="pw" id="epW"></div><div class="pi" id="epI"></div><div class="pm" id="epM"></div>
+    </div><button class="icon" id="epX">✕</button></div>
+    <div class="row" style="margin-top:11px">
+      <button class="btn sec" id="epSay">♪ Nghe</button>
+      <button class="btn" id="epAdd" style="flex:1">+ Thêm vào ôn tập</button>
+    </div>
+  </div>
+
   <div class="scrim" id="enScrim"></div>
   <div class="sheet" id="enSheet">
     <div class="grab"></div>
     <div class="sh"><h3>Chọn bài</h3><div class="sp"></div><button class="icon" id="enSheetX">✕</button></div>
     <div id="enPick"></div>
+  </div>
+  <div class="sheet" id="enSetSheet">
+    <div class="grab"></div>
+    <div class="sh"><h3>Cài đặt tiếng Anh</h3><div class="sp"></div><button class="icon" id="enSetX">✕</button></div>
+    <div class="card">
+      <div class="row"><b style="font-size:14px">Giọng đọc</b></div>
+      <select id="enVoice" style="width:100%;margin-top:8px"></select>
+      <p class="hint" id="enVoiceWarn" style="display:none">Máy chưa có giọng tiếng Anh. Cài thêm gói giọng nói trong cài đặt hệ thống.</p>
+    </div>
+    <div class="card">
+      <div class="row"><b style="font-size:14px">Tốc độ đọc</b><div class="sp"></div><span class="hint" id="enRateV" style="margin:0"></span></div>
+      <input type="range" id="enRate" min="0.5" max="1.2" step="0.05" style="width:100%">
+      <div class="row" style="margin-top:12px"><b style="font-size:14px">Nghỉ giữa các câu</b><div class="sp"></div><span class="hint" id="enGapV" style="margin:0"></span></div>
+      <input type="range" id="enGap" min="0" max="4" step="0.5" style="width:100%">
+      <div class="row" style="margin-top:12px"><b style="font-size:14px">Đọc mỗi câu</b></div>
+      <div class="seg" id="enSegRep" style="margin-top:8px">
+        <button data-v="1" aria-pressed="true">1 lần</button>
+        <button data-v="2" aria-pressed="false">2 lần</button>
+        <button data-v="3" aria-pressed="false">3 lần</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row"><b style="font-size:14px">Hiện tiếng Việt dưới mỗi câu</b></div>
+      <div class="seg" id="enSegVi" style="margin-top:8px">
+        <button data-v="1" aria-pressed="true">Có</button>
+        <button data-v="0" aria-pressed="false">Ẩn</button>
+      </div>
+      <div class="row" style="margin-top:12px"><b style="font-size:14px">Tự đọc khi lật thẻ</b></div>
+      <div class="seg" id="enSegSay" style="margin-top:8px">
+        <button data-s="1" aria-pressed="true">Có</button>
+        <button data-s="0" aria-pressed="false">Im lặng</button>
+      </div>
+      <div class="row" style="margin-top:12px"><b style="font-size:14px">Giữ sáng màn hình khi nghe</b></div>
+      <div class="seg" id="enSegWake" style="margin-top:8px">
+        <button data-w="1" aria-pressed="true">Có</button>
+        <button data-w="0" aria-pressed="false">Không</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row"><b style="font-size:14px">Xoá tiến độ tiếng Anh</b></div>
+      <p class="hint">Chỉ xoá phần tiếng Anh, không đụng tới tiến độ tiếng Trung.</p>
+      <button class="btn sec" id="enReset" style="margin-top:9px">Xoá tiến độ tiếng Anh</button>
+    </div>
   </div>
 </div>
 
@@ -2457,172 +2593,479 @@ words:[
 ["spend time with","/spend taɪm wɪð/","dành thời gian với"]]}
 ];
 
-/* ===== app tiếng Anh (chạy độc lập với phần tiếng Trung) ===== */
-S.en=Object.assign({cur:EN_PACK[0].id,srs:{},rate:.9,vi:1,done:{}},S.en||{});
-let EL=EN_PACK.find(x=>x.id===S.en.cur)||EN_PACK[0];
-let eVoices=[],eTok=0,ePlaying=false,ePaused=false,eIdx=0,eMode="list",eDrill="fill";
+/* ===== từ điển Anh–Việt cho toàn bộ bài khoá (chạm vào từ để tra) ===== */
+const EN_DICT={
+"actor":"diễn viên","after":"sau khi","afternoon":"buổi chiều","always":"luôn luôn",
+"answer":"câu trả lời; trả lời","around":"xung quanh, khoảng","bad":"tệ, xấu","become":"trở thành",
+"before":"trước khi","best":"tốt nhất","big":"to, lớn","brown":"màu nâu",
+"bts":"BTS (nhóm nhạc Hàn Quốc)","clean":"sạch sẽ","clearly":"một cách rõ ràng","clothes":"quần áo",
+"company":"công ty","daegu":"Daegu (thành phố ở Hàn Quốc)","day":"ngày","december":"tháng Mười Hai",
+"dong":"Đông (trong Phuong Dong – Phương Đông)","during":"trong suốt","early":"sớm","eleven":"mười một",
+"english":"tiếng Anh","enjoy":"thích, tận hưởng","expensive":"đắt tiền","eye":"mắt",
+"famous":"nổi tiếng","feel":"cảm thấy","felt":"đã cảm thấy (quá khứ của feel)","fifteen":"mười lăm",
+"finally":"cuối cùng","find":"tìm thấy","first":"đầu tiên, trước tiên","four":"bốn",
+"friend":"bạn bè","fun":"vui","gallery":"phòng trưng bày","get":"đến, lấy, trở nên",
+"great":"tuyệt vời","hair":"tóc","hanoi":"Hà Nội","happy":"vui, hạnh phúc",
+"head":"đầu","hello":"xin chào","help":"giúp đỡ","himself":"chính anh ấy",
+"hit":"Big Hit (công ty giải trí)","home":"nhà","house":"ngôi nhà","i'm":"tôi/em là (I am)",
+"important":"quan trọng","information":"thông tin","jazz":"nhạc jazz","kim":"Kim (họ người Hàn Quốc)",
+"know":"biết","korea":"Hàn Quốc","late":"muộn","later":"sau đó",
+"learn":"học, tìm hiểu","like":"thích","listen":"nghe","little":"một chút, nhỏ",
+"live":"sống","look":"trông có vẻ","lot":"a lot of: rất nhiều","make":"làm, tạo ra",
+"many":"nhiều","math":"môn Toán","meet":"gặp","member":"thành viên",
+"minute":"phút","movie":"bộ phim","multimedia":"đa phương tiện","music":"âm nhạc",
+"name":"tên","nation":"quốc gia (the United Nations: Liên Hợp Quốc)","near":"gần","need":"cần",
+"new":"mới","nghia":"Nghĩa (trong Minh Nghia – Minh Nghĩa)","normal":"bình thường","now":"bây giờ",
+"number":"con số","often":"thường","old":"tuổi; cũ, già","orange":"màu cam",
+"people":"mọi người","person":"người","photo":"bức ảnh","play":"chơi",
+"player":"người chơi, cầu thủ","presidential":"thuộc về tổng thống","question":"câu hỏi","quickly":"một cách nhanh chóng",
+"second":"thứ hai; giây","simple":"đơn giản","singer":"ca sĩ","smile":"mỉm cười",
+"solo":"đơn ca, solo","solve":"giải, giải quyết","sometimes":"đôi khi","song":"bài hát",
+"south":"phía nam (South Korea: Hàn Quốc)","speak":"nói","special":"đặc biệt","spend":"dành (thời gian)",
+"spent":"đã dành (quá khứ của spend)","sport":"môn thể thao","student":"học sinh, sinh viên","study":"học",
+"take":"mất (thời gian), chụp (ảnh)","teacher":"giáo viên","ten":"mười","thank":"cảm ơn",
+"that's":"đó là (that is)","thing":"thứ, điều","think":"nghĩ","thirty":"ba mươi",
+"took":"đã mất (quá khứ của take)","try":"cố gắng, thử","two":"hai","united":"thống nhất",
+"university":"trường đại học","use":"dùng","usually":"thường","video":"video",
+"vietnam":"Việt Nam","vietnamese":"người Việt; tiếng Việt","visit":"thăm, tham quan","watch":"xem",
+"way":"cách","wear":"mặc","well":"tốt, giỏi","word":"từ",
+"year":"năm","young":"trẻ","minh":"Minh (tên riêng)","phuong":"Phương (tên riêng)",
+"thuy":"Thuỳ (tên riêng)","vu":"Vũ (họ)","thi":"Thị (tên đệm)","taehyung":"Taehyung (tên riêng)",
+"entertainment":"giải trí","industry":"ngành, ngành công nghiệp","uniform":"đồng phục","subject":"môn học",
+"homework":"bài tập về nhà","library":"thư viện","playground":"sân chơi","time":"thời gian, lần",
+"week":"tuần","health":"sức khoẻ","body":"cơ thể","net":"cái lưới","court":"sân (thể thao)",
+"singles":"đánh đơn","doubles":"đánh đôi","popular":"phổ biến","relax":"thư giãn",
+"active":"năng động","exercise":"vận động, tập luyện","whole":"toàn bộ","weekend":"cuối tuần",
+"interview":"phỏng vấn","interviewer":"người phỏng vấn","impression":"ấn tượng","prepare":"chuẩn bị",
+"preparation":"sự chuẩn bị","suitable":"phù hợp","neat":"gọn gàng","professional":"chuyên nghiệp",
+"polite":"lịch sự","confident":"tự tin","confidence":"sự tự tin","attitude":"thái độ",
+"positive":"tích cực","honestly":"một cách trung thực","interrupt":"ngắt lời","contact":"sự tiếp xúc",
+"common":"thường gặp, phổ biến","carefully":"một cách cẩn thận","arrive":"đến nơi","practise":"luyện tập",
+"practice":"sự luyện tập","regularly":"thường xuyên","native":"bản xứ","partner":"bạn cùng luyện, đối tác",
+"subtitles":"phụ đề","improve":"cải thiện","pronunciation":"phát âm","describe":"miêu tả",
+"conversation":"cuộc hội thoại","mistake":"lỗi, sai lầm","afraid":"sợ","opinion":"ý kiến",
+"daily":"hằng ngày","biography":"tiểu sử","born":"được sinh ra","trainee":"thực tập sinh",
+"debut":"ra mắt","songwriter":"nhạc sĩ sáng tác","besides":"ngoài ra, bên cạnh đó","successful":"thành công",
+"career":"sự nghiệp","appoint":"bổ nhiệm","envoy":"đặc phái viên","attend":"tham dự",
+"admire":"ngưỡng mộ","talented":"tài năng","secondary":"cấp hai, trung học cơ sở","classroom":"phòng học",
+"classmate":"bạn cùng lớp","fairly":"khá","favourite":"yêu thích","correct":"đúng",
+"especially":"đặc biệt là","exam":"kỳ thi","helpful":"nhiệt tình giúp đỡ","memory":"kỷ niệm, trí nhớ",
+"badminton":"cầu lông","racket":"cái vợt","shuttlecock":"quả cầu lông","average":"trung bình",
+"height":"chiều cao","dyed":"đã nhuộm","friendly":"thân thiện","responsible":"có trách nhiệm",
+"shy":"ngại, nhút nhát","talkative":"nói nhiều, hoạt ngôn","comfortable":"thoải mái","social":"thuộc xã hội",
+"media":"truyền thông","communication":"truyền thông, giao tiếp","related":"liên quan","major":"chuyên ngành",
+"currently":"hiện tại, hiện giờ","interested":"hứng thú, quan tâm","listening":"việc nghe","speaking":"việc nói",
+"learning":"việc học","working":"đang làm việc","studying":"việc học","playing":"việc chơi",
+"watching":"việc xem","taking":"việc chụp/lấy","visiting":"việc tham quan","making":"việc làm/tạo",
+"solving":"việc giải","majoring":"học chuyên ngành","living":"đang sống","attended":"đã tham dự",
+"arrived":"đã đến","studied":"đã học","played":"đã chơi","became":"đã trở thành",
+"debuted":"đã ra mắt","enjoyed":"đã thích","tries":"cố gắng","likes":"thích",
+"helps":"giúp","makes":"làm cho","answers":"câu trả lời","questions":"câu hỏi",
+"things":"những thứ","words":"từ ngữ","years":"năm","minutes":"phút",
+"friends":"bạn bè","eyes":"đôi mắt","clothes":"quần áo","movies":"phim",
+"songs":"bài hát","photos":"ảnh","videos":"video","exams":"các kỳ thi",
+"memories":"những kỷ niệm","teachers":"các thầy cô","classmates":"các bạn cùng lớp","classrooms":"các phòng học",
+"galleries":"các phòng trưng bày","rackets":"những cái vợt","players":"người chơi","conversations":"các cuộc hội thoại",
+"mistakes":"những lỗi sai","numbers":"các con số","nations":"các quốc gia","envoys":"các đặc phái viên",
+"people":"mọi người","two":"hai","four":"bốn","first":"đầu tiên"};
 
+/* ===== câu hỏi đọc hiểu cho từng bài ===== */
+const EN_QUIZ={
+"en-0":[
+{q:"Where is Thuy studying?",o:["Phuong Dong University","Hanoi National University","A secondary school"],a:0},
+{q:"What is her major?",o:["English Language","Multimedia Communication","Mathematics"],a:1},
+{q:"How does she describe herself?",o:["Tall and quiet","Friendly, easy-going and responsible","Serious and strict"],a:1},
+{q:"When does she become more talkative?",o:["When she meets new people","When she feels comfortable","When she is at school"],a:1},
+{q:"What does she do in her free time?",o:["Listen to music and watch movies","Play sports every day","Study English all day"],a:0},
+{q:"Why is she interested in social media?",o:["Her friends use it","It is related to her major","She wants to be famous"],a:1}],
+"en-1":[
+{q:"What should we learn before an interview?",o:["The salary only","Information about the company and the job","Nothing at all"],a:1},
+{q:"What kind of clothes should we wear?",o:["Expensive clothes","Clean and suitable clothes","Any clothes we like"],a:1},
+{q:"How early should we arrive?",o:["About ten or fifteen minutes","About one hour","Exactly on time"],a:0},
+{q:"Why is being late a problem?",o:["The interview is cancelled","It can make a bad impression","We have to pay a fine"],a:1},
+{q:"What should we do during the interview?",o:["Speak as quickly as possible","Smile and make eye contact","Interrupt to show confidence"],a:1},
+{q:"What two things help us make a good impression?",o:["Good preparation and a positive attitude","Expensive clothes and a loud voice","Luck and experience"],a:0}],
+"en-2":[
+{q:"What is the best way to speak English well?",o:["Reading grammar books","Practising regularly","Taking many tests"],a:1},
+{q:"How long does she practise each day?",o:["About ten minutes","About thirty minutes","About two hours"],a:1},
+{q:"Does she have a native English-speaking partner?",o:["Yes, a teacher","Yes, a classmate","No, she does not"],a:2},
+{q:"Why does she listen to English songs?",o:["To improve pronunciation and learn new words","To relax before sleeping","To practise writing"],a:0},
+{q:"What does she do in daily life?",o:["Writes a diary in English","Describes things around her in English","Reads English newspapers"],a:1},
+{q:"What does she think about making mistakes?",o:["They should be avoided","They are normal","They mean she should stop"],a:1}],
+"en-3":[
+{q:"When and where was Kim Taehyung born?",o:["December 30, 1995, in Daegu","December 13, 1993, in Seoul","March 30, 1995, in Busan"],a:0},
+{q:"When did he debut with BTS?",o:["In 2011","In 2013","In 2021"],a:1},
+{q:"What jobs does he do?",o:["Singer, songwriter and actor","Dancer and producer","Teacher and singer"],a:0},
+{q:"What happened in 2021?",o:["He started a solo career","BTS attended the United Nations","He became a trainee"],a:1},
+{q:"What does he like doing in his free time?",o:["Playing football","Listening to jazz and taking photos","Cooking and reading"],a:1},
+{q:"Why does the writer admire him?",o:["He is rich and famous","He is talented and hard-working","He has many fans"],a:1}],
+"en-4":[
+{q:"How old was she when she studied there?",o:["About six to ten","About eleven to fifteen","About fifteen to eighteen"],a:1},
+{q:"How long did it take her to get to school?",o:["About five minutes","About fifteen minutes","About half an hour"],a:1},
+{q:"What did the school have?",o:["Classrooms, a library and a playground","A swimming pool","A large theatre"],a:0},
+{q:"What was her favourite subject?",o:["English","Math","History"],a:1},
+{q:"Why did she like it?",o:["The teacher was funny","She enjoyed numbers and solving problems","It was easy"],a:1},
+{q:"When did they have a lot of homework?",o:["Every weekend","Especially before exams","At the start of the year"],a:1}],
+"en-5":[
+{q:"What is her favourite sport?",o:["Football","Badminton","Swimming"],a:1},
+{q:"How many people play in doubles?",o:["Two","Three","Four"],a:2},
+{q:"What do players use?",o:["Rackets and a shuttlecock","A ball and a bat","Only their hands"],a:0},
+{q:"How often does she play?",o:["Every day","Once or twice a week","Once a month"],a:1},
+{q:"Where does she usually play?",o:["At school","At a court near her home","In the park"],a:1},
+{q:"Why does she like badminton?",o:["It is cheap","It is fun and good for her health","It is easy to win"],a:1}]};
+
+/* ===== app tiếng Anh — chạy độc lập với phần tiếng Trung ===== */
+EN_PACK.forEach(l=>{l.quiz=EN_QUIZ[l.id]||[]});
+function enMergeAll(){
+  const lines=[],words=[],quiz=[],seen={};
+  EN_PACK.forEach(l=>{
+    l.lines.forEach(x=>lines.push(x));
+    l.words.forEach(w=>{if(!seen[w[0]]){seen[w[0]]=1;words.push(w)}});
+    (l.quiz||[]).forEach(q=>quiz.push(q))});
+  return{id:"en-all",all:true,sub:"Ôn tổng hợp tất cả chủ đề",title:"All topics",lines:lines,words:words,quiz:quiz};
+}
+let EN_ALL=enMergeAll();
+function enList(){return EN_PACK.concat([EN_ALL])}
+
+S.en=Object.assign({cur:EN_PACK[0].id,srs:{},rate:.9,gap:1,rep:1,vi:1,say:1,wake:1,
+  mark:[],extra:{},les:{},voice:0,open:0},S.en||{});
+if(!Array.isArray(S.en.mark))S.en.mark=[];
+let EL=enList().find(x=>x.id===S.en.cur)||EN_PACK[0];
+let eVoices=[],eTok=0,ePlaying=false,ePaused=false,eIdx=0,eMode="list",eDrill="quiz",eTxtMode="listen";
+let eWake=null;
+
+/* ---------- âm thanh ---------- */
 function enVoices(){
-  const all=synth.getVoices();
-  eVoices=all.filter(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));
-  const pref=["Samantha","Google US English","Microsoft Aria","Karen","Daniel"];
+  eVoices=synth.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));
+  const pref=["Samantha","Google US English","Microsoft Aria","Karen","Daniel","Google UK"];
   eVoices.sort((a,b)=>{const ia=pref.findIndex(p=>a.name.indexOf(p)>=0),ib=pref.findIndex(p=>b.name.indexOf(p)>=0);
     return (ia<0?9:ia)-(ib<0?9:ib)});
-}
-enVoices();synth.addEventListener&&synth.addEventListener("voiceschanged",enVoices);
-
+  const s=$("enVoice");if(!s)return;
+  s.innerHTML="";
+  $("enVoiceWarn").style.display=eVoices.length?"none":"block";
+  eVoices.forEach((v,i)=>{const o=document.createElement("option");o.value=i;o.textContent=v.name+" ("+v.lang+")";s.appendChild(o)});
+  if(S.en.voice>=eVoices.length)S.en.voice=0;
+  s.value=S.en.voice}
 function enUtter(t,r){return new Promise(res=>{
   let done=false;const fin=()=>{if(!done){done=true;res()}};
   try{
-    const u=new SpeechSynthesisUtterance(t),v=eVoices[0];
+    const u=new SpeechSynthesisUtterance(t),v=eVoices[S.en.voice]||eVoices[0];
     if(v)u.voice=v;u.lang=v?v.lang:"en-US";u.rate=r||S.en.rate;
     u.onend=fin;u.onerror=fin;synth.speak(u);
   }catch(e){fin()}
-  setTimeout(fin,Math.max(2500,t.length*110));
+  setTimeout(fin,Math.max(2500,t.length*120));
 })}
-function enStopAll(){eTok++;ePlaying=false;ePaused=false;try{synth.cancel()}catch(e){}
-  $("enPlay").textContent="▶︎ Nghe cả bài";
+async function enWakeOn(){if(!S.en.wake||eWake||!("wakeLock"in navigator))return;
+  try{eWake=await navigator.wakeLock.request("screen");eWake.addEventListener("release",()=>eWake=null)}catch(e){}}
+function enWakeOff(){if(eWake){try{eWake.release()}catch(e){}eWake=null}}
+function enStopAll(){eTok++;ePlaying=false;ePaused=false;try{synth.cancel()}catch(e){}enWakeOff();
+  const p=$("enPlay");if(p)p.textContent="▶︎ Nghe cả bài";
   [...document.querySelectorAll("#enLines .eline")].forEach(x=>x.classList.remove("now"))}
-async function enSayOne(i){
-  enStopAll();const t=++eTok;eIdx=i;enMark(i);
-  await enUtter(EL.lines[i][0]);
+function enNap(ms,t){return new Promise(res=>{let l=ms;(function c(){
+  if(t!==eTok)return res();if(l<=0)return res();if(!ePaused)l-=100;setTimeout(c,100)})()})}
+
+/* ---------- tiến độ bài ---------- */
+function eles(){return S.en.les[EL.id]||(S.en.les[EL.id]={last:0,listened:0,drill:{ok:0,total:0}})}
+function eTouch(){eles().last=Date.now();save()}
+function eDrillLog(ok){const d=eles().drill;d.total++;if(ok)d.ok++;save();ePaintScore()}
+function ePaintScore(){const d=eles().drill,el=$("eScore");if(!el)return;
+  el.textContent=d.total?("Đúng "+d.ok+"/"+d.total+" câu ở bài này"):"Chưa làm bài tập nào ở bài này."}
+
+/* ---------- SRS ---------- */
+const EFACE=[["m","nghĩa"],["w","viết lại"],["l","nghe – viết"]];
+function esk(w,k){const s=S.en.srs[w]||(S.en.srs[w]={});
+  return s[k]||(s[k]={box:0,due:0,seen:0,miss:0})}
+function eDueF(w,k){const s=(S.en.srs[w]||{})[k];return !!s&&s.seen>0&&Date.now()>=s.due}
+function eKnownF(w,k){const s=(S.en.srs[w]||{})[k];return !!s&&s.box>=3}
+function eDue(w){return EFACE.some(f=>eDueF(w,f[0]))}
+function eKnown(w){return EFACE.every(f=>eKnownF(w,f[0]))}
+function eNew(w){const s=S.en.srs[w];return !s||EFACE.every(f=>!s[f[0]]||!s[f[0]].seen)}
+function eGrade(w,k,ok){const s=esk(w,k);s.seen++;
+  if(ok)s.box=Math.min(s.box+1,BOX.length-1);else{s.box=0;s.miss++}
+  s.due=Date.now()+BOX[s.box];save()}
+function eWords(){
+  const ex=(S.en.extra[EL.id]||[]).map(w=>eLook(w)||[w,"",""]);
+  return EL.words.concat(ex.filter(x=>!EL.words.some(y=>y[0]===x[0])))}
+function eStat(){const ws=eWords().map(w=>w[0]);
+  return{all:ws.length,known:ws.filter(eKnown).length,due:ws.filter(eDue).length,nw:ws.filter(eNew).length}}
+function eDots(w){let h='<span class="edots">';
+  EFACE.forEach(f=>{const s=(S.en.srs[w]||{})[f[0]]||{box:0};
+    h+='<i class="'+(eDueF(w,f[0])?"due":(s.box>=3?"ok":(s.box>0?"ok":"")))+'" title="'+f[1]+'"></i>'});
+  return h+"</span>"}
+
+/* ---------- từ điển ---------- */
+function eLook(raw){
+  const w=String(raw||"").toLowerCase().replace(/[^a-z'’-]/g,"").replace(/’/g,"'");
+  if(!w)return null;
+  for(const L of EN_PACK)for(const x of L.words)if(x[0].toLowerCase()===w)return x;
+  if(EN_DICT[w])return [raw,"",EN_DICT[w]];
+  const cand=[w.replace(/ies$/,"y"),w.replace(/es$/,""),w.replace(/s$/,""),
+    w.replace(/ied$/,"y"),w.replace(/ed$/,""),w.replace(/ed$/,"e"),
+    w.replace(/ing$/,""),w.replace(/ing$/,"e"),w.replace(/ly$/,"")];
+  for(const c of cand){
+    if(c===w||c.length<2)continue;
+    if(EN_DICT[c])return [raw,"",EN_DICT[c]];
+    for(const L of EN_PACK)for(const x of L.words)if(x[0].toLowerCase()===c)return [raw,x[1],x[2]];
+  }
+  return null}
+let ePopW=null;
+function ePop(raw,el){
+  const f=eLook(raw);
+  $("epW").textContent=raw;
+  $("epI").textContent=f&&f[1]?f[1]:"";
+  $("epM").textContent=f?f[2]:"Chưa có trong từ điển của bài.";
+  ePopW=f?f[0]:raw;
+  if(f&&f[0]!==raw&&f[1]===""){ePopW=raw}
+  $("enPop").classList.add("on");
+  [...document.querySelectorAll("#enLines w.hit")].forEach(x=>x.classList.remove("hit"));
+  if(el)el.classList.add("hit");
+  enUtter(raw);
+  const inList=eWords().some(x=>x[0].toLowerCase()===String(ePopW).toLowerCase());
+  $("epAdd").textContent=inList?"✓ Đã có trong danh sách ôn":"+ Thêm vào ôn tập";
+  $("epAdd").disabled=!!inList}
+function ePopClose(){$("enPop").classList.remove("on");
+  [...document.querySelectorAll("#enLines w.hit")].forEach(x=>x.classList.remove("hit"))}
+
+/* ---------- bài khoá ---------- */
+function enRenderText(){
+  const box=$("enLines");box.innerHTML="";
+  EL.lines.forEach((l,i)=>{
+    const d=document.createElement("div");d.className="eline";
+    const en=document.createElement("div");en.className="en";
+    l[0].split(/(\s+)/).forEach(tok=>{
+      if(/^\s+$/.test(tok)){en.appendChild(document.createTextNode(tok));return}
+      const w=document.createElement("w");w.textContent=tok;
+      w.addEventListener("click",ev=>{ev.stopPropagation();ePop(tok.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g,""),w)});
+      en.appendChild(w)});
+    const vi=document.createElement("div");vi.className="vi";vi.textContent=l[1];
+    const bar=document.createElement("div");bar.className="say";
+    const b1=document.createElement("button");b1.className="esay";b1.textContent="♪ Nghe câu này";
+    b1.addEventListener("click",e=>{e.stopPropagation();enSayOne(i)});
+    const b2=document.createElement("button");b2.className="esay";b2.textContent="♪ Chậm";
+    b2.addEventListener("click",e=>{e.stopPropagation();enSayOne(i,.6)});
+    bar.appendChild(b1);bar.appendChild(b2);
+    d.appendChild(en);d.appendChild(vi);d.appendChild(bar);
+    box.appendChild(d)});
+  box.classList.toggle("hidevi",!S.en.vi);
+  box.classList.toggle("hideen",eTxtMode==="dict");
+  enMark(-1)}
+async function enSayOne(i,r){
+  enStopAll();const t=++eTok;eIdx=i;enMark(i);eTouch();
+  await enUtter(EL.lines[i][0],r);
   if(t===eTok)enMark(-1)}
 function enMark(i){
   const rows=[...document.querySelectorAll("#enLines .eline")];
   rows.forEach((x,k)=>x.classList.toggle("now",k===i));
   const n=EL.lines.length;
-  $("enBarI").style.width=(i<0?0:Math.round((i+1)/n*100))+"%";
-  $("enProg").textContent=i<0?"Chạm vào thanh để nhảy tới câu bất kỳ.":("Câu "+(i+1)+"/"+n);
+  const bi=$("enBarI");if(bi)bi.style.width=(i<0?0:Math.round((i+1)/n*100))+"%";
+  const p=$("enProg");if(p)p.textContent=i<0?"Chạm vào thanh để nhảy tới câu bất kỳ.":("Câu "+(i+1)+"/"+n);
   if(i>=0&&rows[i])try{rows[i].scrollIntoView({block:"center",behavior:"smooth"})}catch(e){}}
 async function enPlayFrom(start){
   enStopAll();const t=++eTok;ePlaying=true;$("enPlay").textContent="⏸ Tạm dừng";
+  enWakeOn();eTouch();
   for(let i=start;i<EL.lines.length;i++){
     if(t!==eTok)return;
     while(ePaused){if(t!==eTok)return;await new Promise(r=>setTimeout(r,120))}
     eIdx=i;enMark(i);
-    await enUtter(EL.lines[i][0]);
+    for(let r=0;r<(S.en.rep||1);r++){
+      if(t!==eTok)return;
+      await enUtter(EL.lines[i][0]);
+      if(r<S.en.rep-1)await enNap(400,t);
+    }
     if(t!==eTok)return;
-    await new Promise(r=>setTimeout(r,400));
+    const extra=eTxtMode==="shadow"?Math.max(1200,EL.lines[i][0].length*55):0;
+    await enNap((S.en.gap||0)*1000+extra,t);
   }
-  if(t===eTok){ePlaying=false;$("enPlay").textContent="▶︎ Nghe cả bài";enMark(-1)}}
+  if(t===eTok){ePlaying=false;$("enPlay").textContent="▶︎ Nghe cả bài";enMark(-1);enWakeOff();
+    eles().listened=1;save()}}
 
-/* --- bài khoá --- */
-function enRenderText(){
-  const box=$("enLines");box.innerHTML="";
-  EL.lines.forEach((l,i)=>{
-    const d=document.createElement("div");d.className="eline";
-    d.innerHTML='<div class="en"></div><div class="vi"></div><div class="say"><button class="esay">♪ Nghe câu này</button></div>';
-    d.querySelector(".en").textContent=l[0];
-    d.querySelector(".vi").textContent=l[1];
-    d.querySelector(".esay").addEventListener("click",e=>{e.stopPropagation();enSayOne(i)});
-    d.addEventListener("click",()=>enSayOne(i));
-    box.appendChild(d)});
-  box.classList.toggle("hidevi",!S.en.vi);
-  enMark(-1)}
-
-/* --- SRS từ vựng --- */
-function ek(w){return S.en.srs[w]||(S.en.srs[w]={box:0,due:0,seen:0,miss:0})}
-function eDue(w){const s=S.en.srs[w];return !!s&&s.seen>0&&Date.now()>=s.due}
-function eKnown(w){const s=S.en.srs[w];return !!s&&s.box>=3}
-function eNew(w){return !S.en.srs[w]||!S.en.srs[w].seen}
-function eGrade(w,ok){const s=ek(w);s.seen++;
-  if(ok)s.box=Math.min(s.box+1,BOX.length-1);else{s.box=0;s.miss++}
-  s.due=Date.now()+BOX[s.box];save()}
-function eStat(){const ws=EL.words.map(w=>w[0]);
+/* ---------- trang chủ ---------- */
+function enRenderHome(){
+  const st=eStat(),d=eles();
+  $("eKnown").textContent=st.known+"/"+st.all;
+  $("eDueN").textContent=st.due;
+  $("eAcc").textContent=d.drill.total?Math.round(d.drill.ok/d.drill.total*100)+"%":"—";
+  const pct=st.all?Math.round(st.known/st.all*100):0;
+  $("ePgName").textContent="Tiến độ "+(EL.all?"ôn tổng hợp":EL.sub.split("·").pop().trim());
+  $("ePgBar").style.width=pct+"%";$("ePgTxt").textContent=pct+"%";
+  $("eLast").textContent=d.last
+    ?"Lần học gần nhất: "+new Date(d.last).toLocaleString("vi-VN",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"})
+    :"Chưa học bài này lần nào.";
+  const T=[];
+  if(st.due)T.push(["red","♻","Ôn "+st.due+" từ đã đến hạn","Nhớ lâu nhất là ôn đúng lúc sắp quên",()=>{enGo("vocab");eSetMode("card")}]);
+  if(st.nw)T.push(["warn","✦","Học "+st.nw+" từ chưa gặp","Lật thẻ, tự đoán nghĩa rồi chấm",()=>{enGo("vocab");eSetMode("card")}]);
+  if(!d.listened)T.push(["jade","♪","Nghe bài khoá lần đầu",EL.lines.length+" câu",()=>{enGo("text");enPlayFrom(0)}]);
+  else T.push(["jade","♪","Nghe lại bài khoá","Thử chế độ Chép chính tả hoặc Đọc theo",()=>enGo("text")]);
+  if(d.drill.total<10)T.push(["red","✍","Làm bài tập của bài này","Trắc nghiệm, điền từ, sắp xếp câu",()=>enGo("drill")]);
+  else T.push(["warn","✍","Luyện dịch câu","Việt sang Anh, tự chấm",()=>{enGo("drill");eSetDrill("tran")}]);
+  if(!EL.all){
+    let td=0;EN_PACK.forEach(l=>{const s=enStatOf(l);td+=s.due});
+    if(td>st.due)T.push(["jade","∑","Ôn tổng hợp tất cả chủ đề",td+" từ đến hạn trên toàn bộ",
+      ()=>{enSwitch("en-all");enGo("vocab");eSetMode("card")}]);
+  }
+  const box=$("eTodos");box.innerHTML="";
+  T.slice(0,4).forEach((t,i)=>{
+    const b=document.createElement("button");b.className="todo"+(i===0?" pri":"");
+    b.innerHTML='<span class="ic i-'+t[0]+'">'+t[1]+'</span><span class="tt"><b>'+t[2]+'</b><span>'+t[3]+'</span></span><span class="ar">›</span>';
+    b.addEventListener("click",t[4]);box.appendChild(b)});
+  let tk=0,ta=0,tdue=0;
+  EN_PACK.forEach(l=>{const s=enStatOf(l);tk+=s.known;ta+=s.all;tdue+=s.due});
+  $("eAllSum").textContent=EN_PACK.length+" chủ đề: "+tk+"/"+ta+" từ đã thuộc"+(tdue?" · "+tdue+" từ đến hạn ôn":"");
+  enPickList($("eLesList"));
+  ePaintScore()}
+function enStatOf(l){
+  const ex=(S.en.extra[l.id]||[]);
+  const ws=l.words.map(w=>w[0]).concat(ex.filter(w=>!l.words.some(y=>y[0]===w)));
   return{all:ws.length,known:ws.filter(eKnown).length,due:ws.filter(eDue).length,nw:ws.filter(eNew).length}}
-function eDots(w){const s=S.en.srs[w]||{box:0};let h='<span class="edots">';
-  for(let i=0;i<4;i++)h+='<i class="'+(eDue(w)&&i===0?"due":(s.box>i?"ok":""))+'"></i>';
-  return h+"</span>"}
 
-/* --- từ vựng --- */
+/* ---------- từ vựng ---------- */
+let eQ="",eFilt="all";
+function eSetMode(m){eMode=m;eShown=false;
+  [...$("enSegV").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.m===m));
+  enRenderVocab()}
 function enRenderVocab(){
   const box=$("enVocab");box.innerHTML="";
-  if(eMode==="list"){
-    const st=eStat();
-    const h=document.createElement("p");h.className="hint";h.style.margin="0 0 10px";
-    h.textContent=st.known+"/"+st.all+" từ đã thuộc"+(st.due?" · "+st.due+" từ cần ôn":"");
-    box.appendChild(h);
-    EL.words.forEach(w=>{
-      const d=document.createElement("div");d.className="eword";
+  if(eMode==="list")return eVocabList(box);
+  if(eMode==="card")return enCard(box);
+  return enType(box)}
+function eVocabList(box){
+  const st=eStat();
+  const head=document.createElement("div");
+  head.innerHTML='<input id="eSearch" placeholder="Tìm từ tiếng Anh hoặc nghĩa" autocomplete="off">'+
+   '<div class="filt" style="margin-top:10px">'+
+   ['all','Tất cả','due','Cần ôn','new','Chưa học','mark','Đã đánh dấu'].reduce((s,x,i,a)=>
+     i%2?s:s+'<button data-f="'+a[i]+'" aria-pressed="'+(eFilt===a[i])+'">'+a[i+1]+'</button>',"")+'</div>'+
+   '<p class="hint" style="margin:0 0 10px">'+st.known+'/'+st.all+' từ đã thuộc'+(st.due?' · '+st.due+' cần ôn':'')+'</p>';
+  box.appendChild(head);
+  const list=document.createElement("div");box.appendChild(list);
+  const paint=()=>{
+    list.innerHTML="";
+    let ws=eWords();
+    if(eFilt==="due")ws=ws.filter(w=>eDue(w[0]));
+    if(eFilt==="new")ws=ws.filter(w=>eNew(w[0]));
+    if(eFilt==="mark")ws=ws.filter(w=>S.en.mark.indexOf(w[0])>=0);
+    if(eQ){const q=eQ.toLowerCase();ws=ws.filter(w=>(w[0]+" "+w[2]).toLowerCase().indexOf(q)>=0)}
+    if(!ws.length){list.innerHTML='<p class="hint">Không có từ nào khớp.</p>';return}
+    ws.forEach(w=>{
+      const mk=S.en.mark.indexOf(w[0])>=0;
+      const d=document.createElement("div");d.className="eword"+(mk?" mk":"");
       d.innerHTML='<div class="ew"><b></b><i></i><span></span></div>'+eDots(w[0])+
-        '<button class="esay">♪</button>';
+        '<button class="esay" data-a="say">♪</button><button class="esay" data-a="mk">'+(mk?"★":"☆")+'</button>';
       d.querySelector("b").textContent=w[0];
-      d.querySelector("i").textContent=w[1];
+      d.querySelector("i").textContent=w[1]||"";
       d.querySelector("span").textContent=w[2];
-      d.querySelector(".esay").addEventListener("click",()=>{enStopAll();enUtter(w[0])});
-      box.appendChild(d)});
-    return;
-  }
-  if(eMode==="card"){enCard(box);return}
-  enType(box);
-}
-let eCur=null,eShown=false,eFlip=0;
+      d.querySelector('[data-a="say"]').addEventListener("click",()=>{enStopAll();enUtter(w[0])});
+      d.querySelector('[data-a="mk"]').addEventListener("click",()=>{
+        const i=S.en.mark.indexOf(w[0]);
+        if(i>=0)S.en.mark.splice(i,1);else S.en.mark.push(w[0]);
+        save();paint()});
+      list.appendChild(d)})};
+  paint();
+  const si=$("eSearch");si.value=eQ;
+  let tmr=null;
+  si.addEventListener("input",e=>{clearTimeout(tmr);const v=e.target.value;
+    tmr=setTimeout(()=>{eQ=v;paint()},180)});
+  head.querySelector(".filt").addEventListener("click",e=>{
+    const b=e.target.closest("button[data-f]");if(!b)return;
+    eFilt=b.dataset.f;
+    [...head.querySelectorAll(".filt button")].forEach(x=>x.setAttribute("aria-pressed",x===b));
+    paint()})}
+let eCur=null,eShown=false,eFace=0;
 function ePick(){
-  const ws=EL.words.slice();
+  const ws=eWords();
+  if(!ws.length)return null;
+  const mk=ws.filter(w=>S.en.mark.indexOf(w[0])>=0&&(eDue(w[0])||eNew(w[0])));
   const due=ws.filter(w=>eDue(w[0])),nw=ws.filter(w=>eNew(w[0]));
-  const pool=due.length?due:(nw.length?nw:ws);
+  const pool=mk.length?mk:(due.length?due:(nw.length?nw:ws));
   return pool[Math.floor(Math.random()*pool.length)]}
 function enCard(box){
   if(!eCur)eCur=ePick();
-  eFlip=eFlip||1;
-  const w=eCur,en2vi=eFlip===1;
+  if(!eCur){box.innerHTML='<p class="hint">Bài này chưa có từ nào.</p>';return}
+  const w=eCur,f=EFACE[eFace][0];
+  const front=f==="m"?w[0]:(f==="w"?w[2]:"♪  Nghe rồi nhớ lại cách viết");
+  const back=f==="m"?w[2]:(f==="w"?w[0]+(w[1]?"  "+w[1]:""):w[0]+(w[1]?"  "+w[1]:"")+"  —  "+w[2]);
   box.innerHTML=
-   '<div class="ecard"><div class="tag">'+(en2vi?"Nhìn tiếng Anh · nhớ nghĩa":"Nhìn nghĩa · nhớ từ tiếng Anh")+'</div>'+
-   '<div class="q">'+(en2vi?escH(w[0]):escH(w[2]))+'</div>'+
-   (en2vi?'<div class="ipa">'+escH(w[1])+'</div>':'')+
-   '<div class="a" id="eAns">'+(eShown?escH(en2vi?w[2]:w[0]+"  "+w[1]):"")+'</div></div>'+
+   '<div class="ecard"><div class="tag">'+
+     (f==="m"?"Nhìn từ · nhớ nghĩa":(f==="w"?"Nhìn nghĩa · nhớ mặt chữ":"Nghe · nhớ mặt chữ"))+'</div>'+
+   '<div class="q'+(f!=="m"?" sm":"")+'">'+enEsc(front)+'</div>'+
+   (f==="m"&&w[1]?'<div class="ipa">'+enEsc(w[1])+'</div>':'')+
+   '<div class="a" id="eAns">'+(eShown?enEsc(back):"")+'</div></div>'+
    '<div class="row">'+(eShown
      ?'<button class="btn sec" id="eNo" style="flex:1">Chưa nhớ</button><button class="btn jade" id="eYes" style="flex:1">Đã nhớ</button>'
      :'<button class="btn" id="eShow" style="flex:1">Xem đáp án</button>')+
    '<button class="btn sec" id="eSay">♪</button></div>'+
-   '<p class="hint">Thẻ đổi chiều sau mỗi lần trả lời, để bạn nhớ cả mặt chữ lẫn nghĩa.</p>';
+   '<p class="hint">Mỗi từ có 3 mặt: nghĩa, viết lại và nghe. Chấm tròn dưới mỗi từ cho biết bạn đã chắc mặt nào.</p>';
   $("eSay").addEventListener("click",()=>{enStopAll();enUtter(w[0])});
   if(eShown){
     $("eYes").addEventListener("click",()=>eAnswer(true));
     $("eNo").addEventListener("click",()=>eAnswer(false));
   }else{
-    $("eShow").addEventListener("click",()=>{eShown=true;enRenderVocab();if(en2vi)setTimeout(()=>enUtter(w[0]),80)});
+    $("eShow").addEventListener("click",()=>{eShown=true;enRenderVocab();
+      if(S.en.say)setTimeout(()=>enUtter(w[0]),80)});
   }
-  if(en2vi&&!eShown)setTimeout(()=>{if(eCur===w)enUtter(w[0])},120);
+  if(!eShown&&S.en.say&&f!=="w")setTimeout(()=>{if(eCur===w)enUtter(w[0])},140);
 }
-function eAnswer(ok){eGrade(eCur[0],ok);eShown=false;eFlip=eFlip===1?2:1;eCur=ePick();enRenderVocab()}
+function eAnswer(ok){
+  eGrade(eCur[0],EFACE[eFace][0],ok);eTouch();
+  eShown=false;eFace=(eFace+1)%EFACE.length;eCur=ePick();enRenderVocab()}
 function enType(box){
   if(!eCur)eCur=ePick();
+  if(!eCur){box.innerHTML='<p class="hint">Bài này chưa có từ nào.</p>';return}
   const w=eCur;
   box.innerHTML='<div class="ecard"><div class="tag">Gõ lại từ tiếng Anh</div>'+
-    '<div class="q" style="font-size:19px">'+escH(w[2])+'</div>'+
-    '<div class="ipa">'+escH(w[1])+'</div></div>'+
+    '<div class="q sm">'+enEsc(w[2])+'</div>'+(w[1]?'<div class="ipa">'+enEsc(w[1])+'</div>':'')+'</div>'+
     '<input id="eIn" placeholder="Gõ từ tiếng Anh rồi Enter" autocomplete="off" autocapitalize="off" spellcheck="false">'+
     '<div class="row" style="margin-top:10px"><button class="btn" id="eChk" style="flex:1">Kiểm tra</button>'+
-    '<button class="btn sec" id="eSkip">Bỏ qua</button></div>'+
+    '<button class="btn sec" id="eHear">♪</button><button class="btn sec" id="eSkip">Bỏ qua</button></div>'+
     '<div id="eRes" style="margin-top:12px"></div>';
   const inp=$("eIn");setTimeout(()=>{try{inp.focus()}catch(e){}},40);
   const chk=()=>{
     const got=inp.value.trim(),ok=enNorm(got)===enNorm(w[0]);
-    eGrade(w[0],ok);
+    eGrade(w[0],"w",ok);eTouch();
     $("eRes").innerHTML=ok?'<p class="eok">Chính xác!</p>'
-      :'<p class="eno">Chưa đúng</p><p class="hint ediff">Bạn gõ: '+escH(got||"(trống)")+'<br>Đáp án: <b>'+escH(w[0])+'</b></p>';
-    enUtter(w[0]);
-    setTimeout(()=>{eCur=ePick();enRenderVocab()},ok?700:1800)};
+      :'<p class="eno">Chưa đúng</p><p class="hint ediff">Bạn gõ: '+enEsc(got||"(trống)")+'<br>Đáp án: <b>'+enEsc(w[0])+'</b></p>';
+    if(S.en.say)enUtter(w[0]);
+    setTimeout(()=>{eCur=ePick();enRenderVocab()},ok?700:1900)};
   $("eChk").addEventListener("click",chk);
+  $("eHear").addEventListener("click",()=>{enStopAll();enUtter(w[0])});
   inp.addEventListener("keydown",e=>{if(e.key==="Enter")chk()});
   $("eSkip").addEventListener("click",()=>{eCur=ePick();enRenderVocab()})}
-function enNorm(s){return (s||"").toLowerCase().replace(/[^a-z0-9' ]+/g," ").replace(/\s+/g," ").trim()}
-function escH(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function enNorm(s){return (s||"").toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9' ]+/g," ").replace(/\s+/g," ").trim()}
+function enEsc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
-/* --- luyện tập --- */
+/* ---------- luyện tập ---------- */
+function eSetDrill(d){eDrill=d;
+  [...$("enSegD").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.d===d));
+  enRenderDrill()}
 function enRenderDrill(){
-  const box=$("enDrill");box.innerHTML="";
+  const box=$("enDrill");box.innerHTML="";ePaintScore();
+  if(eDrill==="quiz")return eQuiz(box);
   if(eDrill==="fill")return eFill(box);
   if(eDrill==="scr")return eScr(box);
-  if(eDrill==="dict")return eDict(box);
+  if(eDrill==="dictd")return eDict(box);
   return eTran(box)}
-function pickLine(){return Math.floor(Math.random()*EL.lines.length)}
+function ePickLine(){return Math.floor(Math.random()*EL.lines.length)}
+function eQuiz(box){
+  const qs=EL.quiz||[];
+  if(!qs.length){box.innerHTML='<p class="hint">Bài này chưa có câu hỏi trắc nghiệm.</p>';return}
+  qs.forEach(q=>{
+    const c=document.createElement("div");c.className="card";
+    c.innerHTML='<div style="font-size:15.5px;line-height:1.6;margin-bottom:11px">'+enEsc(q.q)+'</div><div class="qopts"></div>';
+    const ob=c.querySelector(".qopts");
+    q.o.forEach((o,i)=>{
+      const b=document.createElement("button");b.className="btn sec";b.textContent=o;
+      b.addEventListener("click",()=>{
+        if(ob.dataset.done)return;ob.dataset.done=1;
+        const ok=i===q.a;b.classList.add(ok?"ok":"no");
+        if(!ok)ob.children[q.a].classList.add("ok");
+        eDrillLog(ok);eTouch()});
+      ob.appendChild(b)});
+    box.appendChild(c)})}
 function eFill(box){
-  const ws=EL.words.filter(w=>/^[a-zA-Z'’-]+$/.test(w[0]));
+  const ws=eWords().filter(w=>/^[a-zA-Z'’-]+$/.test(w[0]));
   let hit=null;
-  for(let t=0;t<40&&!hit;t++){
-    const w=ws[Math.floor(Math.random()*ws.length)];
+  for(let t=0;t<60&&!hit;t++){
+    const w=ws[Math.floor(Math.random()*ws.length)];if(!w)break;
     const i=EL.lines.findIndex(l=>new RegExp("\\b"+w[0]+"\\b","i").test(l[0]));
     if(i>=0)hit={w:w,i:i}}
   if(!hit){box.innerHTML='<p class="hint">Bài này chưa đủ từ để tạo câu điền. Thử chủ đề khác nhé.</p>';return}
@@ -2631,27 +3074,24 @@ function eFill(box){
   while(opts.length<4&&opts.length<ws.length){const c=ws[Math.floor(Math.random()*ws.length)][0];if(opts.indexOf(c)<0)opts.push(c)}
   opts.sort(()=>Math.random()-.5);
   box.innerHTML='<div class="card"><p class="hint" style="margin:0 0 8px">Chọn từ đúng điền vào chỗ trống</p>'+
-    '<div style="font-size:16px;line-height:1.7">'+escH(sent)+'</div>'+
-    '<div class="hint">'+escH(EL.lines[hit.i][1])+'</div></div>'+
-    '<div id="eOpts"></div><div class="row" style="margin-top:10px"><button class="btn sec" id="eNext" style="flex:1">Câu khác ›</button></div>';
+    '<div style="font-size:16px;line-height:1.7">'+enEsc(sent)+'</div>'+
+    '<div class="hint">'+enEsc(EL.lines[hit.i][1])+'</div></div>'+
+    '<div class="qopts" id="eOpts"></div><div class="row" style="margin-top:10px"><button class="btn sec" id="eNext" style="flex:1">Câu khác ›</button></div>';
   const ob=$("eOpts");
   opts.forEach(o=>{
-    const b=document.createElement("button");b.className="btn sec";b.style.cssText="display:block;width:100%;margin-bottom:8px;text-align:left";
-    b.textContent=o;
+    const b=document.createElement("button");b.className="btn sec";b.textContent=o;
     b.addEventListener("click",()=>{
       if(ob.dataset.done)return;ob.dataset.done=1;
-      const ok=o===hit.w[0];
-      b.style.background=ok?"var(--jade)":"var(--accent)";b.style.color="#fff";
-      if(!ok)[...ob.children].forEach(x=>{if(x.textContent===hit.w[0]){x.style.background="var(--jade)";x.style.color="#fff"}});
-      eGrade(hit.w[0],ok);enUtter(EL.lines[hit.i][0]);
-    });
+      const ok=o===hit.w[0];b.classList.add(ok?"ok":"no");
+      if(!ok)[...ob.children].forEach(x=>{if(x.textContent===hit.w[0])x.classList.add("ok")});
+      eGrade(hit.w[0],"m",ok);eDrillLog(ok);eTouch();enUtter(EL.lines[hit.i][0])});
     ob.appendChild(b)});
   $("eNext").addEventListener("click",()=>enRenderDrill())}
 function eScr(box){
-  const i=pickLine(),toks=EL.lines[i][0].split(/\s+/);
+  const i=ePickLine(),toks=EL.lines[i][0].split(/\s+/);
   const order=toks.map((t,k)=>k).sort(()=>Math.random()-.5);
   box.innerHTML='<div class="card"><p class="hint" style="margin:0 0 6px">Sắp xếp lại thành câu đúng</p>'+
-    '<div style="font-size:15px">'+escH(EL.lines[i][1])+'</div></div>'+
+    '<div style="font-size:15px">'+enEsc(EL.lines[i][1])+'</div></div>'+
     '<div class="eans" id="eBuilt"></div><div class="escr" id="ePool"></div>'+
     '<div class="row"><button class="btn sec" id="eUndo">↩︎ Xoá cuối</button>'+
     '<button class="btn" id="eChk2" style="flex:1">Kiểm tra</button>'+
@@ -2664,18 +3104,19 @@ function eScr(box){
   $("eUndo").addEventListener("click",()=>{const k=got.pop();if(k===undefined)return;
     [...pool.children].forEach(b=>{if(+b.dataset.k===k)b.classList.remove("used")});paint()});
   $("eChk2").addEventListener("click",()=>{
+    if($("eRes2").dataset.done)return;$("eRes2").dataset.done=1;
     const ok=got.map(k=>toks[k]).join(" ")===toks.join(" ");
     $("eRes2").innerHTML=ok?'<p class="eok">Đúng rồi!</p>'
-      :'<p class="eno">Chưa đúng</p><p class="hint">Đáp án: '+escH(toks.join(" "))+'</p>';
-    enUtter(EL.lines[i][0])});
+      :'<p class="eno">Chưa đúng</p><p class="hint">Đáp án: '+enEsc(toks.join(" "))+'</p>';
+    eDrillLog(ok);eTouch();enUtter(EL.lines[i][0])});
   $("eNext2").addEventListener("click",()=>enRenderDrill());
   paint()}
 function eDict(box){
-  const i=pickLine();
+  const i=ePickLine();
   box.innerHTML='<div class="card"><p class="hint" style="margin:0 0 10px">Nghe rồi gõ lại đúng câu bạn nghe được</p>'+
     '<div class="row"><button class="btn" id="eRep" style="flex:1">♪ Nghe lại</button>'+
     '<button class="btn sec" id="eSlow">♪ Chậm</button></div></div>'+
-    '<input id="eIn2" placeholder="Gõ câu bạn nghe được" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+    '<textarea id="eIn2" rows="2" placeholder="Gõ câu bạn nghe được"></textarea>'+
     '<div class="row" style="margin-top:10px"><button class="btn" id="eChk3" style="flex:1">Kiểm tra</button>'+
     '<button class="btn sec" id="eNext3">Câu khác ›</button></div><div id="eRes3" style="margin-top:12px"></div>';
   const play=r=>{enStopAll();enUtter(EL.lines[i][0],r)};
@@ -2683,80 +3124,99 @@ function eDict(box){
   $("eSlow").addEventListener("click",()=>play(.6));
   setTimeout(()=>play(),200);
   const chk=()=>{
+    if($("eRes3").dataset.done)return;$("eRes3").dataset.done=1;
     const got=$("eIn2").value,ok=enNorm(got)===enNorm(EL.lines[i][0]);
     $("eRes3").innerHTML=(ok?'<p class="eok">Chính xác!</p>':'<p class="eno">Chưa khớp</p>')+
-      '<p class="hint ediff">'+wordDiff(got,EL.lines[i][0])+'</p>'+
-      '<p class="hint">Nghĩa: '+escH(EL.lines[i][1])+'</p>'};
+      '<p class="hint ediff">'+enDiff(got,EL.lines[i][0])+'</p>'+
+      '<p class="hint">Nghĩa: '+enEsc(EL.lines[i][1])+'</p>';
+    eDrillLog(ok);eTouch()};
   $("eChk3").addEventListener("click",chk);
-  $("eIn2").addEventListener("keydown",e=>{if(e.key==="Enter")chk()});
   $("eNext3").addEventListener("click",()=>enRenderDrill())}
-function wordDiff(got,ref){
+function enDiff(got,ref){
   const a=enNorm(got).split(" ").filter(Boolean),b=enNorm(ref).split(" ").filter(Boolean);
   let out="",i=0,j=0;
   while(j<b.length){
-    if(i<a.length&&a[i]===b[j]){out+=escH(b[j])+" ";i++;j++}
-    else{out+="<b>"+escH(b[j])+"</b> ";if(i<a.length&&a[i]!==b[j]&&(j+1>=b.length||a[i]!==b[j+1]))i++;j++}}
-  if(i<a.length)out+="<s>"+escH(a.slice(i).join(" "))+"</s>";
-  return out||escH(ref)}
+    if(i<a.length&&a[i]===b[j]){out+=enEsc(b[j])+" ";i++;j++}
+    else{out+="<b>"+enEsc(b[j])+"</b> ";if(i<a.length&&a[i]!==b[j]&&(j+1>=b.length||a[i]!==b[j+1]))i++;j++}}
+  if(i<a.length)out+="<s>"+enEsc(a.slice(i).join(" "))+"</s>";
+  return out||enEsc(ref)}
 function eTran(box){
-  const i=pickLine();
+  const i=ePickLine();
   box.innerHTML='<div class="card"><p class="hint" style="margin:0 0 8px">Dịch sang tiếng Anh</p>'+
-    '<div style="font-size:16px;line-height:1.7">'+escH(EL.lines[i][1])+'</div></div>'+
+    '<div style="font-size:16px;line-height:1.7">'+enEsc(EL.lines[i][1])+'</div></div>'+
     '<textarea id="eIn3" rows="3" placeholder="Viết câu tiếng Anh của bạn"></textarea>'+
     '<div class="row" style="margin-top:10px"><button class="btn" id="eShow3" style="flex:1">Xem câu mẫu</button>'+
     '<button class="btn sec" id="eNext4">Câu khác ›</button></div><div id="eRes4" style="margin-top:12px"></div>';
   $("eShow3").addEventListener("click",()=>{
     $("eRes4").innerHTML='<div class="card"><p class="hint" style="margin:0 0 6px">Câu mẫu</p>'+
-      '<div style="font-size:16px;line-height:1.7">'+escH(EL.lines[i][0])+'</div>'+
+      '<div style="font-size:16px;line-height:1.7">'+enEsc(EL.lines[i][0])+'</div>'+
       '<div class="row" style="margin-top:10px"><button class="btn sec" id="eSay3">♪ Nghe</button></div></div>'+
-      '<p class="hint ediff">So với câu bạn viết: '+wordDiff($("eIn3").value,EL.lines[i][0])+'</p>';
+      '<p class="hint ediff">So với câu bạn viết: '+enDiff($("eIn3").value,EL.lines[i][0])+'</p>'+
+      '<div class="row" style="margin-top:10px"><button class="btn sec" id="eSelfNo" style="flex:1">Mình viết sai</button>'+
+      '<button class="btn jade" id="eSelfOk" style="flex:1">Mình viết đúng</button></div>';
     $("eSay3").addEventListener("click",()=>{enStopAll();enUtter(EL.lines[i][0])});
+    $("eSelfOk").addEventListener("click",()=>{eDrillLog(true);eTouch();enRenderDrill()});
+    $("eSelfNo").addEventListener("click",()=>{eDrillLog(false);eTouch();enRenderDrill()});
     enUtter(EL.lines[i][0])});
   $("eNext4").addEventListener("click",()=>enRenderDrill())}
 
-/* --- chuyển bài / tab --- */
+/* ---------- chuyển bài / tab ---------- */
 function enHdr(){$("enT").textContent=EL.title;$("enS").textContent=EL.sub+" ▾"}
-function enPickList(){
-  const box=$("enPick");box.innerHTML="";
-  EN_PACK.forEach((l,i)=>{
-    const ws=l.words.map(w=>w[0]);
-    const kn=ws.filter(eKnown).length,du=ws.filter(eDue).length;
-    const pct=Math.round(kn/ws.length*100);
-    const b=document.createElement("button");b.className="les"+(l.id===EL.id?" cur":"");
-    b.innerHTML='<span class="n">'+(i+1)+'</span><span class="m"><b>'+escH(l.sub)+'</b>'+
-      '<span>'+l.lines.length+' câu · '+ws.length+' từ'+(du?' · <b style="color:var(--accent)">'+du+' cần ôn</b>':'')+'</span>'+
+function enPickList(box){
+  box.innerHTML="";
+  enList().forEach((l,i)=>{
+    const s=enStatOf(l),pct=s.all?Math.round(s.known/s.all*100):0;
+    const b=document.createElement("button");b.className="les"+(l.id===EL.id?" cur":"")+(l.all?" all":"");
+    b.innerHTML='<span class="n">'+(l.all?"∑":i+1)+'</span><span class="m"><b>'+enEsc(l.sub)+'</b>'+
+      '<span>'+l.lines.length+' câu · '+s.all+' từ'+(s.due?' · <b style="color:var(--accent)">'+s.due+' cần ôn</b>':'')+'</span>'+
       '<span class="bar"><i style="width:'+pct+'%"></i></span></span>';
     b.addEventListener("click",()=>enSwitch(l.id));
     box.appendChild(b)})}
 function enSwitch(id){
-  const nx=EN_PACK.find(x=>x.id===id);if(!nx)return;
+  const nx=enList().find(x=>x.id===id);if(!nx)return;
   enStopAll();EL=nx;S.en.cur=id;save();
-  eCur=null;eShown=false;
-  enHdr();enRenderText();enRenderVocab();enRenderDrill();enSheet(false)}
-function enSheet(on){$("enScrim").classList.toggle("on",on);$("enSheet").classList.toggle("on",on)}
+  eCur=null;eShown=false;eQ="";eFilt="all";
+  enHdr();enRenderText();enRenderHome();enRenderVocab();enRenderDrill();enSheet(null)}
+function enSheet(which){
+  $("enScrim").classList.toggle("on",!!which);
+  $("enSheet").classList.toggle("on",which==="les");
+  $("enSetSheet").classList.toggle("on",which==="set")}
 function enGo(v){
   [...$("enTabs").children].forEach(b=>b.setAttribute("aria-selected",b.dataset.e===v));
-  ["text","vocab","drill"].forEach(k=>$("e-"+k).classList.toggle("on",k===v));
+  ["home","text","vocab","drill"].forEach(k=>$("e-"+k).classList.toggle("on",k===v));
   if(v!=="text")enStopAll();
+  ePopClose();
+  if(v==="home")enRenderHome();
   if(v==="vocab")enRenderVocab();
   if(v==="drill")enRenderDrill();
   try{window.scrollTo(0,0)}catch(e){}}
 
-/* --- mở / đóng --- */
+/* ---------- mở / đóng ---------- */
+function enPaintSet(){
+  $("enRate").value=S.en.rate;$("enRateV").textContent=(+S.en.rate).toFixed(2)+"x";
+  $("enGap").value=S.en.gap;$("enGapV").textContent=(+S.en.gap).toFixed(1)+"s";
+  [...$("enSegRep").children].forEach(x=>x.setAttribute("aria-pressed",+x.dataset.v===S.en.rep));
+  [...$("enSegVi").children].forEach(x=>x.setAttribute("aria-pressed",(x.dataset.v==="1")===!!S.en.vi));
+  [...$("enSegSay").children].forEach(x=>x.setAttribute("aria-pressed",(x.dataset.s==="1")===!!S.en.say));
+  [...$("enSegWake").children].forEach(x=>x.setAttribute("aria-pressed",(x.dataset.w==="1")===!!S.en.wake));
+  [...$("enSegMode").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.m===eTxtMode));
+  enVoices()}
 function enOpen(){
   stopAll();
   $("enApp").classList.add("on");
   document.body.style.overflow="hidden";
-  enHdr();enRenderText();enRenderVocab();enRenderDrill();enGo("text");
-  $("enRate").value=S.en.rate;$("enRateV").textContent=(+S.en.rate).toFixed(2)+"x";
-  [...$("enSegVi").children].forEach(b=>b.setAttribute("aria-pressed",(b.dataset.v==="1")===!!S.en.vi));
+  enHdr();enPaintSet();enRenderText();enRenderHome();enRenderVocab();enRenderDrill();enGo("home");
   S.en.open=1;save()}
-function enClose(){enStopAll();$("enApp").classList.remove("on");document.body.style.overflow="";S.en.open=0;save()}
+function enClose(){enStopAll();ePopClose();enSheet(null);
+  $("enApp").classList.remove("on");document.body.style.overflow="";S.en.open=0;save()}
 
+/* ---------- gắn sự kiện ---------- */
 $("enBack").addEventListener("click",enClose);
-$("enLesBtn").addEventListener("click",()=>{enPickList();enSheet(true)});
-$("enScrim").addEventListener("click",()=>enSheet(false));
-$("enSheetX").addEventListener("click",()=>enSheet(false));
+$("enSet").addEventListener("click",()=>{enPaintSet();enSheet("set")});
+$("enLesBtn").addEventListener("click",()=>{enPickList($("enPick"));enSheet("les")});
+$("enScrim").addEventListener("click",()=>enSheet(null));
+$("enSheetX").addEventListener("click",()=>enSheet(null));
+$("enSetX").addEventListener("click",()=>enSheet(null));
 $("enTabs").addEventListener("click",e=>{const b=e.target.closest("button[data-e]");if(b)enGo(b.dataset.e)});
 $("enPlay").addEventListener("click",()=>{
   if(ePlaying){ePaused=!ePaused;$("enPlay").textContent=ePaused?"▶︎ Tiếp tục":"⏸ Tạm dừng";
@@ -2769,18 +3229,44 @@ $("enBar").addEventListener("click",e=>{
   const p=Math.min(.999,Math.max(0,(e.clientX-r.left)/r.width));
   enPlayFrom(Math.floor(p*EL.lines.length))});
 $("enRate").addEventListener("input",e=>{S.en.rate=+e.target.value;$("enRateV").textContent=S.en.rate.toFixed(2)+"x";save()});
+$("enGap").addEventListener("input",e=>{S.en.gap=+e.target.value;$("enGapV").textContent=S.en.gap.toFixed(1)+"s";save()});
+$("enVoice").addEventListener("change",e=>{S.en.voice=+e.target.value;save();enUtter("Hello, this is your English voice.")});
+$("enSegRep").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  S.en.rep=+b.dataset.v;save();[...$("enSegRep").children].forEach(x=>x.setAttribute("aria-pressed",x===b))});
 $("enSegVi").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
   S.en.vi=b.dataset.v==="1"?1:0;save();
   [...$("enSegVi").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
   $("enLines").classList.toggle("hidevi",!S.en.vi)});
-$("enSegV").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
-  eMode=b.dataset.m;eShown=false;
-  [...$("enSegV").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
-  enRenderVocab()});
-$("enSegD").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
-  eDrill=b.dataset.d;
-  [...$("enSegD").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
-  enRenderDrill()});
+$("enSegSay").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  S.en.say=b.dataset.s==="1"?1:0;save();
+  [...$("enSegSay").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+  if(!S.en.say)try{synth.cancel()}catch(err){}});
+$("enSegWake").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  S.en.wake=b.dataset.w==="1"?1:0;save();
+  [...$("enSegWake").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+  if(!S.en.wake)enWakeOff()});
+$("enSegMode").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  eTxtMode=b.dataset.m;
+  [...$("enSegMode").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+  $("enModeHint").textContent=eTxtMode==="listen"?"Nghe lần lượt từng câu, có tiếng Việt bên dưới."
+    :(eTxtMode==="dict"?"Chữ tiếng Anh bị làm mờ, chỉ hiện câu đang đọc — nghe trước rồi tự kiểm tra."
+      :"Sau mỗi câu máy nghỉ thêm để bạn đọc nhại theo.");
+  $("enLines").classList.toggle("hideen",eTxtMode==="dict")});
+$("enSegV").addEventListener("click",e=>{const b=e.target.closest("button");if(b)eSetMode(b.dataset.m)});
+$("enSegD").addEventListener("click",e=>{const b=e.target.closest("button");if(b)eSetDrill(b.dataset.d)});
+$("epX").addEventListener("click",ePopClose);
+$("epSay").addEventListener("click",()=>{enStopAll();enUtter($("epW").textContent)});
+$("epAdd").addEventListener("click",()=>{
+  const w=ePopW;if(!w)return;
+  const arr=S.en.extra[EL.id]||(S.en.extra[EL.id]=[]);
+  if(arr.indexOf(w)<0)arr.push(w);
+  if(S.en.mark.indexOf(w)<0)S.en.mark.push(w);
+  save();$("epAdd").textContent="✓ Đã thêm vào danh sách ôn";$("epAdd").disabled=true;
+  enRenderHome()});
+$("enReset").addEventListener("click",()=>{
+  if(!confirm("Xoá toàn bộ tiến độ tiếng Anh? Phần tiếng Trung giữ nguyên."))return;
+  S.en.srs={};S.en.les={};S.en.mark=[];S.en.extra={};save();
+  eCur=null;eShown=false;enRenderHome();enRenderVocab();enRenderDrill();enSheet(null)});
 $("btnEn").addEventListener("click",enOpen);
 const _ee=$("enEntry");if(_ee)_ee.addEventListener("click",enOpen);
 if(S.en.open)setTimeout(enOpen,60);

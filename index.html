@@ -257,6 +257,8 @@ nav.tabs button[aria-selected="true"] .d{background:var(--accent)}
   border-bottom:1px solid var(--line);margin-bottom:14px}
 .sheet .sh h3{margin:0}
 .grab{width:38px;height:4px;background:var(--line);border-radius:2px;margin:8px auto 0}
+#btnEn{font-size:12px;font-weight:800;letter-spacing:.5px;background:var(--jade);color:#fff;border-color:var(--jade)}
+@media(max-width:400px){header .in{gap:7px}.who-btn{padding:6px 9px}}
 footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
 </style>
 </head>
@@ -268,6 +270,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
     <div class="s" id="hdS">Chạm để đổi bài ▾</div>
   </button>
   <button class="who-btn" id="btnWho"><span id="whoAv">●</span><b id="whoName">Tôi</b></button>
+  <button class="icon" id="btnEn" title="Học tiếng Anh">EN</button>
   <button class="icon" id="btnTheme">◐</button>
   <button class="icon" id="btnSet">⚙</button>
 </div></header>
@@ -288,6 +291,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
   </div>
   <h2>Hôm nay nên làm</h2>
   <div id="todos"></div>
+  <button class="todo" id="enEntry" style="margin-top:10px"><span class="ic i-jade" style="font-size:12px;font-weight:800">EN</span><span class="tt"><b>Học tiếng Anh</b><span>6 bài nói · nghe, từ vựng, luyện tập</span></span><span class="ar">›</span></button>
   <h2>Các bài</h2>
   <div class="sum" id="allSum"></div>
   <div id="lesList"></div>
@@ -2152,5 +2156,636 @@ else if(location.protocol!=="file:"&&!(S.pack&&S.pack.data)){
     .catch(()=>{})},400)}
 $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";
 </script>
+
+<!-- EN-APP-START -->
+<style>
+/* ===== app tiếng Anh ===== */
+#enApp{position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;display:none}
+#enApp.on{display:block}
+#enApp nav.tabs .in{grid-template-columns:repeat(3,1fr)}
+#enApp .wrap{padding-bottom:84px}
+.enbadge{flex:none;background:var(--jade);color:#fff;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:700;letter-spacing:.4px}
+.eline{content-visibility:auto;contain-intrinsic-size:auto 120px;background:var(--card);border:1px solid var(--line);
+  border-left:3px solid transparent;border-radius:var(--r);padding:13px 14px;margin-bottom:9px;cursor:pointer}
+.eline.now{border-left-color:var(--accent);background:var(--accent-soft)}
+.eline .en{font-size:16px;line-height:1.65}
+.eline .vi{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.6}
+.eline .say{margin-top:9px}
+.hidevi .eline .vi{display:none}
+.esay{background:var(--card2);border:1px solid var(--line);color:var(--muted);border-radius:9px;
+  padding:5px 11px;font-size:12.5px;cursor:pointer}
+.eword{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:11px 13px;margin-bottom:8px}
+.eword .ew{flex:1;min-width:0}
+.eword .ew b{display:block;font-size:15.5px}
+.eword .ew i{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:1px}
+.eword .ew span{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.edots{display:flex;gap:3px;flex:none}
+.edots i{width:7px;height:7px;border-radius:50%;background:var(--card2);border:1px solid var(--line)}
+.edots i.ok{background:var(--jade);border-color:var(--jade)}
+.edots i.due{background:var(--accent);border-color:var(--accent)}
+.ecard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 18px;text-align:center;margin-bottom:12px}
+.ecard .q{font-size:26px;font-weight:650;line-height:1.4;word-break:break-word}
+.ecard .ipa{font-size:13px;color:var(--muted);margin-top:6px}
+.ecard .a{font-size:17px;color:var(--jade);margin-top:14px;min-height:24px}
+.ecard .tag{font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.escr{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.escr button{background:var(--card2);border:1px solid var(--line);color:var(--ink);border-radius:9px;
+  padding:7px 11px;font-size:14.5px;cursor:pointer}
+.escr button.used{opacity:.3;pointer-events:none}
+.eans{min-height:46px;background:var(--card2);border:1px dashed var(--line);border-radius:11px;padding:10px 12px;
+  font-size:15px;line-height:1.6}
+.eok{color:var(--jade);font-weight:600}.eno{color:var(--accent);font-weight:600}
+.ediff s{color:var(--accent);text-decoration:line-through;opacity:.75}
+.ediff b{color:var(--jade)}
+</style>
+
+<div id="enApp">
+  <header><div class="in">
+    <button class="lesbtn" id="enLesBtn">
+      <div class="t" id="enT" style="font-size:19px">English</div>
+      <div class="s" id="enS">Chạm để đổi bài ▾</div>
+    </button>
+    <span class="enbadge">EN</span>
+    <button class="icon" id="enBack">✕</button>
+  </div></header>
+  <div class="wrap">
+    <section class="view on" id="e-text">
+      <div class="card">
+        <div class="row">
+          <button class="btn" id="enPlay" style="flex:1">▶︎ Nghe cả bài</button>
+          <button class="btn sec" id="enStop">■</button>
+        </div>
+        <div class="bar" id="enBar" style="cursor:pointer"><i id="enBarI"></i></div>
+        <p class="hint" id="enProg">Chạm vào thanh để nhảy tới câu bất kỳ.</p>
+        <div class="row" style="margin-top:11px">
+          <div class="seg" id="enSegVi">
+            <button data-v="1" aria-pressed="true">Có tiếng Việt</button>
+            <button data-v="0" aria-pressed="false">Ẩn tiếng Việt</button>
+          </div>
+        </div>
+        <div class="row" style="margin-top:9px">
+          <span class="hint" style="margin:0;flex:none">Tốc độ</span>
+          <input type="range" id="enRate" min="0.5" max="1.2" step="0.05" style="flex:1">
+          <span class="hint" style="margin:0;flex:none" id="enRateV">0.90x</span>
+        </div>
+      </div>
+      <div id="enLines"></div>
+    </section>
+
+    <section class="view" id="e-vocab">
+      <div class="row" style="margin-bottom:11px">
+        <div class="seg" id="enSegV">
+          <button data-m="list" aria-pressed="true">Danh sách</button>
+          <button data-m="card" aria-pressed="false">Bộ thẻ</button>
+          <button data-m="type" aria-pressed="false">Đánh lại</button>
+        </div>
+      </div>
+      <div id="enVocab"></div>
+    </section>
+
+    <section class="view" id="e-drill">
+      <div class="row" style="margin-bottom:11px">
+        <div class="seg" id="enSegD">
+          <button data-d="fill" aria-pressed="true">Điền từ</button>
+          <button data-d="scr" aria-pressed="false">Sắp xếp</button>
+          <button data-d="dict" aria-pressed="false">Nghe chép</button>
+          <button data-d="tran" aria-pressed="false">Dịch</button>
+        </div>
+      </div>
+      <div id="enDrill"></div>
+    </section>
+  </div>
+  <nav class="tabs"><div class="in" id="enTabs">
+    <button data-e="text" aria-selected="true"><span class="d"></span>Bài khoá</button>
+    <button data-e="vocab" aria-selected="false"><span class="d"></span>Từ vựng</button>
+    <button data-e="drill" aria-selected="false"><span class="d"></span>Luyện tập</button>
+  </div></nav>
+  <div class="scrim" id="enScrim"></div>
+  <div class="sheet" id="enSheet">
+    <div class="grab"></div>
+    <div class="sh"><h3>Chọn bài</h3><div class="sp"></div><button class="icon" id="enSheetX">✕</button></div>
+    <div id="enPick"></div>
+  </div>
+</div>
+
+<script>
+/* ===== dữ liệu bài khoá tiếng Anh ===== */
+const EN_PACK=[
+{id:"en-0",sub:"Giới thiệu bản thân",title:"Introduction",
+lines:[
+["Hello teacher, my name is Vu Thi Phuong Thuy.","Em chào thầy/cô, em tên là Vũ Thị Phương Thuỳ."],
+["I'm Vietnamese and I'm 19 years old.","Em là người Việt Nam và năm nay 19 tuổi."],
+["I'm currently a second-year student at Phuong Dong University, majoring in Multimedia Communication.","Hiện em là sinh viên năm hai Trường Đại học Phương Đông, chuyên ngành Truyền thông đa phương tiện."],
+["I'm living and studying in Hanoi now.","Hiện em đang sinh sống và học tập tại Hà Nội."],
+["I'm of average height, with orange-dyed hair and brown eyes.","Em có chiều cao trung bình, tóc nhuộm màu cam và đôi mắt nâu."],
+["I think I'm a friendly, easy-going and responsible person.","Em nghĩ mình là một người thân thiện, dễ gần và có trách nhiệm."],
+["I may be a little shy when I meet new people, but I become more talkative when I feel comfortable.","Em có thể hơi ngại khi gặp người mới, nhưng khi thấy thoải mái thì em nói chuyện nhiều hơn."],
+["In my free time, I enjoy listening to music, watching movies and going out with my friends.","Trong thời gian rảnh, em thích nghe nhạc, xem phim và đi chơi với bạn bè."],
+["I'm also interested in social media and communication because they are related to my major.","Em cũng quan tâm đến mạng xã hội và truyền thông vì chúng liên quan đến ngành học của em."],
+["That's a little about me. Thank you for listening.","Đó là một vài điều về em. Em cảm ơn thầy/cô đã lắng nghe."]],
+words:[
+["currently","/ˈkʌrəntli/","hiện tại, hiện giờ"],
+["major in","/ˈmeɪdʒər ɪn/","học chuyên ngành"],
+["major","/ˈmeɪdʒə/","chuyên ngành"],
+["average height","/ˈævərɪdʒ haɪt/","chiều cao trung bình"],
+["dyed","/daɪd/","đã nhuộm"],
+["friendly","/ˈfrendli/","thân thiện"],
+["easy-going","/ˈiːzi ˈɡəʊɪŋ/","dễ gần, xuề xoà"],
+["responsible","/rɪˈspɒnsəbl/","có trách nhiệm"],
+["shy","/ʃaɪ/","ngại, nhút nhát"],
+["talkative","/ˈtɔːkətɪv/","nói nhiều, hoạt ngôn"],
+["comfortable","/ˈkʌmftəbl/","thoải mái"],
+["in my free time","/ɪn maɪ friː taɪm/","trong thời gian rảnh"],
+["be interested in","/ˈɪntrəstɪd ɪn/","quan tâm đến, hứng thú với"],
+["social media","/ˈsəʊʃl ˈmiːdiə/","mạng xã hội"],
+["communication","/kəˌmjuːnɪˈkeɪʃn/","truyền thông, giao tiếp"],
+["be related to","/rɪˈleɪtɪd tuː/","liên quan đến"]]},
+
+{id:"en-1",sub:"Chủ đề 1 · Phỏng vấn xin việc",title:"How to make a good impression at a job interview",
+lines:[
+["To make a good impression at a job interview, I think we need to prepare carefully.","Để tạo ấn tượng tốt trong buổi phỏng vấn xin việc, em nghĩ chúng ta cần chuẩn bị thật kỹ."],
+["First, we should learn some information about the company and the job.","Trước tiên, chúng ta nên tìm hiểu một số thông tin về công ty và vị trí công việc."],
+["We should also prepare answers to common interview questions.","Chúng ta cũng nên chuẩn bị trước câu trả lời cho những câu hỏi phỏng vấn thường gặp."],
+["For the interview, we should wear clean and suitable clothes.","Khi đi phỏng vấn, chúng ta nên mặc quần áo sạch sẽ và phù hợp."],
+["We do not need to wear expensive clothes, but we should look neat and professional.","Không cần mặc đồ đắt tiền, nhưng chúng ta nên trông gọn gàng và chuyên nghiệp."],
+["It is also important to arrive about ten or fifteen minutes early because being late can make a bad impression.","Đến sớm khoảng mười đến mười lăm phút cũng rất quan trọng, vì đến muộn có thể tạo ấn tượng xấu."],
+["During the interview, we should smile, make eye contact, and listen carefully to the interviewer.","Trong buổi phỏng vấn, chúng ta nên mỉm cười, giao tiếp bằng mắt và lắng nghe người phỏng vấn thật kỹ."],
+["We should answer questions clearly and honestly.","Chúng ta nên trả lời câu hỏi rõ ràng và trung thực."],
+["We should not speak too quickly or interrupt the interviewer.","Chúng ta không nên nói quá nhanh hoặc ngắt lời người phỏng vấn."],
+["Finally, we should be polite, confident, and friendly.","Cuối cùng, chúng ta nên lịch sự, tự tin và thân thiện."],
+["I think good preparation and a positive attitude can help us make a good impression.","Em nghĩ sự chuẩn bị tốt và thái độ tích cực sẽ giúp chúng ta tạo được ấn tượng tốt."]],
+words:[
+["impression","/ɪmˈpreʃn/","ấn tượng"],
+["make a good impression","/meɪk ə ɡʊd ɪmˈpreʃn/","tạo ấn tượng tốt"],
+["job interview","/dʒɒb ˈɪntəvjuː/","buổi phỏng vấn xin việc"],
+["prepare","/prɪˈpeə/","chuẩn bị"],
+["preparation","/ˌprepəˈreɪʃn/","sự chuẩn bị"],
+["carefully","/ˈkeəfəli/","một cách cẩn thận"],
+["common","/ˈkɒmən/","thường gặp, phổ biến"],
+["suitable","/ˈsuːtəbl/","phù hợp"],
+["neat","/niːt/","gọn gàng"],
+["professional","/prəˈfeʃənl/","chuyên nghiệp"],
+["arrive","/əˈraɪv/","đến nơi"],
+["eye contact","/aɪ ˈkɒntækt/","giao tiếp bằng mắt"],
+["interviewer","/ˈɪntəvjuːə/","người phỏng vấn"],
+["honestly","/ˈɒnɪstli/","một cách trung thực"],
+["interrupt","/ˌɪntəˈrʌpt/","ngắt lời"],
+["polite","/pəˈlaɪt/","lịch sự"],
+["confident","/ˈkɒnfɪdənt/","tự tin"],
+["positive attitude","/ˈpɒzətɪv ˈætɪtjuːd/","thái độ tích cực"]]},
+
+{id:"en-2",sub:"Chủ đề 2 · Cách nói tiếng Anh tốt",title:"How to speak English well",
+lines:[
+["I think the best way to speak English well is to practise regularly.","Em nghĩ cách tốt nhất để nói tiếng Anh tốt là luyện tập thường xuyên."],
+["I try to speak English every day, usually for about thirty minutes.","Em cố gắng nói tiếng Anh mỗi ngày, thường khoảng ba mươi phút."],
+["Sometimes, I practise by myself, and sometimes I speak with my classmates.","Đôi khi em tự luyện một mình, đôi khi em nói cùng các bạn trong lớp."],
+["I do not have a native English-speaking partner, but I often watch English videos and movies with subtitles.","Em không có bạn luyện nói là người bản xứ, nhưng em thường xem video và phim tiếng Anh có phụ đề."],
+["I also listen to English songs because they help me improve my pronunciation and learn new words.","Em cũng nghe nhạc tiếng Anh vì chúng giúp em cải thiện phát âm và học thêm từ mới."],
+["In daily life, I sometimes describe things around me in English or practise simple conversations in my head.","Trong cuộc sống hằng ngày, đôi khi em miêu tả những thứ xung quanh bằng tiếng Anh hoặc tự luyện những đoạn hội thoại đơn giản trong đầu."],
+["I know that making mistakes is normal, so I try not to be afraid.","Em biết mắc lỗi là điều bình thường, nên em cố gắng không sợ."],
+["In my opinion, regular practice and confidence are the most important things when learning to speak English well.","Theo em, luyện tập thường xuyên và sự tự tin là hai điều quan trọng nhất khi học nói tiếng Anh."]],
+words:[
+["practise","/ˈpræktɪs/","luyện tập"],
+["regularly","/ˈreɡjələli/","thường xuyên"],
+["regular practice","/ˈreɡjələ ˈpræktɪs/","việc luyện tập đều đặn"],
+["by myself","/baɪ maɪˈself/","một mình, tự mình"],
+["classmate","/ˈklɑːsmeɪt/","bạn cùng lớp"],
+["native speaker","/ˈneɪtɪv ˈspiːkə/","người bản xứ"],
+["partner","/ˈpɑːtnə/","bạn cùng luyện, đối tác"],
+["subtitles","/ˈsʌbtaɪtlz/","phụ đề"],
+["improve","/ɪmˈpruːv/","cải thiện"],
+["pronunciation","/prəˌnʌnsiˈeɪʃn/","phát âm"],
+["daily life","/ˈdeɪli laɪf/","cuộc sống hằng ngày"],
+["describe","/dɪˈskraɪb/","miêu tả"],
+["conversation","/ˌkɒnvəˈseɪʃn/","cuộc hội thoại"],
+["make a mistake","/meɪk ə mɪˈsteɪk/","mắc lỗi"],
+["be afraid","/əˈfreɪd/","sợ"],
+["in my opinion","/ɪn maɪ əˈpɪnjən/","theo ý kiến của em"],
+["confidence","/ˈkɒnfɪdəns/","sự tự tin"]]},
+
+{id:"en-3",sub:"Chủ đề 3 · Tiểu sử một người nổi tiếng",title:"Biography of a famous person",
+lines:[
+["Kim Taehyung, also known as V from BTS, was born on December 30, 1995, in Daegu, South Korea.","Kim Taehyung, còn được biết đến với nghệ danh V của BTS, sinh ngày 30 tháng 12 năm 1995 tại Daegu, Hàn Quốc."],
+["He became a trainee at Big Hit Entertainment when he was young and later debuted as a member of BTS in 2013.","Anh trở thành thực tập sinh của Big Hit Entertainment khi còn trẻ và sau đó ra mắt với tư cách thành viên BTS vào năm 2013."],
+["He is a famous singer, songwriter, and actor.","Anh là một ca sĩ, nhạc sĩ và diễn viên nổi tiếng."],
+["He has been working in the entertainment industry for more than ten years.","Anh đã hoạt động trong ngành giải trí hơn mười năm."],
+["Besides being a member of BTS, he also has a successful solo career.","Ngoài việc là thành viên của BTS, anh còn có sự nghiệp solo thành công."],
+["In 2021, BTS were appointed as Special Presidential Envoys and attended the United Nations.","Năm 2021, BTS được bổ nhiệm làm Đặc phái viên của Tổng thống và tham dự Liên Hợp Quốc."],
+["In his free time, Taehyung likes listening to jazz music, taking photos and visiting art galleries.","Trong thời gian rảnh, Taehyung thích nghe nhạc jazz, chụp ảnh và tham quan các phòng trưng bày nghệ thuật."],
+["I admire him because he is talented, hard-working and always tries to improve himself.","Em ngưỡng mộ anh vì anh tài năng, chăm chỉ và luôn cố gắng hoàn thiện bản thân."]],
+words:[
+["biography","/baɪˈɒɡrəfi/","tiểu sử"],
+["also known as","/ˈɔːlsəʊ nəʊn æz/","còn được biết đến với tên"],
+["be born","/biː bɔːn/","được sinh ra"],
+["trainee","/ˌtreɪˈniː/","thực tập sinh"],
+["debut","/ˈdeɪbjuː/","ra mắt"],
+["songwriter","/ˈsɒŋraɪtə/","nhạc sĩ sáng tác"],
+["entertainment industry","/ˌentəˈteɪnmənt ˈɪndəstri/","ngành giải trí"],
+["besides","/bɪˈsaɪdz/","ngoài ra, bên cạnh"],
+["successful","/səkˈsesfl/","thành công"],
+["career","/kəˈrɪə/","sự nghiệp"],
+["be appointed as","/əˈpɔɪntɪd æz/","được bổ nhiệm làm"],
+["envoy","/ˈenvɔɪ/","đặc phái viên"],
+["attend","/əˈtend/","tham dự"],
+["art gallery","/ɑːt ˈɡæləri/","phòng trưng bày nghệ thuật"],
+["admire","/ədˈmaɪə/","ngưỡng mộ"],
+["talented","/ˈtæləntɪd/","tài năng"],
+["hard-working","/hɑːd ˈwɜːkɪŋ/","chăm chỉ"]]},
+
+{id:"en-4",sub:"Chủ đề 4 · Thời học cấp hai",title:"The time you were at secondary school",
+lines:[
+["I studied at Minh Nghia Secondary School when I was about eleven to fifteen years old.","Em học tại Trường THCS Minh Nghĩa khi khoảng từ 11 đến 15 tuổi."],
+["My school was not very far from my house, so it took me about fifteen minutes to get there.","Trường không quá xa nhà nên em mất khoảng mười lăm phút để đến đó."],
+["It was quite large and had many classrooms, a library, and a playground.","Trường khá rộng, có nhiều phòng học, một thư viện và một sân chơi."],
+["I had to wear a school uniform every day.","Em phải mặc đồng phục mỗi ngày."],
+["I was a fairly good student and I usually arrived at school on time.","Em là một học sinh khá và thường đến trường đúng giờ."],
+["My favourite subject was Math because I enjoyed working with numbers and solving problems.","Môn học yêu thích của em là Toán vì em thích làm việc với các con số và giải bài tập."],
+["I felt happy when I could find the correct answer.","Em cảm thấy vui khi tìm được đáp án đúng."],
+["We had quite a lot of homework, especially before exams.","Chúng em có khá nhiều bài tập về nhà, đặc biệt là trước các kỳ thi."],
+["My teachers were friendly and helpful.","Các thầy cô rất thân thiện và nhiệt tình."],
+["I have many good memories of my secondary school, especially the time I spent studying and playing with my friends.","Em có nhiều kỷ niệm đẹp về thời cấp hai, đặc biệt là khoảng thời gian học tập và vui chơi cùng bạn bè."]],
+words:[
+["secondary school","/ˈsekəndri skuːl/","trường cấp hai"],
+["far from","/fɑː frɒm/","xa"],
+["it takes me…","/ɪt teɪks miː/","em mất… (thời gian)"],
+["quite large","/kwaɪt lɑːdʒ/","khá rộng"],
+["classroom","/ˈklɑːsruːm/","phòng học"],
+["library","/ˈlaɪbrəri/","thư viện"],
+["playground","/ˈpleɪɡraʊnd/","sân chơi"],
+["school uniform","/skuːl ˈjuːnɪfɔːm/","đồng phục học sinh"],
+["fairly","/ˈfeəli/","khá"],
+["on time","/ɒn taɪm/","đúng giờ"],
+["favourite subject","/ˈfeɪvərɪt ˈsʌbdʒɪkt/","môn học yêu thích"],
+["solve problems","/sɒlv ˈprɒbləmz/","giải bài tập, giải quyết vấn đề"],
+["correct answer","/kəˈrekt ˈɑːnsə/","đáp án đúng"],
+["homework","/ˈhəʊmwɜːk/","bài tập về nhà"],
+["especially","/ɪˈspeʃəli/","đặc biệt là"],
+["exam","/ɪɡˈzæm/","kỳ thi"],
+["helpful","/ˈhelpfl/","nhiệt tình giúp đỡ"],
+["memory","/ˈmeməri/","kỷ niệm, trí nhớ"]]},
+
+{id:"en-5",sub:"Chủ đề 5 · Môn thể thao yêu thích",title:"Your favourite sport",
+lines:[
+["My favourite sport is badminton.","Môn thể thao yêu thích của em là cầu lông."],
+["It is very popular in Vietnam and it is quite easy to play.","Đây là môn rất phổ biến ở Việt Nam và khá dễ chơi."],
+["Badminton can be played by two people in singles or four people in doubles.","Cầu lông có thể được chơi bởi hai người ở nội dung đánh đơn hoặc bốn người ở nội dung đánh đôi."],
+["Players use rackets to hit a shuttlecock over a net.","Người chơi dùng vợt để đánh quả cầu qua lưới."],
+["I usually play badminton once or twice a week when I have free time.","Em thường chơi cầu lông một hoặc hai lần mỗi tuần khi có thời gian rảnh."],
+["I often play with my friends at a badminton court near my home, usually in the afternoon or at weekends.","Em thường chơi cùng bạn bè tại một sân cầu lông gần nhà, thường vào buổi chiều hoặc cuối tuần."],
+["I like this sport because it is fun and good for my health.","Em thích môn này vì nó vui và tốt cho sức khoẻ."],
+["It helps me exercise my whole body and makes me feel more active.","Nó giúp em vận động toàn thân và cảm thấy năng động hơn."],
+["It is also a good way to relax after studying.","Đây cũng là một cách tốt để thư giãn sau khi học."],
+["For me, badminton is not only a sport but also a great way to spend time with my friends.","Với em, cầu lông không chỉ là một môn thể thao mà còn là cách tuyệt vời để dành thời gian với bạn bè."]],
+words:[
+["badminton","/ˈbædmɪntən/","cầu lông"],
+["popular","/ˈpɒpjələ/","phổ biến"],
+["singles","/ˈsɪŋɡlz/","đánh đơn"],
+["doubles","/ˈdʌblz/","đánh đôi"],
+["racket","/ˈrækɪt/","cái vợt"],
+["shuttlecock","/ˈʃʌtlkɒk/","quả cầu lông"],
+["net","/net/","cái lưới"],
+["once or twice a week","/wʌns ɔː twaɪs ə wiːk/","một hoặc hai lần mỗi tuần"],
+["court","/kɔːt/","sân (thể thao)"],
+["at weekends","/æt ˌwiːkˈendz/","vào cuối tuần"],
+["good for my health","/ɡʊd fə maɪ helθ/","tốt cho sức khoẻ"],
+["exercise","/ˈeksəsaɪz/","vận động, tập luyện"],
+["whole body","/həʊl ˈbɒdi/","toàn thân"],
+["active","/ˈæktɪv/","năng động"],
+["relax","/rɪˈlæks/","thư giãn"],
+["not only… but also…","/nɒt ˈəʊnli bʌt ˈɔːlsəʊ/","không chỉ… mà còn…"],
+["spend time with","/spend taɪm wɪð/","dành thời gian với"]]}
+];
+
+/* ===== app tiếng Anh (chạy độc lập với phần tiếng Trung) ===== */
+S.en=Object.assign({cur:EN_PACK[0].id,srs:{},rate:.9,vi:1,done:{}},S.en||{});
+let EL=EN_PACK.find(x=>x.id===S.en.cur)||EN_PACK[0];
+let eVoices=[],eTok=0,ePlaying=false,ePaused=false,eIdx=0,eMode="list",eDrill="fill";
+
+function enVoices(){
+  const all=synth.getVoices();
+  eVoices=all.filter(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));
+  const pref=["Samantha","Google US English","Microsoft Aria","Karen","Daniel"];
+  eVoices.sort((a,b)=>{const ia=pref.findIndex(p=>a.name.indexOf(p)>=0),ib=pref.findIndex(p=>b.name.indexOf(p)>=0);
+    return (ia<0?9:ia)-(ib<0?9:ib)});
+}
+enVoices();synth.addEventListener&&synth.addEventListener("voiceschanged",enVoices);
+
+function enUtter(t,r){return new Promise(res=>{
+  let done=false;const fin=()=>{if(!done){done=true;res()}};
+  try{
+    const u=new SpeechSynthesisUtterance(t),v=eVoices[0];
+    if(v)u.voice=v;u.lang=v?v.lang:"en-US";u.rate=r||S.en.rate;
+    u.onend=fin;u.onerror=fin;synth.speak(u);
+  }catch(e){fin()}
+  setTimeout(fin,Math.max(2500,t.length*110));
+})}
+function enStopAll(){eTok++;ePlaying=false;ePaused=false;try{synth.cancel()}catch(e){}
+  $("enPlay").textContent="▶︎ Nghe cả bài";
+  [...document.querySelectorAll("#enLines .eline")].forEach(x=>x.classList.remove("now"))}
+async function enSayOne(i){
+  enStopAll();const t=++eTok;eIdx=i;enMark(i);
+  await enUtter(EL.lines[i][0]);
+  if(t===eTok)enMark(-1)}
+function enMark(i){
+  const rows=[...document.querySelectorAll("#enLines .eline")];
+  rows.forEach((x,k)=>x.classList.toggle("now",k===i));
+  const n=EL.lines.length;
+  $("enBarI").style.width=(i<0?0:Math.round((i+1)/n*100))+"%";
+  $("enProg").textContent=i<0?"Chạm vào thanh để nhảy tới câu bất kỳ.":("Câu "+(i+1)+"/"+n);
+  if(i>=0&&rows[i])try{rows[i].scrollIntoView({block:"center",behavior:"smooth"})}catch(e){}}
+async function enPlayFrom(start){
+  enStopAll();const t=++eTok;ePlaying=true;$("enPlay").textContent="⏸ Tạm dừng";
+  for(let i=start;i<EL.lines.length;i++){
+    if(t!==eTok)return;
+    while(ePaused){if(t!==eTok)return;await new Promise(r=>setTimeout(r,120))}
+    eIdx=i;enMark(i);
+    await enUtter(EL.lines[i][0]);
+    if(t!==eTok)return;
+    await new Promise(r=>setTimeout(r,400));
+  }
+  if(t===eTok){ePlaying=false;$("enPlay").textContent="▶︎ Nghe cả bài";enMark(-1)}}
+
+/* --- bài khoá --- */
+function enRenderText(){
+  const box=$("enLines");box.innerHTML="";
+  EL.lines.forEach((l,i)=>{
+    const d=document.createElement("div");d.className="eline";
+    d.innerHTML='<div class="en"></div><div class="vi"></div><div class="say"><button class="esay">♪ Nghe câu này</button></div>';
+    d.querySelector(".en").textContent=l[0];
+    d.querySelector(".vi").textContent=l[1];
+    d.querySelector(".esay").addEventListener("click",e=>{e.stopPropagation();enSayOne(i)});
+    d.addEventListener("click",()=>enSayOne(i));
+    box.appendChild(d)});
+  box.classList.toggle("hidevi",!S.en.vi);
+  enMark(-1)}
+
+/* --- SRS từ vựng --- */
+function ek(w){return S.en.srs[w]||(S.en.srs[w]={box:0,due:0,seen:0,miss:0})}
+function eDue(w){const s=S.en.srs[w];return !!s&&s.seen>0&&Date.now()>=s.due}
+function eKnown(w){const s=S.en.srs[w];return !!s&&s.box>=3}
+function eNew(w){return !S.en.srs[w]||!S.en.srs[w].seen}
+function eGrade(w,ok){const s=ek(w);s.seen++;
+  if(ok)s.box=Math.min(s.box+1,BOX.length-1);else{s.box=0;s.miss++}
+  s.due=Date.now()+BOX[s.box];save()}
+function eStat(){const ws=EL.words.map(w=>w[0]);
+  return{all:ws.length,known:ws.filter(eKnown).length,due:ws.filter(eDue).length,nw:ws.filter(eNew).length}}
+function eDots(w){const s=S.en.srs[w]||{box:0};let h='<span class="edots">';
+  for(let i=0;i<4;i++)h+='<i class="'+(eDue(w)&&i===0?"due":(s.box>i?"ok":""))+'"></i>';
+  return h+"</span>"}
+
+/* --- từ vựng --- */
+function enRenderVocab(){
+  const box=$("enVocab");box.innerHTML="";
+  if(eMode==="list"){
+    const st=eStat();
+    const h=document.createElement("p");h.className="hint";h.style.margin="0 0 10px";
+    h.textContent=st.known+"/"+st.all+" từ đã thuộc"+(st.due?" · "+st.due+" từ cần ôn":"");
+    box.appendChild(h);
+    EL.words.forEach(w=>{
+      const d=document.createElement("div");d.className="eword";
+      d.innerHTML='<div class="ew"><b></b><i></i><span></span></div>'+eDots(w[0])+
+        '<button class="esay">♪</button>';
+      d.querySelector("b").textContent=w[0];
+      d.querySelector("i").textContent=w[1];
+      d.querySelector("span").textContent=w[2];
+      d.querySelector(".esay").addEventListener("click",()=>{enStopAll();enUtter(w[0])});
+      box.appendChild(d)});
+    return;
+  }
+  if(eMode==="card"){enCard(box);return}
+  enType(box);
+}
+let eCur=null,eShown=false,eFlip=0;
+function ePick(){
+  const ws=EL.words.slice();
+  const due=ws.filter(w=>eDue(w[0])),nw=ws.filter(w=>eNew(w[0]));
+  const pool=due.length?due:(nw.length?nw:ws);
+  return pool[Math.floor(Math.random()*pool.length)]}
+function enCard(box){
+  if(!eCur)eCur=ePick();
+  eFlip=eFlip||1;
+  const w=eCur,en2vi=eFlip===1;
+  box.innerHTML=
+   '<div class="ecard"><div class="tag">'+(en2vi?"Nhìn tiếng Anh · nhớ nghĩa":"Nhìn nghĩa · nhớ từ tiếng Anh")+'</div>'+
+   '<div class="q">'+(en2vi?escH(w[0]):escH(w[2]))+'</div>'+
+   (en2vi?'<div class="ipa">'+escH(w[1])+'</div>':'')+
+   '<div class="a" id="eAns">'+(eShown?escH(en2vi?w[2]:w[0]+"  "+w[1]):"")+'</div></div>'+
+   '<div class="row">'+(eShown
+     ?'<button class="btn sec" id="eNo" style="flex:1">Chưa nhớ</button><button class="btn jade" id="eYes" style="flex:1">Đã nhớ</button>'
+     :'<button class="btn" id="eShow" style="flex:1">Xem đáp án</button>')+
+   '<button class="btn sec" id="eSay">♪</button></div>'+
+   '<p class="hint">Thẻ đổi chiều sau mỗi lần trả lời, để bạn nhớ cả mặt chữ lẫn nghĩa.</p>';
+  $("eSay").addEventListener("click",()=>{enStopAll();enUtter(w[0])});
+  if(eShown){
+    $("eYes").addEventListener("click",()=>eAnswer(true));
+    $("eNo").addEventListener("click",()=>eAnswer(false));
+  }else{
+    $("eShow").addEventListener("click",()=>{eShown=true;enRenderVocab();if(en2vi)setTimeout(()=>enUtter(w[0]),80)});
+  }
+  if(en2vi&&!eShown)setTimeout(()=>{if(eCur===w)enUtter(w[0])},120);
+}
+function eAnswer(ok){eGrade(eCur[0],ok);eShown=false;eFlip=eFlip===1?2:1;eCur=ePick();enRenderVocab()}
+function enType(box){
+  if(!eCur)eCur=ePick();
+  const w=eCur;
+  box.innerHTML='<div class="ecard"><div class="tag">Gõ lại từ tiếng Anh</div>'+
+    '<div class="q" style="font-size:19px">'+escH(w[2])+'</div>'+
+    '<div class="ipa">'+escH(w[1])+'</div></div>'+
+    '<input id="eIn" placeholder="Gõ từ tiếng Anh rồi Enter" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+    '<div class="row" style="margin-top:10px"><button class="btn" id="eChk" style="flex:1">Kiểm tra</button>'+
+    '<button class="btn sec" id="eSkip">Bỏ qua</button></div>'+
+    '<div id="eRes" style="margin-top:12px"></div>';
+  const inp=$("eIn");setTimeout(()=>{try{inp.focus()}catch(e){}},40);
+  const chk=()=>{
+    const got=inp.value.trim(),ok=enNorm(got)===enNorm(w[0]);
+    eGrade(w[0],ok);
+    $("eRes").innerHTML=ok?'<p class="eok">Chính xác!</p>'
+      :'<p class="eno">Chưa đúng</p><p class="hint ediff">Bạn gõ: '+escH(got||"(trống)")+'<br>Đáp án: <b>'+escH(w[0])+'</b></p>';
+    enUtter(w[0]);
+    setTimeout(()=>{eCur=ePick();enRenderVocab()},ok?700:1800)};
+  $("eChk").addEventListener("click",chk);
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter")chk()});
+  $("eSkip").addEventListener("click",()=>{eCur=ePick();enRenderVocab()})}
+function enNorm(s){return (s||"").toLowerCase().replace(/[^a-z0-9' ]+/g," ").replace(/\s+/g," ").trim()}
+function escH(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+/* --- luyện tập --- */
+function enRenderDrill(){
+  const box=$("enDrill");box.innerHTML="";
+  if(eDrill==="fill")return eFill(box);
+  if(eDrill==="scr")return eScr(box);
+  if(eDrill==="dict")return eDict(box);
+  return eTran(box)}
+function pickLine(){return Math.floor(Math.random()*EL.lines.length)}
+function eFill(box){
+  const ws=EL.words.filter(w=>/^[a-zA-Z'’-]+$/.test(w[0]));
+  let hit=null;
+  for(let t=0;t<40&&!hit;t++){
+    const w=ws[Math.floor(Math.random()*ws.length)];
+    const i=EL.lines.findIndex(l=>new RegExp("\\b"+w[0]+"\\b","i").test(l[0]));
+    if(i>=0)hit={w:w,i:i}}
+  if(!hit){box.innerHTML='<p class="hint">Bài này chưa đủ từ để tạo câu điền. Thử chủ đề khác nhé.</p>';return}
+  const sent=EL.lines[hit.i][0].replace(new RegExp("\\b"+hit.w[0]+"\\b","i"),"______");
+  const opts=[hit.w[0]];
+  while(opts.length<4&&opts.length<ws.length){const c=ws[Math.floor(Math.random()*ws.length)][0];if(opts.indexOf(c)<0)opts.push(c)}
+  opts.sort(()=>Math.random()-.5);
+  box.innerHTML='<div class="card"><p class="hint" style="margin:0 0 8px">Chọn từ đúng điền vào chỗ trống</p>'+
+    '<div style="font-size:16px;line-height:1.7">'+escH(sent)+'</div>'+
+    '<div class="hint">'+escH(EL.lines[hit.i][1])+'</div></div>'+
+    '<div id="eOpts"></div><div class="row" style="margin-top:10px"><button class="btn sec" id="eNext" style="flex:1">Câu khác ›</button></div>';
+  const ob=$("eOpts");
+  opts.forEach(o=>{
+    const b=document.createElement("button");b.className="btn sec";b.style.cssText="display:block;width:100%;margin-bottom:8px;text-align:left";
+    b.textContent=o;
+    b.addEventListener("click",()=>{
+      if(ob.dataset.done)return;ob.dataset.done=1;
+      const ok=o===hit.w[0];
+      b.style.background=ok?"var(--jade)":"var(--accent)";b.style.color="#fff";
+      if(!ok)[...ob.children].forEach(x=>{if(x.textContent===hit.w[0]){x.style.background="var(--jade)";x.style.color="#fff"}});
+      eGrade(hit.w[0],ok);enUtter(EL.lines[hit.i][0]);
+    });
+    ob.appendChild(b)});
+  $("eNext").addEventListener("click",()=>enRenderDrill())}
+function eScr(box){
+  const i=pickLine(),toks=EL.lines[i][0].split(/\s+/);
+  const order=toks.map((t,k)=>k).sort(()=>Math.random()-.5);
+  box.innerHTML='<div class="card"><p class="hint" style="margin:0 0 6px">Sắp xếp lại thành câu đúng</p>'+
+    '<div style="font-size:15px">'+escH(EL.lines[i][1])+'</div></div>'+
+    '<div class="eans" id="eBuilt"></div><div class="escr" id="ePool"></div>'+
+    '<div class="row"><button class="btn sec" id="eUndo">↩︎ Xoá cuối</button>'+
+    '<button class="btn" id="eChk2" style="flex:1">Kiểm tra</button>'+
+    '<button class="btn sec" id="eNext2">Câu khác ›</button></div><div id="eRes2" style="margin-top:11px"></div>';
+  const got=[],pool=$("ePool");
+  order.forEach(k=>{const b=document.createElement("button");b.textContent=toks[k];b.dataset.k=k;
+    b.addEventListener("click",()=>{if(b.classList.contains("used"))return;b.classList.add("used");got.push(k);paint()});
+    pool.appendChild(b)});
+  const paint=()=>{$("eBuilt").textContent=got.map(k=>toks[k]).join(" ")};
+  $("eUndo").addEventListener("click",()=>{const k=got.pop();if(k===undefined)return;
+    [...pool.children].forEach(b=>{if(+b.dataset.k===k)b.classList.remove("used")});paint()});
+  $("eChk2").addEventListener("click",()=>{
+    const ok=got.map(k=>toks[k]).join(" ")===toks.join(" ");
+    $("eRes2").innerHTML=ok?'<p class="eok">Đúng rồi!</p>'
+      :'<p class="eno">Chưa đúng</p><p class="hint">Đáp án: '+escH(toks.join(" "))+'</p>';
+    enUtter(EL.lines[i][0])});
+  $("eNext2").addEventListener("click",()=>enRenderDrill());
+  paint()}
+function eDict(box){
+  const i=pickLine();
+  box.innerHTML='<div class="card"><p class="hint" style="margin:0 0 10px">Nghe rồi gõ lại đúng câu bạn nghe được</p>'+
+    '<div class="row"><button class="btn" id="eRep" style="flex:1">♪ Nghe lại</button>'+
+    '<button class="btn sec" id="eSlow">♪ Chậm</button></div></div>'+
+    '<input id="eIn2" placeholder="Gõ câu bạn nghe được" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+    '<div class="row" style="margin-top:10px"><button class="btn" id="eChk3" style="flex:1">Kiểm tra</button>'+
+    '<button class="btn sec" id="eNext3">Câu khác ›</button></div><div id="eRes3" style="margin-top:12px"></div>';
+  const play=r=>{enStopAll();enUtter(EL.lines[i][0],r)};
+  $("eRep").addEventListener("click",()=>play());
+  $("eSlow").addEventListener("click",()=>play(.6));
+  setTimeout(()=>play(),200);
+  const chk=()=>{
+    const got=$("eIn2").value,ok=enNorm(got)===enNorm(EL.lines[i][0]);
+    $("eRes3").innerHTML=(ok?'<p class="eok">Chính xác!</p>':'<p class="eno">Chưa khớp</p>')+
+      '<p class="hint ediff">'+wordDiff(got,EL.lines[i][0])+'</p>'+
+      '<p class="hint">Nghĩa: '+escH(EL.lines[i][1])+'</p>'};
+  $("eChk3").addEventListener("click",chk);
+  $("eIn2").addEventListener("keydown",e=>{if(e.key==="Enter")chk()});
+  $("eNext3").addEventListener("click",()=>enRenderDrill())}
+function wordDiff(got,ref){
+  const a=enNorm(got).split(" ").filter(Boolean),b=enNorm(ref).split(" ").filter(Boolean);
+  let out="",i=0,j=0;
+  while(j<b.length){
+    if(i<a.length&&a[i]===b[j]){out+=escH(b[j])+" ";i++;j++}
+    else{out+="<b>"+escH(b[j])+"</b> ";if(i<a.length&&a[i]!==b[j]&&(j+1>=b.length||a[i]!==b[j+1]))i++;j++}}
+  if(i<a.length)out+="<s>"+escH(a.slice(i).join(" "))+"</s>";
+  return out||escH(ref)}
+function eTran(box){
+  const i=pickLine();
+  box.innerHTML='<div class="card"><p class="hint" style="margin:0 0 8px">Dịch sang tiếng Anh</p>'+
+    '<div style="font-size:16px;line-height:1.7">'+escH(EL.lines[i][1])+'</div></div>'+
+    '<textarea id="eIn3" rows="3" placeholder="Viết câu tiếng Anh của bạn"></textarea>'+
+    '<div class="row" style="margin-top:10px"><button class="btn" id="eShow3" style="flex:1">Xem câu mẫu</button>'+
+    '<button class="btn sec" id="eNext4">Câu khác ›</button></div><div id="eRes4" style="margin-top:12px"></div>';
+  $("eShow3").addEventListener("click",()=>{
+    $("eRes4").innerHTML='<div class="card"><p class="hint" style="margin:0 0 6px">Câu mẫu</p>'+
+      '<div style="font-size:16px;line-height:1.7">'+escH(EL.lines[i][0])+'</div>'+
+      '<div class="row" style="margin-top:10px"><button class="btn sec" id="eSay3">♪ Nghe</button></div></div>'+
+      '<p class="hint ediff">So với câu bạn viết: '+wordDiff($("eIn3").value,EL.lines[i][0])+'</p>';
+    $("eSay3").addEventListener("click",()=>{enStopAll();enUtter(EL.lines[i][0])});
+    enUtter(EL.lines[i][0])});
+  $("eNext4").addEventListener("click",()=>enRenderDrill())}
+
+/* --- chuyển bài / tab --- */
+function enHdr(){$("enT").textContent=EL.title;$("enS").textContent=EL.sub+" ▾"}
+function enPickList(){
+  const box=$("enPick");box.innerHTML="";
+  EN_PACK.forEach((l,i)=>{
+    const ws=l.words.map(w=>w[0]);
+    const kn=ws.filter(eKnown).length,du=ws.filter(eDue).length;
+    const pct=Math.round(kn/ws.length*100);
+    const b=document.createElement("button");b.className="les"+(l.id===EL.id?" cur":"");
+    b.innerHTML='<span class="n">'+(i+1)+'</span><span class="m"><b>'+escH(l.sub)+'</b>'+
+      '<span>'+l.lines.length+' câu · '+ws.length+' từ'+(du?' · <b style="color:var(--accent)">'+du+' cần ôn</b>':'')+'</span>'+
+      '<span class="bar"><i style="width:'+pct+'%"></i></span></span>';
+    b.addEventListener("click",()=>enSwitch(l.id));
+    box.appendChild(b)})}
+function enSwitch(id){
+  const nx=EN_PACK.find(x=>x.id===id);if(!nx)return;
+  enStopAll();EL=nx;S.en.cur=id;save();
+  eCur=null;eShown=false;
+  enHdr();enRenderText();enRenderVocab();enRenderDrill();enSheet(false)}
+function enSheet(on){$("enScrim").classList.toggle("on",on);$("enSheet").classList.toggle("on",on)}
+function enGo(v){
+  [...$("enTabs").children].forEach(b=>b.setAttribute("aria-selected",b.dataset.e===v));
+  ["text","vocab","drill"].forEach(k=>$("e-"+k).classList.toggle("on",k===v));
+  if(v!=="text")enStopAll();
+  if(v==="vocab")enRenderVocab();
+  if(v==="drill")enRenderDrill();
+  try{window.scrollTo(0,0)}catch(e){}}
+
+/* --- mở / đóng --- */
+function enOpen(){
+  stopAll();
+  $("enApp").classList.add("on");
+  document.body.style.overflow="hidden";
+  enHdr();enRenderText();enRenderVocab();enRenderDrill();enGo("text");
+  $("enRate").value=S.en.rate;$("enRateV").textContent=(+S.en.rate).toFixed(2)+"x";
+  [...$("enSegVi").children].forEach(b=>b.setAttribute("aria-pressed",(b.dataset.v==="1")===!!S.en.vi));
+  S.en.open=1;save()}
+function enClose(){enStopAll();$("enApp").classList.remove("on");document.body.style.overflow="";S.en.open=0;save()}
+
+$("enBack").addEventListener("click",enClose);
+$("enLesBtn").addEventListener("click",()=>{enPickList();enSheet(true)});
+$("enScrim").addEventListener("click",()=>enSheet(false));
+$("enSheetX").addEventListener("click",()=>enSheet(false));
+$("enTabs").addEventListener("click",e=>{const b=e.target.closest("button[data-e]");if(b)enGo(b.dataset.e)});
+$("enPlay").addEventListener("click",()=>{
+  if(ePlaying){ePaused=!ePaused;$("enPlay").textContent=ePaused?"▶︎ Tiếp tục":"⏸ Tạm dừng";
+    if(ePaused)try{synth.pause()}catch(e){}else try{synth.resume()}catch(e){}
+    return}
+  enPlayFrom(0)});
+$("enStop").addEventListener("click",enStopAll);
+$("enBar").addEventListener("click",e=>{
+  const r=$("enBar").getBoundingClientRect();
+  const p=Math.min(.999,Math.max(0,(e.clientX-r.left)/r.width));
+  enPlayFrom(Math.floor(p*EL.lines.length))});
+$("enRate").addEventListener("input",e=>{S.en.rate=+e.target.value;$("enRateV").textContent=S.en.rate.toFixed(2)+"x";save()});
+$("enSegVi").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  S.en.vi=b.dataset.v==="1"?1:0;save();
+  [...$("enSegVi").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+  $("enLines").classList.toggle("hidevi",!S.en.vi)});
+$("enSegV").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  eMode=b.dataset.m;eShown=false;
+  [...$("enSegV").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+  enRenderVocab()});
+$("enSegD").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  eDrill=b.dataset.d;
+  [...$("enSegD").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+  enRenderDrill()});
+$("btnEn").addEventListener("click",enOpen);
+const _ee=$("enEntry");if(_ee)_ee.addEventListener("click",enOpen);
+if(S.en.open)setTimeout(enOpen,60);
+
+</script>
+<!-- EN-APP-END -->
 </body>
 </html>

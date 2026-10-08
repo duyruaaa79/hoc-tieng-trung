@@ -482,7 +482,17 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
       </div>
       <div style="margin-top:14px;padding-top:13px;border-top:1px solid var(--line)">
         <div class="row"><b style="font-size:14px">Tự cập nhật GitHub</b><div class="sp"></div>
-          <span class="score" id="ghState" style="margin:0"></span></div>
+          <span class="score" id="ghState" style="margin:0"></span>
+          <button class="mini" id="ghLock">Mở khoá</button></div>
+        <div id="ghGate" style="margin-top:9px">
+          <div class="hint" style="margin:0">Khu dành cho quản trị. Nhập mã để mở.</div>
+          <div class="row" style="margin-top:8px">
+            <input type="password" id="ghPin" inputmode="numeric" placeholder="mã mở khoá" style="flex:1;max-width:180px;font-size:14px">
+            <button class="btn sec" id="ghPinOk">Mở</button>
+          </div>
+          <div class="score" id="ghPinMsg"></div>
+        </div>
+        <div id="ghBody" style="display:none">
         <p class="hint" style="margin-top:4px">Mỗi khi bạn thêm hoặc sửa bài, app tự ghi đè lessons.json trên GitHub. Khoá chỉ lưu trong trình duyệt máy này.</p>
         <input type="text" id="ghRepo" placeholder="duyruaaa79/hoc-tieng-trung" style="width:100%;margin-top:8px;font-size:13px">
         <input type="password" id="ghTok" placeholder="khoá truy cập GitHub (ghp_… hoặc github_pat_…)" style="width:100%;margin-top:8px;font-size:13px">
@@ -497,6 +507,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
           <input type="file" id="ghAppFile" accept=".html,text/html" style="display:none">
         </div>
         <p class="hint" style="margin-top:6px">Chọn file index.html mới để thay bản đang chạy trên GitHub. Mọi máy sẽ nhận bản mới khi mở lại.</p>
+        </div>
         <div class="score" id="ghMsg"></div>
       </div>
     </div>
@@ -1764,6 +1775,24 @@ async function ghPushPack(quiet){
   S.gh.at=Date.now();save();ghStatus();
   if(!quiet)ghMsg("Đã cập nhật lessons.json trên GitHub ("+BASE_LESSONS.length+" bài). Chờ 1–2 phút để trang web nhận bản mới.");
   return true}
+const GHPIN="971997";
+let ghOpen=false;
+function ghGate(open){
+  ghOpen=open;
+  $("ghGate").style.display=open?"none":"block";
+  $("ghBody").style.display=open?"block":"none";
+  $("ghLock").textContent=open?"Khoá lại":"Mở khoá";
+  if(!open){$("ghPin").value="";$("ghPinMsg").textContent=""}}
+$("ghLock").addEventListener("click",()=>{
+  if(ghOpen){ghGate(false);return}
+  $("ghGate").style.display="block";$("ghPin").focus()});
+function ghTry(){
+  if($("ghPin").value.trim()===GHPIN){ghGate(true)}
+  else{$("ghPinMsg").textContent="Mã không đúng.";$("ghPinMsg").style.color="var(--accent)";
+    $("ghPin").value=""}}
+$("ghPinOk").addEventListener("click",ghTry);
+$("ghPin").addEventListener("keydown",e=>{if(e.key==="Enter")ghTry()});
+ghGate(false);
 $("ghRepo").value=(S.gh&&S.gh.repo)||"";
 $("ghTok").value=(S.gh&&S.gh.token)?"••••••••••••":"";
 $("ghCopy").addEventListener("click",async()=>{

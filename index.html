@@ -489,8 +489,14 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
         <div class="row" style="margin-top:9px">
           <button class="btn sec" id="ghSave">Lưu khoá</button>
           <button class="mini" id="ghPush">Đẩy bộ bài lên ngay</button>
+          <button class="mini" id="ghCopy">Sao chép để dùng máy khác</button>
           <button class="mini" id="ghOff">Xoá khoá</button>
         </div>
+        <div class="row" style="margin-top:9px">
+          <button class="btn sec" id="ghApp">⬆ Cập nhật app (index.html)</button>
+          <input type="file" id="ghAppFile" accept=".html,text/html" style="display:none">
+        </div>
+        <p class="hint" style="margin-top:6px">Chọn file index.html mới để thay bản đang chạy trên GitHub. Mọi máy sẽ nhận bản mới khi mở lại.</p>
         <div class="score" id="ghMsg"></div>
       </div>
     </div>
@@ -1706,6 +1712,38 @@ function ghApi(){return "https://api.github.com/repos/"+S.gh.repo.trim().replace
   "/contents/"+(S.gh.path||"lessons.json")}
 function ghHead(){return{Authorization:"Bearer "+S.gh.token.trim(),
   Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}}
+async function ghPutFile(path,text,msg){
+  if(!ghOn())throw new Error("chưa có khoá");
+  const base="https://api.github.com/repos/"+S.gh.repo.trim().replace(/^\/+|\/+$/g,"")+"/contents/"+path;
+  let sha=null;
+  try{const r=await fetch(base+"?ref=main&t="+Date.now(),{headers:ghHead(),cache:"no-store"});
+    if(r.ok){const o=await r.json();sha=o.sha}}catch(e){}
+  const body={message:msg,content:b64utf8(text)};
+  if(sha)body.sha=sha;
+  const r2=await fetch(base,{method:"PUT",
+    headers:Object.assign({"Content-Type":"application/json"},ghHead()),body:JSON.stringify(body)});
+  if(!r2.ok){let m="HTTP "+r2.status;
+    try{const e=await r2.json();if(e.message)m=e.message}catch(x){}
+    throw new Error(m)}
+  return true}
+$("ghApp").addEventListener("click",()=>{
+  if(!ghOn()){ghMsg("Chưa lưu kho và khoá.",true);return}
+  $("ghAppFile").click()});
+$("ghAppFile").addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=async()=>{
+    const t=String(r.result||"");
+    if(t.length<20000||t.indexOf("<!DOCTYPE html")<0||t.indexOf("id=\"pkState\"")<0){
+      ghMsg("File này không giống app học tiếng Trung — chưa gửi, tránh làm hỏng trang.",true);return}
+    if(!confirm("Thay file app trên GitHub bằng file này? Mọi máy sẽ dùng bản mới sau 1–2 phút."))return;
+    ghMsg("Đang gửi app lên GitHub…");
+    try{await ghPutFile("index.html",t,"Cập nhật app từ chính app");
+      S.gh.at=Date.now();save();ghStatus();
+      ghMsg("Đã cập nhật app trên GitHub. Chờ 1–2 phút rồi tải lại trang.");
+      setTimeout(()=>{if(confirm("Tải lại trang để dùng bản mới?"))location.reload()},2500);
+    }catch(err){ghMsg("Không gửi được: "+err.message,true)}};
+  r.readAsText(f);e.target.value=""});
 async function ghPushPack(quiet){
   if(!ghOn())return false;
   const data=(S.pack&&S.pack.data)?JSON.parse(JSON.stringify(S.pack.data)):{version:1,lessons:[],dict:{}};
@@ -1728,13 +1766,21 @@ async function ghPushPack(quiet){
   return true}
 $("ghRepo").value=(S.gh&&S.gh.repo)||"";
 $("ghTok").value=(S.gh&&S.gh.token)?"••••••••••••":"";
+$("ghCopy").addEventListener("click",async()=>{
+  if(!ghOn()){ghMsg("Chưa có khoá để sao chép.",true);return}
+  const code=S.gh.repo+"|"+S.gh.token;
+  try{await navigator.clipboard.writeText(code);
+    ghMsg("Đã sao chép. Sang máy kia, dán vào ô khoá rồi bấm Lưu khoá.")}
+  catch(e){$("ghTok").type="text";$("ghTok").value=code;$("ghTok").select();
+    ghMsg("Chọn hết nội dung ô khoá rồi copy tay, sau đó dán ở máy kia.",true)}});
 $("ghSave").addEventListener("click",async()=>{
-  const repo=$("ghRepo").value.trim(),tk=$("ghTok").value.trim();
+  let repo=$("ghRepo").value.trim(),tk=$("ghTok").value.trim();
+  if(tk.indexOf("|")>0){const a=tk.split("|");repo=a[0].trim();tk=a[1].trim();$("ghRepo").value=repo}
   if(!repo||!/^[\w.-]+\/[\w.-]+$/.test(repo)){ghMsg("Kho phải có dạng tên-người/tên-kho.",true);return}
   if(tk&&tk.indexOf("•")<0)S.gh.token=tk;
   S.gh.repo=repo;S.gh.path=S.gh.path||"lessons.json";
   if(!S.gh.token){ghMsg("Chưa có khoá truy cập.",true);return}
-  save();ghStatus();$("ghTok").value="••••••••••••";
+  save();ghStatus();$("ghTok").type="password";$("ghTok").value="••••••••••••";
   try{await ghPushPack();}catch(e){ghMsg("Không ghi được: "+e.message,true)}});
 $("ghPush").addEventListener("click",async()=>{
   if(!ghOn()){ghMsg("Chưa lưu kho và khoá.",true);return}

@@ -444,6 +444,36 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
       <div class="seg" id="segWake"><button data-w="1" aria-pressed="true">Giữ sáng khi phát</button><button data-w="0">Để tự tắt</button></div></div>
   </div>
   <div class="card">
+    <h3>Bài của tôi</h3>
+    <p class="hint" style="margin-top:2px">Soạn bài ngay tại đây. Nếu đã bật đồng bộ qua mạng, bài sẽ hiện trên mọi máy dùng cùng mã.</p>
+    <div id="mineList" style="margin-top:11px"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" id="mNew">＋ Soạn bài mới</button>
+      <button class="mini" id="mHelp">Xem cách viết</button>
+    </div>
+    <div id="mEdit" style="display:none;margin-top:12px">
+      <textarea id="mBox" rows="12" placeholder="Dán hoặc gõ nội dung bài…" style="font-size:13px;line-height:1.7"></textarea>
+      <div class="row" style="margin-top:9px">
+        <button class="btn" id="mSave">Lưu bài</button>
+        <button class="mini" id="mCancel">Huỷ</button>
+      </div>
+    </div>
+    <div class="score" id="mMsg"></div>
+    <div id="mGuide" class="gnote" style="display:none;margin-top:11px;font-size:12.5px">
+      <b>Cách viết</b><br>
+      Dòng đầu: <code>TEN: Bài 6 · Chủ đề</code><br>
+      Mở một phần: <code>PHAN: Bài khoá 1</code><br>
+      Mỗi câu hội thoại, ngăn bằng dấu |:<br>
+      <code>妈妈 | 明天是生日。 | Míngtiān shì shēngrì. | Mai là sinh nhật.</code><br>
+      (người nói | chữ Hán | pinyin | nghĩa)<br>
+      Từ mới:<br>
+      <code>TU: 生日 | shēngrì | sinh nhật</code><br>
+      Câu hỏi đọc hiểu (đáp án đúng đặt đầu tiên):<br>
+      <code>HOI: 明天是谁的生日？| 小雪 | 妈妈 | 爸爸</code>
+    </div>
+  </div>
+
+  <div class="card">
     <h3>Nguồn bài học</h3>
     <p class="hint" style="margin-top:2px">Dán link tới file <b>lessons.json</b> đặt trên mạng. App tự tải mỗi lần mở, nên thêm bài mới ở đó là mọi máy đều thấy. Để trống thì dùng các bài có sẵn trong file.</p>
     <input type="text" id="srcUrl" placeholder="https://… /lessons.json" style="width:100%;margin-top:10px;font-size:13px">
@@ -452,6 +482,11 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
       <button class="btn sec" id="srcNow">Tải lại ngay</button>
       <button class="mini" id="srcClear">Dùng bài có sẵn</button>
     </div>
+    <div class="row" style="margin-top:9px">
+      <button class="btn sec" id="packPick">📄 Tải file lessons.json từ máy</button>
+      <input type="file" id="packFile" accept=".json,application/json" style="display:none">
+    </div>
+    <p class="hint">Chọn file từ điện thoại hoặc máy tính là dùng được ngay. Nếu đã bật đồng bộ qua mạng, bộ bài cũng tự sang các máy khác.</p>
     <div class="score" id="srcMsg"></div>
   </div>
 
@@ -792,7 +827,8 @@ const L_HSK3_2={
  ]
 };
 
-let BASE_LESSONS=[L_HSK3_1,L_HSK3_2];
+const BASE_PACK=[L_HSK3_1,L_HSK3_2];
+let BASE_LESSONS=BASE_PACK.slice();
 function makeAll(){
   const parts=[],words=[],grammar=[],quiz=[],seen={};
   BASE_LESSONS.forEach(l=>{
@@ -816,7 +852,7 @@ try{const r=localStorage.getItem(PKEY);if(r)USERS=Object.assign(USERS,JSON.parse
 function saveUsers(){try{localStorage.setItem(PKEY,JSON.stringify(USERS))}catch(e){}}
 function curUser(){return USERS.list.find(u=>u.id===USERS.cur)||USERS.list[0]}
 const KEY=USERS.cur==="u1"?"hoctrung_v3":"hoctrung_v3_"+USERS.cur;
-let S={srs:{},mark:[],extra:{},les:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,src:"",pack:null,cloud:{url:"",code:"",at:0}};
+let S={srs:{},mark:[],extra:{},les:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,src:"",pack:null,cloud:{url:"",code:"",at:0},mine:[]};
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 let saveT=null;
 function save(){clearTimeout(saveT);saveT=setTimeout(()=>{
@@ -1559,7 +1595,7 @@ function validPack(o){
     o.lessons.every(l=>l&&l.id&&l.sub&&Array.isArray(l.parts)&&Array.isArray(l.words))}
 function applyPack(o,quiet){
   if(!validPack(o))throw new Error("sai định dạng");
-  BASE_LESSONS=o.lessons;
+  BASE_LESSONS=o.lessons.concat(S.mine||[]);
   if(o.dict)for(const k in o.dict)DICT[k]=o.dict[k];
   LESSONS=BASE_LESSONS.concat([makeAll()]);
   indexWords();indexSeg();
@@ -1578,16 +1614,129 @@ async function fetchPack(url,quiet){
     if(!r.ok)throw new Error("HTTP "+r.status);
     const o=await r.json();
     const n=applyPack(o,quiet);
-    S.pack={t:Date.now(),data:o};save();
+    S.pack={t:0,data:o};save();
     srcMsg("Đã cập nhật "+n+" bài lúc "+new Date().toLocaleTimeString("vi-VN"));
   }catch(e){
     srcMsg("Không tải được ("+e.message+"). Đang dùng bản đã lưu trong máy.",true)}}
+async function packToCloud(){
+  if(!cloudOn()||!S.pack||!S.pack.data)return;
+  const u=cloudURL().replace(/\.json$/,"")+"_pack.json";
+  await fetch(u,{method:"PUT",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({t:Date.now(),data:S.pack.data})})}
+async function packFromCloud(){
+  if(!cloudOn())return false;
+  const u=cloudURL().replace(/\.json$/,"")+"_pack.json";
+  const r=await fetch(u,{cache:"no-store"});
+  if(!r.ok)return false;
+  const o=await r.json();
+  if(!o||!o.data||!validPack(o.data))return false;
+  if(S.pack&&S.pack.t>=(o.t||0))return false;
+  applyPack(o.data,true);S.pack={t:o.t||Date.now(),data:o.data};save();
+  return true}
+$("packPick").addEventListener("click",()=>$("packFile").click());
+$("packFile").addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=async()=>{
+    try{
+      const o=JSON.parse(r.result);
+      const n=applyPack(o,true);
+      S.pack={t:Date.now(),data:o};S.src="";save();
+      $("srcUrl").value="";
+      srcMsg("Đã nạp "+n+" bài từ file. Đang gửi lên mạng…");
+      try{await packToCloud();srcMsg("Đã nạp "+n+" bài và gửi sang các máy khác.")}
+      catch(err){srcMsg("Đã nạp "+n+" bài (chỉ trên máy này — chưa bật đồng bộ hoặc mạng lỗi).")}
+    }catch(err){srcMsg("File không hợp lệ: "+err.message,true)}};
+  r.readAsText(f);e.target.value=""});
 $("srcUrl").value=S.src||"";
 $("srcSave").addEventListener("click",()=>{S.src=$("srcUrl").value.trim();save();
   srcMsg("Đang tải…");fetchPack(S.src)});
 $("srcNow").addEventListener("click",()=>{srcMsg("Đang tải…");fetchPack(S.src)});
 $("srcClear").addEventListener("click",()=>{S.src="";S.pack=null;save();$("srcUrl").value="";
   location.reload()});
+
+/* ---------- bài tự soạn ---------- */
+function mMsg(t,bad){const m=$("mMsg");m.textContent=t;m.style.color=bad?"var(--accent)":"var(--jade)"}
+function parseLesson(txt){
+  const L={id:"",book:"Bài tự soạn",title:"",sub:"",parts:[],words:[],grammar:[],quiz:[]};
+  let part=null;
+  txt.split(/\r?\n/).forEach(raw=>{
+    const t=raw.trim();if(!t)return;
+    const up=t.toUpperCase();
+    if(up.startsWith("TEN:")||up.startsWith("TÊN:")){L.sub=t.slice(4).trim();return}
+    if(up.startsWith("TIEUDE:")){L.title=t.slice(7).trim();return}
+    if(up.startsWith("PHAN:")||up.startsWith("PHẦN:")){
+      part={name:t.slice(5).trim()||("Phần "+(L.parts.length+1)),lines:[]};L.parts.push(part);return}
+    if(up.startsWith("TU:")||up.startsWith("TỪ:")){
+      const a=t.slice(3).split("|").map(x=>x.trim());
+      if(a[0])L.words.push({zh:a[0],py:a[1]||"",vi:a[2]||""});return}
+    if(up.startsWith("HOI:")||up.startsWith("HỎI:")){
+      const a=t.slice(4).split("|").map(x=>x.trim()).filter(Boolean);
+      if(a.length>=3){const q=a[0],right=a[1],opts=a.slice(1);
+        const mix=opts.slice().sort(()=>Math.random()-.5);
+        L.quiz.push({q:q,o:mix,a:mix.indexOf(right)})}
+      return}
+    const a=t.split("|").map(x=>x.trim());
+    if(a.length>=2){
+      if(!part){part={name:"Bài khoá 1",lines:[]};L.parts.push(part)}
+      part.lines.push({who:a[0],zh:a[1],py:a[2]||"",vi:a[3]||""})}
+  });
+  if(!L.sub)throw new Error("thiếu dòng TEN:");
+  if(!L.parts.length||!L.parts.some(p=>p.lines.length))throw new Error("chưa có câu hội thoại nào");
+  if(!L.title)L.title=L.sub.split("·")[0].trim();
+  return L}
+function lessonToText(L){
+  let o="TEN: "+L.sub+"\nTIEUDE: "+L.title+"\n";
+  L.parts.forEach(p=>{o+="\nPHAN: "+p.name+"\n";
+    p.lines.forEach(l=>o+=l.who+" | "+l.zh+" | "+l.py+" | "+l.vi+"\n")});
+  if(L.words.length){o+="\n";L.words.forEach(w=>o+="TU: "+w.zh+" | "+w.py+" | "+w.vi+"\n")}
+  if(L.quiz&&L.quiz.length){o+="\n";L.quiz.forEach(q=>
+    o+="HOI: "+q.q+" | "+q.o[q.a]+" | "+q.o.filter((_,i)=>i!==q.a).join(" | ")+"\n")}
+  return o}
+let mEditId=null;
+function mineRender(){
+  const box=$("mineList");box.innerHTML="";
+  if(!S.mine.length){box.innerHTML='<p class="hint" style="margin:0">Chưa có bài nào bạn tự soạn.</p>';return}
+  S.mine.forEach(L=>{
+    const d=document.createElement("div");d.className="prow";
+    d.innerHTML='<span class="av">✎</span><span class="pm"><b>'+L.sub+'</b><span>'+
+      L.parts.reduce((n,p)=>n+p.lines.length,0)+' câu · '+L.words.length+' từ</span></span>'+
+      '<button class="mini" data-a="edit">Sửa</button><button class="mini" data-a="del">Xoá</button>';
+    d.addEventListener("click",e=>{
+      const b=e.target.closest("button");if(!b)return;
+      if(b.dataset.a==="edit"){mEditId=L.id;$("mBox").value=lessonToText(L);
+        $("mEdit").style.display="block";$("mBox").focus();mMsg("Đang sửa: "+L.sub);return}
+      if(b.dataset.a==="del"){
+        if(!confirm("Xoá bài \""+L.sub+"\"?"))return;
+        S.mine=S.mine.filter(x=>x.id!==L.id);save();rebuildLessons();mineRender();
+        if(cloudOn())cloudPush().catch(()=>{});
+        mMsg("Đã xoá.")}});
+    box.appendChild(d)})}
+$("mNew").addEventListener("click",()=>{mEditId=null;$("mBox").value=
+"TEN: Bài mới · Chủ đề\n\nPHAN: Bài khoá 1\n妈妈 | 明天是小雪的生日。 | Míngtiān shì Xiǎoxuě de shēngrì. | Mai là sinh nhật Tiểu Tuyết.\n爸爸 | 我没忘。 | Wǒ méi wàng. | Anh không quên.\n\nTU: 生日 | shēngrì | sinh nhật\nTU: 忘 | wàng | quên\n";
+  $("mEdit").style.display="block";$("mBox").focus();mMsg("")});
+$("mCancel").addEventListener("click",()=>{$("mEdit").style.display="none";mEditId=null;mMsg("")});
+$("mHelp").addEventListener("click",()=>{const g=$("mGuide");
+  g.style.display=g.style.display==="none"?"block":"none"});
+$("mSave").addEventListener("click",()=>{
+  let L;
+  try{L=parseLesson($("mBox").value)}catch(e){mMsg("Chưa lưu được: "+e.message,true);return}
+  L.id=mEditId||("my"+Date.now().toString(36));
+  S.mine=S.mine.filter(x=>x.id!==L.id).concat([L]);
+  save();rebuildLessons();mineRender();
+  $("mEdit").style.display="none";mEditId=null;
+  mMsg("Đã lưu \""+L.sub+"\" — "+L.parts.reduce((n,p)=>n+p.lines.length,0)+" câu, "+L.words.length+" từ.");
+  if(cloudOn())cloudPush().catch(()=>{})});
+function rebuildLessons(){
+  const base=(S.pack&&S.pack.data&&S.pack.data.lessons)||BASE_PACK;
+  BASE_LESSONS=base.concat(S.mine||[]);
+  LESSONS=BASE_LESSONS.concat([makeAll()]);
+  indexWords();indexSeg();
+  L=LESSONS.find(x=>x.id===S.cur)||LESSONS[0];S.cur=L.id;
+  builtText=false;builtDrill=false;idx=0;
+  stopAll();hdr();buildRoles();renderWords();nextTask();homeDirty=true;renderHome();
+  if($("v-text").classList.contains("on"))ensureText();
+  if($("v-drill").classList.contains("on"))ensureDrill()}
 
 /* ---------- đồng bộ qua mạng ---------- */
 function cMsg(t,bad){const m=$("cMsg");m.textContent=t;m.style.color=bad?"var(--accent)":"var(--jade)"}
@@ -1599,7 +1748,7 @@ function cloudURL(){
 function myData(){
   const srs={};
   for(const z in S.srs){const r=S.srs[z];if(SK.some(k=>r[k]&&r[k].seen>0))srs[z]=r}
-  return{v:3,t:Date.now(),srs:srs,mark:S.mark,extra:S.extra,les:S.les}}
+  return{v:3,t:Date.now(),srs:srs,mark:S.mark,extra:S.extra,les:S.les,mine:S.mine||[]}}
 let pushT=null,syncing=false;
 async function cloudPull(quiet){
   if(!cloudOn())return 0;
@@ -1618,6 +1767,9 @@ async function cloudSync(quiet){
   if(!cloudOn()||syncing)return;
   syncing=true;
   try{
+    let got=false;
+    try{got=await packFromCloud()}catch(e){}
+    if(got)srcMsg("Đã nhận bộ bài mới từ máy khác ("+BASE_LESSONS.length+" bài).");
     const n=await cloudPull(quiet);
     await cloudPush();
     if(!quiet)cMsg("Đã đồng bộ"+(n?", nhận thêm "+n+" mục":"")+" lúc "+new Date().toLocaleTimeString("vi-VN"));
@@ -1638,7 +1790,8 @@ $("cSave").addEventListener("click",async()=>{
   if(!u||!c){cMsg("Cần cả địa chỉ kho và mã.",true);return}
   if(!/^[A-Za-z0-9_-]{3,40}$/.test(c)){cMsg("Mã chỉ gồm chữ thường, số và dấu gạch ngang.",true);return}
   S.cloud={url:u,code:c,at:0};save();
-  cMsg("Đang kết nối…");await cloudSync()});
+  cMsg("Đang kết nối…");await cloudSync();
+  if(S.pack&&S.pack.data)packToCloud().catch(()=>{})});
 $("cNow").addEventListener("click",()=>{if(!cloudOn()){cMsg("Chưa bật đồng bộ.",true);return}
   cMsg("Đang đồng bộ…");cloudSync()});
 $("cOff").addEventListener("click",()=>{S.cloud={url:"",code:"",at:0};save();
@@ -1663,6 +1816,10 @@ function mergeState(o){
       const x=S.srs[z][k]||{box:0,due:0,seen:0,miss:0},y=b[k]||{box:0,due:0,seen:0,miss:0};
       if(y.seen>x.seen||(y.seen===x.seen&&y.box>x.box)){S.srs[z][k]=y;n++}})}
   (o.mark||[]).forEach(z=>{if(!S.mark.includes(z))S.mark.push(z)});
+  if(Array.isArray(o.mine)&&o.mine.length){
+    const have={};(S.mine||[]).forEach(x=>have[x.id]=1);
+    let add=0;o.mine.forEach(x=>{if(x&&x.id&&!have[x.id]){S.mine.push(x);add++}});
+    if(add){n+=add;setTimeout(rebuildLessons,0);setTimeout(mineRender,0)}}
   for(const id in o.extra||{})S.extra[id]=[...new Set((S.extra[id]||[]).concat(o.extra[id]||[]))];
   for(const id in o.les||{}){
     const b=o.les[id];if(!S.les[id]){S.les[id]=b;continue}
@@ -1706,13 +1863,15 @@ $("syApply").addEventListener("click",()=>{
 
 /* khởi động */
 if(S.pack&&S.pack.data){try{applyPack(S.pack.data,true)}catch(e){}}
+else if((S.mine||[]).length){try{rebuildLessons()}catch(e){}}
+mineRender();
 whoPaint();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
 if(S.cloud&&S.cloud.url&&S.cloud.code)setTimeout(()=>cloudSync(true),900);
 if(S.src){srcMsg("");setTimeout(()=>fetchPack(S.src,true),400)}
-else if(location.protocol!=="file:"){
+else if(location.protocol!=="file:"&&!(S.pack&&S.pack.data)){
   setTimeout(()=>{fetch("lessons.json",{cache:"no-store"})
     .then(r=>r.ok?r.json():null)
-    .then(o=>{if(o&&validPack(o)){applyPack(o,true);S.pack={t:Date.now(),data:o};save();
+    .then(o=>{if(o&&validPack(o)){applyPack(o,true);S.pack={t:0,data:o};save();
       srcMsg("Đã nạp "+o.lessons.length+" bài từ lessons.json cạnh app.")}})
     .catch(()=>{})},400)}
 $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";

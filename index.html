@@ -444,93 +444,87 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
       <div class="seg" id="segWake"><button data-w="1" aria-pressed="true">Giữ sáng khi phát</button><button data-w="0">Để tự tắt</button></div></div>
   </div>
   <div class="card">
-    <div class="row" style="align-items:flex-start">
-      <div style="flex:1;min-width:0">
-        <h3 style="margin:0">Bài học</h3>
-        <div class="score" id="pkState" style="margin-top:3px"></div>
-      </div>
-      <button class="mini" id="pkMore">Tuỳ chọn</button>
-    </div>
-    <div class="row" style="margin-top:12px">
-      <button class="btn" id="packPick">📄 Thêm bài từ file</button>
-      <button class="btn sec" id="mNew">✎ Soạn bài</button>
-      <input type="file" id="packFile" accept=".json,application/json" style="display:none">
-    </div>
+    <h3>Bài của tôi</h3>
+    <p class="hint" style="margin-top:2px">Soạn bài ngay tại đây. Nếu đã bật đồng bộ qua mạng, bài sẽ hiện trên mọi máy dùng cùng mã.</p>
     <div id="mineList" style="margin-top:11px"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" id="mNew">＋ Soạn bài mới</button>
+      <button class="mini" id="mHelp">Xem cách viết</button>
+    </div>
     <div id="mEdit" style="display:none;margin-top:12px">
       <textarea id="mBox" rows="12" placeholder="Dán hoặc gõ nội dung bài…" style="font-size:13px;line-height:1.7"></textarea>
       <div class="row" style="margin-top:9px">
         <button class="btn" id="mSave">Lưu bài</button>
-        <button class="mini" id="mHelp">Cách viết</button>
         <button class="mini" id="mCancel">Huỷ</button>
       </div>
-      <div id="mGuide" class="gnote" style="display:none;margin-top:11px;font-size:12.5px">
-        Dòng đầu <code>TEN: Bài 6 · Chủ đề</code><br>
-        Mở phần <code>PHAN: Bài khoá 1</code><br>
-        Mỗi câu: <code>người nói | 汉字 | pinyin | nghĩa</code><br>
-        Từ mới: <code>TU: 生日 | shēngrì | sinh nhật</code><br>
-        Câu hỏi (đáp án đúng đứng trước): <code>HOI: câu hỏi | đúng | sai | sai</code>
-      </div>
     </div>
-    <div id="pkAdv" style="display:none;margin-top:13px;padding-top:13px;border-top:1px solid var(--line)">
-      <div class="hint" style="margin:0 0 8px">Lấy bài từ một địa chỉ trên mạng, app tự tải mỗi lần mở.</div>
-      <input type="text" id="srcUrl" placeholder="https://… /lessons.json" style="width:100%;font-size:13px">
-      <div class="row" style="margin-top:8px">
-        <button class="btn sec" id="srcSave">Lưu địa chỉ</button>
-        <button class="mini" id="srcNow">Tải lại từ mạng</button>
-        <button class="mini" id="srcClear">Về bài gốc</button>
-      </div>
-    </div>
-    <div class="score" id="srcMsg"></div>
     <div class="score" id="mMsg"></div>
+    <div id="mGuide" class="gnote" style="display:none;margin-top:11px;font-size:12.5px">
+      <b>Cách viết</b><br>
+      Dòng đầu: <code>TEN: Bài 6 · Chủ đề</code><br>
+      Mở một phần: <code>PHAN: Bài khoá 1</code><br>
+      Mỗi câu hội thoại, ngăn bằng dấu |:<br>
+      <code>妈妈 | 明天是生日。 | Míngtiān shì shēngrì. | Mai là sinh nhật.</code><br>
+      (người nói | chữ Hán | pinyin | nghĩa)<br>
+      Từ mới:<br>
+      <code>TU: 生日 | shēngrì | sinh nhật</code><br>
+      Câu hỏi đọc hiểu (đáp án đúng đặt đầu tiên):<br>
+      <code>HOI: 明天是谁的生日？| 小雪 | 妈妈 | 爸爸</code>
+    </div>
   </div>
 
   <div class="card">
-    <div class="row" style="align-items:flex-start">
-      <div style="flex:1;min-width:0">
-        <h3 style="margin:0">Đồng bộ nhiều máy</h3>
-        <div class="score" id="cState" style="margin-top:3px"></div>
-      </div>
-      <button class="mini" id="cMore">Tuỳ chọn</button>
+    <h3>Nguồn bài học</h3>
+    <p class="hint" style="margin-top:2px">Dán link tới file <b>lessons.json</b> đặt trên mạng. App tự tải mỗi lần mở, nên thêm bài mới ở đó là mọi máy đều thấy. Để trống thì dùng các bài có sẵn trong file.</p>
+    <input type="text" id="srcUrl" placeholder="https://… /lessons.json" style="width:100%;margin-top:10px;font-size:13px">
+    <div class="row" style="margin-top:9px">
+      <button class="btn" id="srcSave">Lưu &amp; tải</button>
+      <button class="btn sec" id="srcNow">Tải lại ngay</button>
+      <button class="mini" id="srcClear">Dùng bài có sẵn</button>
     </div>
-    <div class="row" style="margin-top:12px" id="cOffRow">
-      <button class="btn" id="cStart">Bật đồng bộ</button>
+    <div class="row" style="margin-top:9px">
+      <button class="btn sec" id="packPick">📄 Tải file lessons.json từ máy</button>
+      <input type="file" id="packFile" accept=".json,application/json" style="display:none">
     </div>
-    <div class="row" style="margin-top:12px;display:none" id="cOnRow">
-      <button class="btn" id="cNow">Đồng bộ ngay</button>
-      <button class="mini" id="cOff">Tắt</button>
-    </div>
-    <div id="cForm" style="display:none;margin-top:12px">
-      <div class="hint" style="margin:0 0 8px">Dán địa chỉ kho Firebase, rồi dùng cùng một mã trên mọi máy.</div>
-      <input type="text" id="cUrl" placeholder="https://… .firebasedatabase.app" style="width:100%;font-size:13px">
-      <div class="row" style="margin-top:8px">
-        <input type="text" id="cCode" placeholder="mã của bạn" style="flex:1;font-size:13px">
-        <button class="mini" id="cGen">Tạo mã</button>
-      </div>
-      <div class="row" style="margin-top:9px">
-        <button class="btn" id="cSave">Lưu &amp; kết nối</button>
-        <button class="mini" id="cCancel">Huỷ</button>
-      </div>
-    </div>
-    <div class="score" id="cMsg"></div>
-    <div id="cAdv" style="display:none;margin-top:13px;padding-top:13px;border-top:1px solid var(--line)">
-      <div class="hint" style="margin:0 0 8px">Chuyển tiến độ bằng tay khi không dùng mạng. Dữ liệu được gộp, không ghi đè.</div>
-      <div class="row">
-        <button class="mini" id="syExport">Xuất ra file</button>
-        <button class="mini" id="syCopy">Sao chép mã</button>
-        <button class="mini" id="syPick">Nhập từ file</button>
-        <button class="mini" id="syPaste">Dán mã</button>
-        <input type="file" id="syFile" accept=".json,application/json" style="display:none">
-      </div>
-      <textarea id="syBox" rows="3" placeholder="Dán mã tiến độ vào đây…" style="display:none;margin-top:10px"></textarea>
-      <div class="row" id="syRow2" style="display:none">
-        <button class="btn" id="syApply">Nhập mã</button>
-        <button class="mini" id="syCancel">Huỷ</button>
-      </div>
-      <div class="score" id="syMsg"></div>
-    </div>
+    <p class="hint">Chọn file từ điện thoại hoặc máy tính là dùng được ngay. Nếu đã bật đồng bộ qua mạng, bộ bài cũng tự sang các máy khác.</p>
+    <div class="score" id="srcMsg"></div>
   </div>
 
+  <div class="card">
+    <h3>Đồng bộ qua mạng</h3>
+    <p class="hint" style="margin-top:2px">Học máy nào cũng tiếp tục đúng tiến độ. Dán địa chỉ kho dữ liệu, rồi dùng cùng một <b>mã của bạn</b> trên mọi máy.</p>
+    <input type="text" id="cUrl" placeholder="https://… .firebasedatabase.app" style="width:100%;margin-top:10px;font-size:13px">
+    <div class="row" style="margin-top:8px">
+      <input type="text" id="cCode" placeholder="mã của bạn, ví dụ duy-rua-2026" style="flex:1;font-size:13px">
+      <button class="mini" id="cGen">Tạo mã</button>
+    </div>
+    <div class="row" style="margin-top:9px">
+      <button class="btn" id="cSave">Bật đồng bộ</button>
+      <button class="btn sec" id="cNow">Đồng bộ ngay</button>
+      <button class="mini" id="cOff">Tắt</button>
+    </div>
+    <div class="score" id="cMsg"></div>
+  </div>
+
+  <div class="card">
+    <h3>Đồng bộ tiến độ</h3>
+    <p class="hint" style="margin-top:2px">Chuyển tiến độ giữa điện thoại và máy tính. Dữ liệu được <b>gộp</b>, không ghi đè: mặt nào học nhiều hơn thì giữ lại.</p>
+    <div class="row" style="margin-top:11px">
+      <button class="btn" id="syExport">Xuất ra file</button>
+      <button class="btn sec" id="syCopy">Sao chép mã</button>
+    </div>
+    <div class="row" style="margin-top:9px">
+      <button class="btn sec" id="syPick">Nhập từ file</button>
+      <input type="file" id="syFile" accept=".json,application/json" style="display:none">
+      <button class="btn sec" id="syPaste">Dán mã</button>
+    </div>
+    <textarea id="syBox" rows="3" placeholder="Dán mã tiến độ vào đây rồi bấm Nhập mã" style="display:none;margin-top:10px"></textarea>
+    <div class="row" id="syRow2" style="display:none">
+      <button class="btn" id="syApply">Nhập mã</button>
+      <button class="mini" id="syCancel">Huỷ</button>
+    </div>
+    <div class="score" id="syMsg"></div>
+  </div>
   <div id="voiceWarn" class="card" style="display:none;border-color:var(--warn)">
     <b style="font-size:14px">Chưa có giọng tiếng Trung</b>
     <p class="hint">Vào Cài đặt điện thoại → Trợ năng / Text-to-speech → tải thêm giọng 中文 (普通话), rồi mở lại trang này.</p>
@@ -1620,8 +1614,8 @@ async function fetchPack(url,quiet){
     if(!r.ok)throw new Error("HTTP "+r.status);
     const o=await r.json();
     const n=applyPack(o,quiet);
-    S.pack={t:0,data:o,src:"url"};save();pkStatus();
-    srcMsg("Đã tải "+n+" bài từ địa chỉ trên mạng.");
+    S.pack={t:0,data:o};save();
+    srcMsg("Đã cập nhật "+n+" bài lúc "+new Date().toLocaleTimeString("vi-VN"));
   }catch(e){
     srcMsg("Không tải được ("+e.message+"). Đang dùng bản đã lưu trong máy.",true)}}
 async function packToCloud(){
@@ -1641,7 +1635,7 @@ async function packFromCloud(){
   if(!o||!o.data||!validPack(o.data))return false;
   const now=(S.pack&&S.pack.data)?packSig(S.pack.data):"";
   if(now===packSig(o.data))return false;
-  applyPack(o.data,true);S.pack={t:o.t||Date.now(),data:o.data,src:"cloud"};save();pkStatus();
+  applyPack(o.data,true);S.pack={t:o.t||Date.now(),data:o.data};save();
   return true}
 $("packPick").addEventListener("click",()=>$("packFile").click());
 $("packFile").addEventListener("change",e=>{
@@ -1651,8 +1645,8 @@ $("packFile").addEventListener("change",e=>{
     try{
       const o=JSON.parse(r.result);
       const n=applyPack(o,true);
-      S.pack={t:Date.now(),data:o,src:"file"};S.src="";save();
-      $("srcUrl").value="";pkStatus();
+      S.pack={t:Date.now(),data:o};S.src="";save();
+      $("srcUrl").value="";
       srcMsg("Đã nạp "+n+" bài từ file. Đang gửi lên mạng…");
       try{await packToCloud();srcMsg("Đã nạp "+n+" bài và gửi sang các máy khác.")}
       catch(err){srcMsg("Đã nạp "+n+" bài (chỉ trên máy này — chưa bật đồng bộ hoặc mạng lỗi).")}
@@ -1661,44 +1655,9 @@ $("packFile").addEventListener("change",e=>{
 $("srcUrl").value=S.src||"";
 $("srcSave").addEventListener("click",()=>{S.src=$("srcUrl").value.trim();save();
   srcMsg("Đang tải…");fetchPack(S.src)});
-$("srcNow").addEventListener("click",async()=>{
-  srcMsg("Đang tải…");
-  if(S.src)return fetchPack(S.src);
-  try{
-    const r=await fetch("lessons.json?t="+Date.now(),{cache:"no-store"});
-    if(!r.ok)throw new Error("HTTP "+r.status);
-    const o=await r.json();
-    if(!validPack(o))throw new Error("file không hợp lệ");
-    const n=applyPack(o,true);S.pack={t:0,data:o,src:"app"};save();pkStatus();
-    srcMsg("Đã tải lại "+n+" bài.");
-    if(cloudOn())packToCloud().catch(()=>{});
-  }catch(e){srcMsg("Không tải được ("+e.message+").",true)}});
-$("srcClear").addEventListener("click",()=>{
-  if(!confirm("Xoá bộ bài đang lưu và tải lại từ đầu? Tiến độ học không mất."))return;
-  S.src="";S.pack=null;save();$("srcUrl").value="";location.reload()});
-
-/* ---------- trạng thái ---------- */
-const SRCN={file:"từ file bạn tải lên",url:"từ địa chỉ trên mạng",cloud:"nhận từ máy khác",app:"kèm theo app"};
-function pkStatus(){
-  const n=BASE_LESSONS.length,mine=(S.mine||[]).length;
-  const src=(S.pack&&S.pack.src)||"app";
-  const el=$("pkState");if(!el)return;
-  el.textContent=n+" bài · "+(SRCN[src]||"kèm theo app")+
-    (mine?" · "+mine+" bài bạn tự soạn":"")}
-function cStatus(){
-  const on=cloudOn(),el=$("cState");if(!el)return;
-  el.textContent=on
-    ?"Đang bật · mã "+S.cloud.code+(S.cloud.at?" · lần cuối "+new Date(S.cloud.at).toLocaleTimeString("vi-VN"):"")
-    :"Chưa bật — tiến độ chỉ lưu trên máy này";
-  el.style.color=on?"var(--jade)":"var(--muted)";
-  $("cOffRow").style.display=on?"none":"flex";
-  $("cOnRow").style.display=on?"flex":"none"}
-$("pkMore").addEventListener("click",()=>{const d=$("pkAdv");
-  d.style.display=d.style.display==="none"?"block":"none"});
-$("cMore").addEventListener("click",()=>{const d=$("cAdv");
-  d.style.display=d.style.display==="none"?"block":"none"});
-$("cStart").addEventListener("click",()=>{$("cForm").style.display="block";$("cUrl").focus()});
-$("cCancel").addEventListener("click",()=>{$("cForm").style.display="none"});
+$("srcNow").addEventListener("click",()=>{srcMsg("Đang tải…");fetchPack(S.src)});
+$("srcClear").addEventListener("click",()=>{S.src="";S.pack=null;save();$("srcUrl").value="";
+  location.reload()});
 
 /* ---------- bài tự soạn ---------- */
 function mMsg(t,bad){const m=$("mMsg");m.textContent=t;m.style.color=bad?"var(--accent)":"var(--jade)"}
@@ -1753,7 +1712,7 @@ function mineRender(){
         $("mEdit").style.display="block";$("mBox").focus();mMsg("Đang sửa: "+L.sub);return}
       if(b.dataset.a==="del"){
         if(!confirm("Xoá bài \""+L.sub+"\"?"))return;
-        S.mine=S.mine.filter(x=>x.id!==L.id);save();rebuildLessons();mineRender();pkStatus();
+        S.mine=S.mine.filter(x=>x.id!==L.id);save();rebuildLessons();mineRender();
         if(cloudOn())cloudPush().catch(()=>{});
         mMsg("Đã xoá.")}});
     box.appendChild(d)})}
@@ -1768,7 +1727,7 @@ $("mSave").addEventListener("click",()=>{
   try{L=parseLesson($("mBox").value)}catch(e){mMsg("Chưa lưu được: "+e.message,true);return}
   L.id=mEditId||("my"+Date.now().toString(36));
   S.mine=S.mine.filter(x=>x.id!==L.id).concat([L]);
-  save();rebuildLessons();mineRender();pkStatus();
+  save();rebuildLessons();mineRender();
   $("mEdit").style.display="none";mEditId=null;
   mMsg("Đã lưu \""+L.sub+"\" — "+L.parts.reduce((n,p)=>n+p.lines.length,0)+" câu, "+L.words.length+" từ.");
   if(cloudOn())cloudPush().catch(()=>{})});
@@ -1817,9 +1776,8 @@ async function cloudSync(quiet){
     if(got)srcMsg("Đã nhận bộ bài mới từ máy khác ("+BASE_LESSONS.length+" bài).");
     const n=await cloudPull(quiet);
     await cloudPush();
-    if(!quiet)cMsg("Đã đồng bộ"+(n?" · nhận thêm "+n+" mục":""));
-    else cMsg("");
-    cStatus();
+    if(!quiet)cMsg("Đã đồng bộ"+(n?", nhận thêm "+n+" mục":"")+" lúc "+new Date().toLocaleTimeString("vi-VN"));
+    else cMsg("Đồng bộ tự động lúc "+new Date().toLocaleTimeString("vi-VN"));
   }catch(e){cMsg("Không đồng bộ được ("+e.message+"). Tiến độ vẫn lưu trong máy.",true)}
   finally{syncing=false}}
 function cloudLater(){
@@ -1835,8 +1793,8 @@ $("cSave").addEventListener("click",async()=>{
   const u=$("cUrl").value.trim(),c=$("cCode").value.trim();
   if(!u||!c){cMsg("Cần cả địa chỉ kho và mã.",true);return}
   if(!/^[A-Za-z0-9_-]{3,40}$/.test(c)){cMsg("Mã chỉ gồm chữ thường, số và dấu gạch ngang.",true);return}
-  S.cloud={url:u,code:c,at:0};save();cStatus();$("cForm").style.display="none";
-  cMsg("Đang kết nối…");await cloudSync();cStatus();
+  S.cloud={url:u,code:c,at:0};save();
+  cMsg("Đang kết nối…");await cloudSync();
   if(S.pack&&S.pack.data)packToCloud().catch(()=>{})});
 $("cNow").addEventListener("click",async()=>{
   if(!cloudOn()){cMsg("Chưa bật đồng bộ.",true);return}
@@ -1845,8 +1803,8 @@ $("cNow").addEventListener("click",async()=>{
   try{got=await packFromCloud()}catch(e){}
   await cloudSync();
   if(got)cMsg("Đã nhận bộ "+BASE_LESSONS.length+" bài từ máy khác và đồng bộ tiến độ.");});
-$("cOff").addEventListener("click",()=>{S.cloud={url:"",code:"",at:0};save();cStatus();
-  $("cUrl").value="";$("cCode").value="";cMsg("Đã tắt. Tiến độ vẫn lưu trên máy này.")});
+$("cOff").addEventListener("click",()=>{S.cloud={url:"",code:"",at:0};save();
+  $("cUrl").value="";$("cCode").value="";cMsg("Đã tắt đồng bộ. Tiến độ vẫn lưu trong máy này.")});
 addEventListener("pagehide",()=>{if(cloudOn())try{
   navigator.sendBeacon&&navigator.sendBeacon(cloudURL(),new Blob([JSON.stringify(myData())],{type:"application/json"}))}catch(e){}});
 
@@ -1916,13 +1874,13 @@ $("syApply").addEventListener("click",()=>{
 if(S.pack&&S.pack.data){try{applyPack(S.pack.data,true)}catch(e){}}
 else if((S.mine||[]).length){try{rebuildLessons()}catch(e){}}
 mineRender();
-whoPaint();pkStatus();cStatus();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
+whoPaint();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
 if(S.cloud&&S.cloud.url&&S.cloud.code)setTimeout(()=>cloudSync(true),900);
 if(S.src){srcMsg("");setTimeout(()=>fetchPack(S.src,true),400)}
 else if(location.protocol!=="file:"&&!(S.pack&&S.pack.data)){
   setTimeout(()=>{fetch("lessons.json",{cache:"no-store"})
     .then(r=>r.ok?r.json():null)
-    .then(o=>{if(o&&validPack(o)){applyPack(o,true);S.pack={t:0,data:o,src:"app"};save();pkStatus();
+    .then(o=>{if(o&&validPack(o)){applyPack(o,true);S.pack={t:0,data:o};save();
       srcMsg("Đã nạp "+o.lessons.length+" bài từ lessons.json cạnh app.")}})
     .catch(()=>{})},400)}
 $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";

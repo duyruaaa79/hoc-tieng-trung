@@ -89,6 +89,18 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .les.all .n{background:var(--jade);color:#fff}
 .les.all{border-style:dashed}
 .sum{font-size:12.5px;color:var(--muted);margin:-4px 0 10px}
+.who-btn{background:var(--card2);border:1px solid var(--line);color:var(--ink);border-radius:999px;
+  padding:6px 12px;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:6px;flex:none}
+.who-btn b{font-weight:650}
+.prow{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:11px 13px;margin-bottom:7px;cursor:pointer;width:100%;text-align:left;color:inherit}
+.prow.cur{border-color:var(--accent);background:var(--accent-soft)}
+.prow .av{width:36px;height:36px;border-radius:50%;background:var(--card2);display:grid;place-items:center;
+  font-size:15px;font-weight:650;flex:none}
+.prow.cur .av{background:var(--accent);color:#fff}
+.prow .pm{flex:1;min-width:0}
+.prow .pm b{display:block;font-size:14.5px}
+.prow .pm span{font-size:12px;color:var(--muted)}
 .filt{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;padding-bottom:2px}
 .filt button{flex:none;background:var(--card2);border:1px solid var(--line);color:var(--muted);
   border-radius:999px;padding:6px 13px;font-size:12.5px;cursor:pointer;white-space:nowrap}
@@ -236,6 +248,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
     <div class="t zh" id="hdT">—</div>
     <div class="s" id="hdS">Chạm để đổi bài ▾</div>
   </button>
+  <button class="who-btn" id="btnWho"><span id="whoAv">●</span><b id="whoName">Tôi</b></button>
   <button class="icon" id="btnTheme">◐</button>
   <button class="icon" id="btnSet">⚙</button>
 </div></header>
@@ -399,6 +412,22 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
   <div id="lesPick"></div>
 </div>
 
+<div class="sheet" id="sheetWho">
+  <div class="grab"></div>
+  <div class="sh"><h3>Người học</h3><div class="sp"></div><button class="mini" data-close>Xong</button></div>
+  <p class="hint" style="margin-top:0">Mỗi người có tiến độ riêng. Dùng khi nhiều người học chung một máy — nếu bạn bè mở link trên máy của họ thì đã tách sẵn, không cần thêm ở đây.</p>
+  <div id="whoList" style="margin-top:12px"></div>
+  <div class="row" style="margin-top:11px">
+    <input type="text" id="whoNew" placeholder="Tên người học mới…" style="flex:1">
+    <button class="btn" id="whoAdd">Thêm</button>
+  </div>
+  <div class="row" style="margin-top:9px">
+    <button class="mini" id="whoRename">Đổi tên người đang chọn</button>
+    <button class="mini" id="whoDel">Xoá người đang chọn</button>
+  </div>
+  <div class="score" id="whoMsg"></div>
+</div>
+
 <div class="sheet" id="sheet">
   <div class="grab"></div>
   <div class="sh"><h3>Cài đặt</h3><div class="sp"></div><button class="mini" data-close>Xong</button></div>
@@ -424,6 +453,22 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
       <button class="mini" id="srcClear">Dùng bài có sẵn</button>
     </div>
     <div class="score" id="srcMsg"></div>
+  </div>
+
+  <div class="card">
+    <h3>Đồng bộ qua mạng</h3>
+    <p class="hint" style="margin-top:2px">Học máy nào cũng tiếp tục đúng tiến độ. Dán địa chỉ kho dữ liệu, rồi dùng cùng một <b>mã của bạn</b> trên mọi máy.</p>
+    <input type="text" id="cUrl" placeholder="https://… .firebasedatabase.app" style="width:100%;margin-top:10px;font-size:13px">
+    <div class="row" style="margin-top:8px">
+      <input type="text" id="cCode" placeholder="mã của bạn, ví dụ duy-rua-2026" style="flex:1;font-size:13px">
+      <button class="mini" id="cGen">Tạo mã</button>
+    </div>
+    <div class="row" style="margin-top:9px">
+      <button class="btn" id="cSave">Bật đồng bộ</button>
+      <button class="btn sec" id="cNow">Đồng bộ ngay</button>
+      <button class="mini" id="cOff">Tắt</button>
+    </div>
+    <div class="score" id="cMsg"></div>
   </div>
 
   <div class="card">
@@ -765,8 +810,13 @@ const DICT=Object.assign({},BASEDICT,EXTRA);
 
 
 const $=id=>document.getElementById(id);
-const KEY="hoctrung_v3";
-let S={srs:{},mark:[],extra:{},les:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,src:"",pack:null};
+const PKEY="hoctrung_users";
+let USERS={list:[{id:"u1",name:"Tôi"}],cur:"u1"};
+try{const r=localStorage.getItem(PKEY);if(r)USERS=Object.assign(USERS,JSON.parse(r))}catch(e){}
+function saveUsers(){try{localStorage.setItem(PKEY,JSON.stringify(USERS))}catch(e){}}
+function curUser(){return USERS.list.find(u=>u.id===USERS.cur)||USERS.list[0]}
+const KEY=USERS.cur==="u1"?"hoctrung_v3":"hoctrung_v3_"+USERS.cur;
+let S={srs:{},mark:[],extra:{},les:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,src:"",pack:null,cloud:{url:"",code:"",at:0}};
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 let saveT=null;
 function save(){clearTimeout(saveT);saveT=setTimeout(()=>{
@@ -775,7 +825,8 @@ addEventListener("pagehide",()=>{clearTimeout(saveT);
   try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}});
 let L=LESSONS.find(x=>x.id===S.cur)||LESSONS[0];
 function les(){return S.les[L.id]||(S.les[L.id]={listened:0,drill:{ok:0,total:0},last:null})}
-function touch(){les().last=Date.now();homeDirty=true;save()}
+function touch(){les().last=Date.now();homeDirty=true;save();
+  if(typeof cloudLater==="function")cloudLater()}
 
 if(S.theme)document.documentElement.dataset.theme=S.theme;
 $("btnTheme").addEventListener("click",()=>{
@@ -1428,7 +1479,8 @@ function sheet(which){
   const on=!!which;
   $("scrim").classList.toggle("on",on);
   $("sheet").classList.toggle("on",which==="set");
-  $("sheetLes").classList.toggle("on",which==="les")}
+  $("sheetLes").classList.toggle("on",which==="les");
+  $("sheetWho").classList.toggle("on",which==="who")}
 $("btnSet").addEventListener("click",()=>sheet("set"));
 $("btnLes").addEventListener("click",()=>{renderLessons($("lesPick"));sheet("les")});
 $("scrim").addEventListener("click",()=>sheet(null));
@@ -1450,6 +1502,55 @@ $("segSay").addEventListener("click",e=>{const b=e.target.closest("button");if(!
 $("segWake").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
   [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));
   S.wake=b.dataset.w==="1";save();if(S.wake&&playing)wakeOn();else wakeOff()});
+
+/* ---------- người học ---------- */
+function whoPaint(){
+  const u=curUser();
+  $("whoName").textContent=u.name;
+  $("whoAv").textContent=(u.name.trim()[0]||"?").toUpperCase();
+}
+function userStats(id){
+  const k=id==="u1"?"hoctrung_v3":"hoctrung_v3_"+id;
+  try{const o=JSON.parse(localStorage.getItem(k)||"{}");
+    const srs=o.srs||{};let known=0,n=0;
+    for(const z in srs){n++;const r=srs[z];
+      if(r&&SK.every(x=>r[x]&&r[x].box>=3))known++}
+    return{n:n,known:known,last:Math.max(0,...Object.values(o.les||{}).map(l=>l.last||0))}
+  }catch(e){return{n:0,known:0,last:0}}}
+function whoList(){
+  const box=$("whoList");box.innerHTML="";
+  USERS.list.forEach(u=>{
+    const st=userStats(u.id);
+    const b=document.createElement("button");
+    b.className="prow"+(u.id===USERS.cur?" cur":"");
+    b.innerHTML='<span class="av">'+((u.name.trim()[0]||"?").toUpperCase())+'</span>'+
+      '<span class="pm"><b>'+u.name+'</b><span>'+
+      (st.n?st.known+" từ đã thuộc · đã đụng "+st.n+" từ":"chưa học gì")+
+      (st.last?" · "+new Date(st.last).toLocaleDateString("vi-VN"):"")+'</span></span>'+
+      (u.id===USERS.cur?'<span style="color:var(--accent)">✓</span>':'');
+    b.addEventListener("click",()=>{
+      if(u.id===USERS.cur){sheet(null);return}
+      USERS.cur=u.id;saveUsers();location.reload()});
+    box.appendChild(b)});
+}
+$("btnWho").addEventListener("click",()=>{whoList();sheet("who")});
+$("whoAdd").addEventListener("click",()=>{
+  const n=$("whoNew").value.trim();
+  if(!n){$("whoMsg").textContent="Nhập tên trước đã.";return}
+  if(USERS.list.length>=8){$("whoMsg").textContent="Tối đa 8 người.";return}
+  const id="u"+Date.now().toString(36);
+  USERS.list.push({id:id,name:n});USERS.cur=id;saveUsers();location.reload()});
+$("whoNew").addEventListener("keydown",e=>{if(e.key==="Enter")$("whoAdd").click()});
+$("whoRename").addEventListener("click",()=>{
+  const u=curUser(),n=prompt("Tên mới cho \""+u.name+"\":",u.name);
+  if(n&&n.trim()){u.name=n.trim();saveUsers();whoPaint();whoList()}});
+$("whoDel").addEventListener("click",()=>{
+  if(USERS.list.length<2){$("whoMsg").textContent="Phải còn ít nhất một người.";return}
+  const u=curUser();
+  if(!confirm("Xoá \""+u.name+"\" cùng toàn bộ tiến độ của người này? Không khôi phục được."))return;
+  try{localStorage.removeItem(u.id==="u1"?"hoctrung_v3":"hoctrung_v3_"+u.id)}catch(e){}
+  USERS.list=USERS.list.filter(x=>x.id!==u.id);USERS.cur=USERS.list[0].id;
+  saveUsers();location.reload()});
 
 /* ---------- nguồn bài học tự cập nhật ---------- */
 function srcMsg(t,bad){const m=$("srcMsg");m.textContent=t;m.style.color=bad?"var(--accent)":"var(--jade)"}
@@ -1487,6 +1588,63 @@ $("srcSave").addEventListener("click",()=>{S.src=$("srcUrl").value.trim();save()
 $("srcNow").addEventListener("click",()=>{srcMsg("Đang tải…");fetchPack(S.src)});
 $("srcClear").addEventListener("click",()=>{S.src="";S.pack=null;save();$("srcUrl").value="";
   location.reload()});
+
+/* ---------- đồng bộ qua mạng ---------- */
+function cMsg(t,bad){const m=$("cMsg");m.textContent=t;m.style.color=bad?"var(--accent)":"var(--jade)"}
+function cloudOn(){return !!(S.cloud&&S.cloud.url&&S.cloud.code)}
+function cloudURL(){
+  let u=S.cloud.url.trim().replace(/\/+$/,"");
+  if(!/^https?:\/\//.test(u))u="https://"+u;
+  return u+"/study/"+encodeURIComponent(S.cloud.code)+".json"}
+function myData(){
+  const srs={};
+  for(const z in S.srs){const r=S.srs[z];if(SK.some(k=>r[k]&&r[k].seen>0))srs[z]=r}
+  return{v:3,t:Date.now(),srs:srs,mark:S.mark,extra:S.extra,les:S.les}}
+let pushT=null,syncing=false;
+async function cloudPull(quiet){
+  if(!cloudOn())return 0;
+  const r=await fetch(cloudURL(),{cache:"no-store"});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  const o=await r.json();
+  if(!o||!o.srs)return 0;
+  return mergeState(o)}
+async function cloudPush(){
+  if(!cloudOn())return;
+  const r=await fetch(cloudURL(),{method:"PUT",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(myData())});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  S.cloud.at=Date.now();save()}
+async function cloudSync(quiet){
+  if(!cloudOn()||syncing)return;
+  syncing=true;
+  try{
+    const n=await cloudPull(quiet);
+    await cloudPush();
+    if(!quiet)cMsg("Đã đồng bộ"+(n?", nhận thêm "+n+" mục":"")+" lúc "+new Date().toLocaleTimeString("vi-VN"));
+    else cMsg("Đồng bộ tự động lúc "+new Date().toLocaleTimeString("vi-VN"));
+  }catch(e){cMsg("Không đồng bộ được ("+e.message+"). Tiến độ vẫn lưu trong máy.",true)}
+  finally{syncing=false}}
+function cloudLater(){
+  if(!cloudOn())return;
+  clearTimeout(pushT);
+  pushT=setTimeout(()=>cloudPush().catch(()=>{}),4000)}
+$("cUrl").value=(S.cloud&&S.cloud.url)||"";
+$("cCode").value=(S.cloud&&S.cloud.code)||"";
+$("cGen").addEventListener("click",()=>{
+  const n=(curUser().name||"user").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"user";
+  $("cCode").value=n+"-"+Math.random().toString(36).slice(2,8)});
+$("cSave").addEventListener("click",async()=>{
+  const u=$("cUrl").value.trim(),c=$("cCode").value.trim();
+  if(!u||!c){cMsg("Cần cả địa chỉ kho và mã.",true);return}
+  if(!/^[A-Za-z0-9_-]{3,40}$/.test(c)){cMsg("Mã chỉ gồm chữ thường, số và dấu gạch ngang.",true);return}
+  S.cloud={url:u,code:c,at:0};save();
+  cMsg("Đang kết nối…");await cloudSync()});
+$("cNow").addEventListener("click",()=>{if(!cloudOn()){cMsg("Chưa bật đồng bộ.",true);return}
+  cMsg("Đang đồng bộ…");cloudSync()});
+$("cOff").addEventListener("click",()=>{S.cloud={url:"",code:"",at:0};save();
+  $("cUrl").value="";$("cCode").value="";cMsg("Đã tắt đồng bộ. Tiến độ vẫn lưu trong máy này.")});
+addEventListener("pagehide",()=>{if(cloudOn())try{
+  navigator.sendBeacon&&navigator.sendBeacon(cloudURL(),new Blob([JSON.stringify(myData())],{type:"application/json"}))}catch(e){}});
 
 /* ---------- đồng bộ tiến độ ---------- */
 function syData(){
@@ -1548,7 +1706,8 @@ $("syApply").addEventListener("click",()=>{
 
 /* khởi động */
 if(S.pack&&S.pack.data){try{applyPack(S.pack.data,true)}catch(e){}}
-hdr();buildRoles();renderWords();nextTask();renderHome();btns();
+whoPaint();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
+if(S.cloud&&S.cloud.url&&S.cloud.code)setTimeout(()=>cloudSync(true),900);
 if(S.src){srcMsg("");setTimeout(()=>fetchPack(S.src,true),400)}
 else if(location.protocol!=="file:"){
   setTimeout(()=>{fetch("lessons.json",{cache:"no-store"})

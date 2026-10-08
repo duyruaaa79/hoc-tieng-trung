@@ -7726,6 +7726,993 @@
      "a": 2
     }
    ]
+  },
+  {
+   "id": "hsk2-1",
+   "book": "Giáo trình New HSK 2",
+   "title": "第一课",
+   "sub": "Bài 1 · Đón khách ở sân bay",
+   "parts": [
+    {
+     "name": "Bài khoá 1 · Ở sân bay",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在机场，王一雪接到了白家月和安妮。",
+       "py": "Zài jīchǎng, Wáng Yīxuě jiēdàole Bái Jiāyuè hé Ānnī.",
+       "vi": "Vương Nhất Tuyết đã đón được Bạch Gia Nguyệt và Annie ở sân bay."
+      },
+      {
+       "who": "白家月",
+       "zh": "请问，您是王一飞老师的姐姐吗？",
+       "py": "Qǐngwèn, nín shì Wáng Yīfēi lǎoshī de jiějie ma?",
+       "vi": "Xin hỏi, chị là chị gái của cô Vương Nhất Phi phải không ạ?"
+      },
+      {
+       "who": "王一雪",
+       "zh": "是的，你们就是她的学生吧？",
+       "py": "Shì de, nǐmen jiù shì tā de xuésheng ba?",
+       "vi": "Đúng rồi, các em là học sinh của cô ấy phải không?"
+      },
+      {
+       "who": "白家月",
+       "zh": "对。我是白家月，她是安妮。",
+       "py": "Duì. Wǒ shì Bái Jiāyuè, tā shì Ānnī.",
+       "vi": "Vâng ạ, em là Bạch Gia Nguyệt, bạn ấy là Annie."
+      },
+      {
+       "who": "王一雪",
+       "zh": "你们好，我叫王一雪。一飞给我打电话了，让我来接你们。",
+       "py": "Nǐmen hǎo, wǒ jiào Wáng Yīxuě. Yīfēi gěi wǒ dǎ diànhuà le, ràng wǒ lái jiē nǐmen.",
+       "vi": "Chào các em. Chị tên là Vương Nhất Tuyết. Nhất Phi đã gọi điện cho chị, nhờ chị đến đón các em."
+      },
+      {
+       "who": "白家月·安妮",
+       "zh": "谢谢您。",
+       "py": "Xièxie nín.",
+       "vi": "Chúng em cảm ơn chị ạ."
+      },
+      {
+       "who": "王一雪",
+       "zh": "不客气。",
+       "py": "Bú kèqi.",
+       "vi": "Đừng khách sáo vậy."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 2 · Trên xe",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在王一雪的车里，白家月、安妮和王一雪在聊天儿。",
+       "py": "Zài Wáng Yīxuě de chē li, Bái Jiāyuè, Ānnī hé Wáng Yīxuě zài liáotiānr.",
+       "vi": "Vương Nhất Tuyết trò chuyện cùng Bạch Gia Nguyệt và Annie trong xe của cô ấy."
+      },
+      {
+       "who": "王一雪",
+       "zh": "你们是第一次来北京吗？",
+       "py": "Nǐmen shì dì-yī cì lái Běijīng ma?",
+       "vi": "Đây là lần đầu các em đến Bắc Kinh phải không?"
+      },
+      {
+       "who": "白家月",
+       "zh": "是的，我们都是第一次来。",
+       "py": "Shì de, wǒmen dōu shì dì-yī cì lái.",
+       "vi": "Vâng ạ, chúng em đều là lần đầu tiên đến đây ạ."
+      },
+      {
+       "who": "王一雪",
+       "zh": "你们是来学中文的吗？",
+       "py": "Nǐmen shì lái xué Zhōngwén de ma?",
+       "vi": "Các em đến học tiếng Trung Quốc à?"
+      },
+      {
+       "who": "安妮",
+       "zh": "不是，我们是来旅游的。",
+       "py": "Bú shì, wǒmen shì lái lǚyóu de.",
+       "vi": "Không phải, chúng em đến du lịch ạ."
+      },
+      {
+       "who": "王一雪",
+       "zh": "我这几天都不忙，你们有事就找我。",
+       "py": "Wǒ zhè jǐ tiān dōu bù máng, nǐmen yǒu shì jiù zhǎo wǒ.",
+       "vi": "Mấy hôm nay chị đều không bận, các em có việc gì thì cứ tìm chị nhé."
+      },
+      {
+       "who": "白家月",
+       "zh": "好的，谢谢您。",
+       "py": "Hǎo de, xièxie nín.",
+       "vi": "Vâng ạ, cảm ơn chị."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 3 · Cuộc điện thoại",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在王一雪的车上，白家月接了个电话。",
+       "py": "Zài Wáng Yīxuě de chē shang, Bái Jiāyuè jiēle ge diànhuà.",
+       "vi": "Bạch Gia Nguyệt nhận được một cuộc điện thoại khi đang ở trên xe của Vương Nhất Tuyết."
+      },
+      {
+       "who": "陈天中",
+       "zh": "喂，家月，你明天有时间吗？我想请你帮个忙。",
+       "py": "Wèi, Jiāyuè, nǐ míngtiān yǒu shíjiān ma? Wǒ xiǎng qǐng nǐ bāng ge máng.",
+       "vi": "A lô, Gia Nguyệt à, mai bạn có thời gian không? Mình muốn nhờ bạn giúp một việc."
+      },
+      {
+       "who": "白家月",
+       "zh": "不好意思，天中，我已经到北京了。",
+       "py": "Bù hǎoyìsi, Tiānzhōng, wǒ yǐjīng dào Běijīng le.",
+       "vi": "Xin lỗi Thiên Trung nhé, mình đã đến Bắc Kinh rồi."
+      },
+      {
+       "who": "陈天中",
+       "zh": "你是什么时候到的？",
+       "py": "Nǐ shì shénme shíhou dào de?",
+       "vi": "Bạn đến khi nào vậy?"
+      },
+      {
+       "who": "白家月",
+       "zh": "我是今天早上到的。你有事可以叫李文帮忙，他还在学校呢。",
+       "py": "Wǒ shì jīntiān zǎoshang dào de. Nǐ yǒu shì kěyǐ jiào Lǐ Wén bāngmáng, tā hái zài xuéxiào ne.",
+       "vi": "Sáng hôm nay mình đến. Nếu bạn cần giúp việc gì thì có thể nhờ Lý Văn nhé, bạn ấy vẫn đang ở trường."
+      },
+      {
+       "who": "陈天中",
+       "zh": "好的，那我给他打个电话。",
+       "py": "Hǎo de, nà wǒ gěi tā dǎ ge diànhuà.",
+       "vi": "Được rồi, vậy mình sẽ gọi điện thoại cho bạn ấy."
+      },
+      {
+       "who": "白家月",
+       "zh": "好，再见！",
+       "py": "Hǎo, zàijiàn!",
+       "vi": "Ừ, tạm biệt nhé."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 4 · Nhắn tin cho cô giáo",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在酒店，白家月给王一飞发信息。",
+       "py": "Zài jiǔdiàn, Bái Jiāyuè gěi Wáng Yīfēi fā xìnxī.",
+       "vi": "Bạch Gia Nguyệt nhắn tin cho cô Vương Nhất Phi ở trong khách sạn."
+      },
+      {
+       "who": "白家月",
+       "zh": "王老师，我们已经到北京了，是您姐姐来接的我们。",
+       "py": "Wáng lǎoshī, wǒmen yǐjīng dào Běijīng le, shì nín jiějie lái jiē de wǒmen.",
+       "vi": "Thưa cô Vương, chúng em đã tới Bắc Kinh rồi, chị gái của cô đã tới đón chúng em."
+      },
+      {
+       "who": "白家月",
+       "zh": "她请我们吃了北京烤鸭，还给我们介绍了很多东西。",
+       "py": "Tā qǐng wǒmen chīle Běijīng Kǎoyā, hái gěi wǒmen jièshàole hěn duō dōngxi.",
+       "vi": "Chị ấy đã mời chúng em ăn vịt quay Bắc Kinh, còn giới thiệu cho chúng em rất nhiều thứ."
+      },
+      {
+       "who": "白家月",
+       "zh": "我们的中文不太好，有时不太懂她的意思。",
+       "py": "Wǒmen de Zhōngwén bú tài hǎo, yǒushí bú tài dǒng tā de yìsi.",
+       "vi": "Tiếng Trung Quốc của chúng em không tốt lắm, đôi khi chưa hiểu hết ý của chị ấy."
+      }
+     ]
+    }
+   ],
+   "words": [
+    {
+     "zh": "就",
+     "py": "jiù",
+     "vi": "chính (là), thì"
+    },
+    {
+     "zh": "给",
+     "py": "gěi",
+     "vi": "cho"
+    },
+    {
+     "zh": "让",
+     "py": "ràng",
+     "vi": "bảo, để, cho phép, nhờ"
+    },
+    {
+     "zh": "接",
+     "py": "jiē",
+     "vi": "đón"
+    },
+    {
+     "zh": "次",
+     "py": "cì",
+     "vi": "lần"
+    },
+    {
+     "zh": "旅游",
+     "py": "lǚyóu",
+     "vi": "du lịch"
+    },
+    {
+     "zh": "帮忙",
+     "py": "bāngmáng",
+     "vi": "giúp đỡ"
+    },
+    {
+     "zh": "不好意思",
+     "py": "bù hǎoyìsi",
+     "vi": "xin lỗi, áy náy, ngại"
+    },
+    {
+     "zh": "已经",
+     "py": "yǐjīng",
+     "vi": "đã"
+    },
+    {
+     "zh": "那",
+     "py": "nà",
+     "vi": "vậy, vậy thì, thế thì"
+    },
+    {
+     "zh": "介绍",
+     "py": "jièshào",
+     "vi": "giới thiệu"
+    },
+    {
+     "zh": "有时",
+     "py": "yǒushí",
+     "vi": "có lúc, có khi"
+    },
+    {
+     "zh": "懂",
+     "py": "dǒng",
+     "vi": "hiểu"
+    },
+    {
+     "zh": "意思",
+     "py": "yìsi",
+     "vi": "ý, ý nghĩa"
+    },
+    {
+     "zh": "北京烤鸭",
+     "py": "Běijīng Kǎoyā",
+     "vi": "vịt quay Bắc Kinh"
+    }
+   ],
+   "grammar": [],
+   "quiz": [
+    {
+     "q": "谁来接白家月了？",
+     "o": [
+      "王一飞",
+      "王一雪",
+      "她的姐姐"
+     ],
+     "a": 1
+    },
+    {
+     "q": "王一飞给谁打电话了？",
+     "o": [
+      "安妮",
+      "白家月",
+      "王一雪"
+     ],
+     "a": 2
+    },
+    {
+     "q": "白家月是第几次来北京？",
+     "o": [
+      "第一次",
+      "第四次",
+      "第七次"
+     ],
+     "a": 0
+    },
+    {
+     "q": "白家月和安妮是来北京做什么的？",
+     "o": [
+      "旅游",
+      "学中文",
+      "找王一雪"
+     ],
+     "a": 0
+    },
+    {
+     "q": "陈天中为什么给白家月打电话？",
+     "o": [
+      "找她帮忙",
+      "请她吃饭",
+      "让她接个朋友"
+     ],
+     "a": 0
+    },
+    {
+     "q": "白家月是什么时候到北京的？",
+     "o": [
+      "昨天中午",
+      "昨天晚上",
+      "今天早上"
+     ],
+     "a": 2
+    },
+    {
+     "q": "王老师的姐姐请白家月吃什么了？",
+     "o": [
+      "面包",
+      "饺子",
+      "北京烤鸭"
+     ],
+     "a": 2
+    },
+    {
+     "q": "白家月为什么不懂王老师姐姐的意思？",
+     "o": [
+      "她不会中文",
+      "她的中文不太好",
+      "没有王老师帮忙"
+     ],
+     "a": 1
+    }
+   ]
+  },
+  {
+   "id": "hsk2-2",
+   "book": "Giáo trình New HSK 2",
+   "title": "第二课",
+   "sub": "Bài 2 · Đi lại & thăm trường",
+   "parts": [
+    {
+     "name": "Bài khoá 1 · Hỏi đường ở lễ tân",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在宾馆前台，白家月和安妮向服务员咨询。",
+       "py": "Zài bīnguǎn qiántái, Bái Jiāyuè hé Ānnī xiàng fúwùyuán zīxún.",
+       "vi": "Bạch Gia Nguyệt và Annie hỏi nhân viên phục vụ tại quầy lễ tân khách sạn."
+      },
+      {
+       "who": "白家月",
+       "zh": "请问，这儿有到北京大学的公交车吗？",
+       "py": "Qǐngwèn, zhèr yǒu dào Běijīng Dàxué de gōngjiāochē ma?",
+       "vi": "Xin hỏi, ở đây có xe buýt đi đến Đại học Bắc Kinh không?"
+      },
+      {
+       "who": "服务员",
+       "zh": "有，但车站有点儿远。",
+       "py": "Yǒu, dàn chēzhàn yǒudiǎnr yuǎn.",
+       "vi": "Có đấy, nhưng bến xe buýt hơi xa."
+      },
+      {
+       "who": "白家月",
+       "zh": "这儿好打车吗？",
+       "py": "Zhèr hǎo dǎchē ma?",
+       "vi": "Ở đây gọi xe taxi có dễ không vậy?"
+      },
+      {
+       "who": "服务员",
+       "zh": "好打车。",
+       "py": "Hǎo dǎchē.",
+       "vi": "Dễ gọi."
+      },
+      {
+       "who": "白家月",
+       "zh": "谢谢。安妮，我们还是打车去吧。",
+       "py": "Xièxie. Ānnī, wǒmen háishi dǎchē qù ba.",
+       "vi": "Cảm ơn! Annie, chúng ta vẫn nên gọi xe taxi đi thôi."
+      },
+      {
+       "who": "安妮",
+       "zh": "好，没问题。",
+       "py": "Hǎo, méi wèntí.",
+       "vi": "Được, không vấn đề gì cả."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 2 · Trong khuôn viên Đại học Bắc Kinh",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在北京大学，白家月和安妮在参观校园。",
+       "py": "Zài Běijīng Dàxué, Bái Jiāyuè hé Ānnī zài cānguān xiàoyuán.",
+       "vi": "Bạch Gia Nguyệt và Annie đang tham quan khuôn viên trường Đại học Bắc Kinh."
+      },
+      {
+       "who": "白家月",
+       "zh": "学校里人真多啊！",
+       "py": "Xuéxiào li rén zhēn duō a!",
+       "vi": "Trường học đông người quá!"
+      },
+      {
+       "who": "安妮",
+       "zh": "是啊，北京大学有四万多名学生呢！",
+       "py": "Shì a, Běijīng Dàxué yǒu sìwàn duō míng xuésheng ne!",
+       "vi": "Đúng vậy, Đại học Bắc Kinh có hơn 40 000 sinh viên."
+      },
+      {
+       "who": "白家月",
+       "zh": "你是怎么知道的？",
+       "py": "Nǐ shì zěnme zhīdào de?",
+       "vi": "Làm sao bạn biết được thế?"
+      },
+      {
+       "who": "安妮",
+       "zh": "是网上说的，网上还说北京大学有三千多名外国学生。",
+       "py": "Shì wǎngshang shuō de, wǎngshang hái shuō Běijīng Dàxué yǒu sānqiān duō míng wàiguó xuésheng.",
+       "vi": "Là thông tin trên mạng nói vậy, trên mạng còn cho biết Đại học Bắc Kinh có hơn 3 000 sinh viên nước ngoài."
+      },
+      {
+       "who": "白家月",
+       "zh": "我也想来这儿学习。",
+       "py": "Wǒ yě xiǎng lái zhèr xuéxí.",
+       "vi": "Mình cũng muốn đến đây học tập."
+      },
+      {
+       "who": "安妮",
+       "zh": "那边就有一间教室，我们去看一下吧。",
+       "py": "Nàbiān jiù yǒu yì jiān jiàoshì, wǒmen qù kàn yíxià ba.",
+       "vi": "Đằng kia có một phòng học, chúng ta đến xem đi."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 3 · Rạp chiếu phim trong trường",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在北京大学，白家月和安妮在参观校园。",
+       "py": "Zài Běijīng Dàxué, Bái Jiāyuè hé Ānnī zài cānguān xiàoyuán.",
+       "vi": "Bạch Gia Nguyệt và Annie đang tham quan khuôn viên trường Đại học Bắc Kinh."
+      },
+      {
+       "who": "安妮",
+       "zh": "家月，你看，学校里有家电影院！",
+       "py": "Jiāyuè, nǐ kàn, xuéxiào li yǒu jiā diànyǐngyuàn!",
+       "vi": "Gia Nguyệt, bạn nhìn kia, trong trường có rạp chiếu phim đấy."
+      },
+      {
+       "who": "白家月",
+       "zh": "是啊，电影院还不小。",
+       "py": "Shì a, diànyǐngyuàn hái bù xiǎo.",
+       "vi": "Đúng rồi, rạp chiếu phim cũng không nhỏ."
+      },
+      {
+       "who": "安妮",
+       "zh": "他们卖的电影票也很便宜。",
+       "py": "Tāmen mài de diànyǐngpiào yě hěn piányi.",
+       "vi": "Họ bán vé xem phim cũng rất rẻ nhé."
+      },
+      {
+       "who": "白家月",
+       "zh": "天啊！有的还不到二十块钱。",
+       "py": "Tiān a! Yǒude hái bú dào èrshí kuài qián.",
+       "vi": "Trời, có loại vé còn không đến 20 đồng kia."
+      },
+      {
+       "who": "安妮",
+       "zh": "那你想不想去看个电影？",
+       "py": "Nà nǐ xiǎng bu xiǎng qù kàn ge diànyǐng?",
+       "vi": "Thế bạn có muốn đi xem phim không?"
+      },
+      {
+       "who": "白家月",
+       "zh": "还是别看电影了，北京大学就很好看！",
+       "py": "Háishi bié kàn diànyǐng le, Běijīng Dàxué jiù hěn hǎokàn!",
+       "vi": "Thôi đừng xem phim nữa, Đại học Bắc Kinh đã rất đẹp rồi."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 4 · Nhắn tin kể chuyện",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在北京大学门口，白家月给陈天中发信息。",
+       "py": "Zài Běijīng Dàxué ménkǒu, Bái Jiāyuè gěi Chén Tiānzhōng fā xìnxī.",
+       "vi": "Bạch Gia Nguyệt gửi tin nhắn cho Trần Thiên Trung tại cổng trường Đại học Bắc Kinh."
+      },
+      {
+       "who": "白家月",
+       "zh": "北京大学很大，有四万多名学生。",
+       "py": "Běijīng Dàxué hěn dà, yǒu sìwàn duō míng xuésheng.",
+       "vi": "Đại học Bắc Kinh rất lớn, có hơn 40 000 sinh viên."
+      },
+      {
+       "who": "白家月",
+       "zh": "学校很漂亮，里边还有家电影院，电影票也不贵。",
+       "py": "Xuéxiào hěn piàoliang, lǐbian hái yǒu jiā diànyǐngyuàn, diànyǐngpiào yě bú guì.",
+       "vi": "Trường rất đẹp, trong trường còn có rạp chiếu phim, vé xem phim cũng không đắt."
+      },
+      {
+       "who": "白家月",
+       "zh": "我们有时间还想再过来看个电影。",
+       "py": "Wǒmen yǒu shíjiān hái xiǎng zài guòlái kàn ge diànyǐng.",
+       "vi": "Chúng tôi vẫn muốn quay lại để xem phim nếu có thời gian."
+      }
+     ]
+    }
+   ],
+   "words": [
+    {
+     "zh": "公交车",
+     "py": "gōngjiāochē",
+     "vi": "xe buýt"
+    },
+    {
+     "zh": "但",
+     "py": "dàn",
+     "vi": "nhưng, nhưng mà"
+    },
+    {
+     "zh": "车站",
+     "py": "chēzhàn",
+     "vi": "bến xe buýt"
+    },
+    {
+     "zh": "远",
+     "py": "yuǎn",
+     "vi": "xa"
+    },
+    {
+     "zh": "打车",
+     "py": "dǎchē",
+     "vi": "gọi xe, đi xe, bắt (taxi)"
+    },
+    {
+     "zh": "还是",
+     "py": "háishi",
+     "vi": "vẫn, tốt hơn là..."
+    },
+    {
+     "zh": "啊",
+     "py": "a",
+     "vi": "(trợ từ ngữ khí)"
+    },
+    {
+     "zh": "万",
+     "py": "wàn",
+     "vi": "vạn, mười nghìn"
+    },
+    {
+     "zh": "名",
+     "py": "míng",
+     "vi": "(lượng từ chỉ người), thứ hạng, tên"
+    },
+    {
+     "zh": "网上",
+     "py": "wǎngshang",
+     "vi": "trên mạng"
+    },
+    {
+     "zh": "外国",
+     "py": "wàiguó",
+     "vi": "nước ngoài"
+    },
+    {
+     "zh": "间",
+     "py": "jiān",
+     "vi": "gian, căn... (phòng)"
+    },
+    {
+     "zh": "教室",
+     "py": "jiàoshì",
+     "vi": "phòng học"
+    },
+    {
+     "zh": "票",
+     "py": "piào",
+     "vi": "vé"
+    },
+    {
+     "zh": "别",
+     "py": "bié",
+     "vi": "đừng"
+    },
+    {
+     "zh": "过来",
+     "py": "guòlái",
+     "vi": "đến, đến đây"
+    },
+    {
+     "zh": "北京大学",
+     "py": "Běijīng Dàxué",
+     "vi": "Đại học Bắc Kinh"
+    }
+   ],
+   "grammar": [],
+   "quiz": [
+    {
+     "q": "白家月和安妮想去哪儿？",
+     "o": [
+      "饭店",
+      "车站",
+      "北京大学"
+     ],
+     "a": 2
+    },
+    {
+     "q": "白家月和安妮怎么去那儿？",
+     "o": [
+      "开车",
+      "坐出租车",
+      "坐公交车"
+     ],
+     "a": 1
+    },
+    {
+     "q": "北京大学有多少学生？",
+     "o": [
+      "三千多",
+      "四万多",
+      "十万多"
+     ],
+     "a": 1
+    },
+    {
+     "q": "白家月想在北京大学做什么？",
+     "o": [
+      "玩",
+      "学习",
+      "找教室"
+     ],
+     "a": 1
+    },
+    {
+     "q": "安妮说北京大学里有什么？",
+     "o": [
+      "银行",
+      "电影院",
+      "公交车站"
+     ],
+     "a": 1
+    },
+    {
+     "q": "有的电影票还不到多少钱？",
+     "o": [
+      "十块钱",
+      "二十块钱",
+      "三十块钱"
+     ],
+     "a": 1
+    },
+    {
+     "q": "北京大学怎么样？",
+     "o": [
+      "人不多",
+      "很漂亮",
+      "东西很贵"
+     ],
+     "a": 1
+    },
+    {
+     "q": "白家月和安妮有时间还想再来北京大学做什么？",
+     "o": [
+      "看学生",
+      "学中文",
+      "看电影"
+     ],
+     "a": 2
+    }
+   ]
+  },
+  {
+   "id": "hsk2-3",
+   "book": "Giáo trình New HSK 2",
+   "title": "第三课",
+   "sub": "Bài 3 · Việc nhà & dự định du lịch",
+   "parts": [
+    {
+     "name": "Bài khoá 1 · Về nhà muộn",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在家门口，刘明开门进到家里。",
+       "py": "Zài jiā ménkǒu, Liú Míng kāimén jìn dào jiā li.",
+       "vi": "Tại cửa ra vào, Lưu Minh mở cửa đi vào trong nhà."
+      },
+      {
+       "who": "王一雪",
+       "zh": "今天回来这么晚啊！",
+       "py": "Jīntiān huílái zhème wǎn a!",
+       "vi": "Hôm nay anh về muộn thế!"
+      },
+      {
+       "who": "刘明",
+       "zh": "工作太多了，下班的时候没做完。",
+       "py": "Gōngzuò tài duō le, xiàbān de shíhou méi zuòwán.",
+       "vi": "Anh có nhiều việc quá, đến giờ tan làm mà vẫn chưa xong."
+      },
+      {
+       "who": "王一雪",
+       "zh": "菜都做好了，过来吃饭吧。",
+       "py": "Cài dōu zuòhǎo le, guòlái chīfàn ba.",
+       "vi": "Cơm nấu xong rồi. Anh ra ăn cơm nhé."
+      },
+      {
+       "who": "刘明",
+       "zh": "我想休息一下，喝杯水。",
+       "py": "Wǒ xiǎng xiūxi yíxià, hē bēi shuǐ.",
+       "vi": "Anh muốn nghỉ ngơi một lát, uống cốc nước đã."
+      },
+      {
+       "who": "王一雪",
+       "zh": "好的。",
+       "py": "Hǎo de.",
+       "vi": "Vâng ạ."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 2 · Bàn chuyện đi chơi",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在客厅，刘明和王一雪在聊天儿。",
+       "py": "Zài kètīng, Liú Míng hé Wáng Yīxuě zài liáotiānr.",
+       "vi": "Lưu Minh và Vương Nhất Tuyết đang trò chuyện trong phòng khách."
+      },
+      {
+       "who": "刘明",
+       "zh": "我们找个时间去旅游，怎么样？",
+       "py": "Wǒmen zhǎo ge shíjiān qù lǚyóu, zěnmeyàng?",
+       "vi": "Chúng ta sắp xếp thời gian đi du lịch, em thấy thế nào?"
+      },
+      {
+       "who": "王一雪",
+       "zh": "好啊，我也很想一起出去玩。",
+       "py": "Hǎo a, wǒ yě hěn xiǎng yìqǐ chūqù wán.",
+       "vi": "Nhất trí! Em cũng rất muốn đi chơi cùng anh."
+      },
+      {
+       "who": "刘明",
+       "zh": "你想去哪儿？",
+       "py": "Nǐ xiǎng qù nǎr?",
+       "vi": "Em muốn đi đâu?"
+      },
+      {
+       "who": "王一雪",
+       "zh": "我还没想好呢。",
+       "py": "Wǒ hái méi xiǎnghǎo ne.",
+       "vi": "Em vẫn chưa nghĩ ra."
+      },
+      {
+       "who": "刘明",
+       "zh": "那你再想一想，你想好了，我来买票。",
+       "py": "Nà nǐ zài xiǎng yi xiǎng, nǐ xiǎnghǎo le, wǒ lái mǎi piào.",
+       "vi": "Vậy em cứ nghĩ thêm nhé. Khi nào em nghĩ xong, anh sẽ mua vé."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 3 · Quả táo và Tây An",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在客厅，刘明和王一雪在聊天儿。",
+       "py": "Zài kètīng, Liú Míng hé Wáng Yīxuě zài liáotiānr.",
+       "vi": "Lưu Minh và Vương Nhất Tuyết đang trò chuyện trong phòng khách."
+      },
+      {
+       "who": "刘明",
+       "zh": "吃个苹果吧，我都洗好了。",
+       "py": "Chī ge píngguǒ ba, wǒ dōu xǐhǎo le.",
+       "vi": "Ăn quả táo đi, anh đã rửa sạch rồi."
+      },
+      {
+       "who": "王一雪",
+       "zh": "好的。",
+       "py": "Hǎo de.",
+       "vi": "Vâng ạ."
+      },
+      {
+       "who": "刘明",
+       "zh": "就在桌子上，你自己拿。",
+       "py": "Jiù zài zhuōzi shang, nǐ zìjǐ ná.",
+       "vi": "Táo để trên bàn, em tự đi lấy nhé."
+      },
+      {
+       "who": "王一雪",
+       "zh": "我去洗洗手。对了，我们去西安旅游，怎么样？",
+       "py": "Wǒ qù xǐxi shǒu. Duìle, wǒmen qù Xī'ān lǚyóu, zěnmeyàng?",
+       "vi": "Em đi rửa tay đã. À đúng rồi, mình đi Tây An du lịch, anh thấy thế nào?"
+      },
+      {
+       "who": "刘明",
+       "zh": "为什么想去西安？",
+       "py": "Wèi shénme xiǎng qù Xī'ān?",
+       "vi": "Vì sao em muốn đi Tây An?"
+      },
+      {
+       "who": "王一雪",
+       "zh": "我看了看网上的介绍，这个时候去西安很不错！",
+       "py": "Wǒ kànle kàn wǎngshang de jièshào, zhège shíhou qù Xī'ān hěn búcuò!",
+       "vi": "Em có xem qua giới thiệu ở trên mạng. Thời điểm này đi Tây An rất tuyệt!"
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 4 · Gọi điện cho bạn thân",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在家里，王一雪给好朋友打电话。",
+       "py": "Zài jiā li, Wáng Yīxuě gěi hǎo péngyou dǎ diànhuà.",
+       "vi": "Vương Nhất Tuyết gọi điện cho bạn thân ở trong nhà."
+      },
+      {
+       "who": "王一雪",
+       "zh": "早上，刘明开车送孩子去学校，送完孩子回家后，医院就来电话了，让他回去上班。",
+       "py": "Zǎoshang, Liú Míng kāichē sòng háizi qù xuéxiào, sòngwán háizi huí jiā hòu, yīyuàn jiù lái diànhuà le, ràng tā huíqù shàngbān.",
+       "vi": "Buổi sáng, Lưu Minh lái xe đưa con đi đến trường, sau khi đưa con xong quay về nhà thì bệnh viện gọi điện đến, yêu cầu anh ấy quay về bệnh viện làm việc."
+      },
+      {
+       "who": "王一雪",
+       "zh": "我觉得他这个月每天都很累，真想让他休息休息。",
+       "py": "Wǒ juéde tā zhège yuè měi tiān dōu hěn lèi, zhēn xiǎng ràng tā xiūxi xiūxi.",
+       "vi": "Tôi cảm thấy tháng này ngày nào Lưu Minh cũng đều rất bận, thật muốn anh ấy được nghỉ ngơi một chút."
+      }
+     ]
+    }
+   ],
+   "words": [
+    {
+     "zh": "回来",
+     "py": "huílái",
+     "vi": "quay về, quay lại"
+    },
+    {
+     "zh": "这么",
+     "py": "zhème",
+     "vi": "như vậy"
+    },
+    {
+     "zh": "完",
+     "py": "wán",
+     "vi": "xong"
+    },
+    {
+     "zh": "一起",
+     "py": "yìqǐ",
+     "vi": "cùng, cùng nhau"
+    },
+    {
+     "zh": "出去",
+     "py": "chūqù",
+     "vi": "đi ra, đi khỏi, đi"
+    },
+    {
+     "zh": "洗",
+     "py": "xǐ",
+     "vi": "rửa"
+    },
+    {
+     "zh": "自己",
+     "py": "zìjǐ",
+     "vi": "tự, tự mình, bản thân"
+    },
+    {
+     "zh": "拿",
+     "py": "ná",
+     "vi": "cầm, nắm"
+    },
+    {
+     "zh": "手",
+     "py": "shǒu",
+     "vi": "tay"
+    },
+    {
+     "zh": "为什么",
+     "py": "wèi shénme",
+     "vi": "tại sao, vì sao"
+    },
+    {
+     "zh": "不错",
+     "py": "búcuò",
+     "vi": "không tồi, hay"
+    },
+    {
+     "zh": "送",
+     "py": "sòng",
+     "vi": "đưa, tiễn, tặng"
+    },
+    {
+     "zh": "回去",
+     "py": "huíqù",
+     "vi": "quay về, về"
+    },
+    {
+     "zh": "每",
+     "py": "měi",
+     "vi": "mỗi, hàng (ngày, năm...)"
+    },
+    {
+     "zh": "累",
+     "py": "lèi",
+     "vi": "mệt"
+    },
+    {
+     "zh": "西安",
+     "py": "Xī'ān",
+     "vi": "Tây An"
+    }
+   ],
+   "grammar": [],
+   "quiz": [
+    {
+     "q": "刘明为什么回来晚了？",
+     "o": [
+      "没做完工作",
+      "去外边吃饭",
+      "在公司休息"
+     ],
+     "a": 0
+    },
+    {
+     "q": "刘明现在要做什么？",
+     "o": [
+      "吃饭",
+      "喝水",
+      "工作"
+     ],
+     "a": 1
+    },
+    {
+     "q": "刘明想找时间做什么？",
+     "o": [
+      "去吃饭",
+      "去旅游",
+      "买东西"
+     ],
+     "a": 1
+    },
+    {
+     "q": "刘明让王一雪做什么？",
+     "o": [
+      "去买票",
+      "看一下时间",
+      "想想去哪儿玩"
+     ],
+     "a": 2
+    },
+    {
+     "q": "苹果在哪儿？",
+     "o": [
+      "在桌子上",
+      "在冰箱里",
+      "在刘明手里"
+     ],
+     "a": 0
+    },
+    {
+     "q": "王一雪想去哪儿旅游？",
+     "o": [
+      "西安",
+      "北京",
+      "上海"
+     ],
+     "a": 0
+    },
+    {
+     "q": "刘明是怎么送的孩子？",
+     "o": [
+      "打车",
+      "开车",
+      "坐公交车"
+     ],
+     "a": 1
+    },
+    {
+     "q": "医院来电话有什么事？",
+     "o": [
+      "让刘明休息",
+      "让刘明去上班",
+      "让刘明去开车"
+     ],
+     "a": 1
+    }
+   ]
   }
  ],
  "dict": {
@@ -11468,6 +12455,182 @@
   "春节": [
    "Chūnjié",
    "tết Nguyên đán"
+  ],
+  "请问": [
+   "qǐngwèn",
+   "xin hỏi"
+  ],
+  "学生": [
+   "xuésheng",
+   "học sinh, sinh viên"
+  ],
+  "不客气": [
+   "bú kèqi",
+   "đừng khách sáo"
+  ],
+  "第一次": [
+   "dì-yī cì",
+   "lần đầu tiên"
+  ],
+  "什么时候": [
+   "shénme shíhou",
+   "khi nào"
+  ],
+  "再见": [
+   "zàijiàn",
+   "tạm biệt"
+  ],
+  "酒店": [
+   "jiǔdiàn",
+   "khách sạn"
+  ],
+  "信息": [
+   "xìnxī",
+   "tin nhắn, thông tin"
+  ],
+  "前台": [
+   "qiántái",
+   "quầy lễ tân"
+  ],
+  "咨询": [
+   "zīxún",
+   "hỏi, tư vấn"
+  ],
+  "参观": [
+   "cānguān",
+   "tham quan"
+  ],
+  "电影院": [
+   "diànyǐngyuàn",
+   "rạp chiếu phim"
+  ],
+  "电影票": [
+   "diànyǐngpiào",
+   "vé xem phim"
+  ],
+  "电影": [
+   "diànyǐng",
+   "bộ phim"
+  ],
+  "里边": [
+   "lǐbian",
+   "bên trong"
+  ],
+  "苹果": [
+   "píngguǒ",
+   "quả táo"
+  ],
+  "对了": [
+   "duìle",
+   "à đúng rồi"
+  ],
+  "上班": [
+   "shàngbān",
+   "đi làm"
+  ],
+  "开车": [
+   "kāichē",
+   "lái xe"
+  ],
+  "就": [
+   "jiù",
+   "chính (là), thì"
+  ],
+  "让": [
+   "ràng",
+   "bảo, để, cho phép, nhờ"
+  ],
+  "次": [
+   "cì",
+   "lần"
+  ],
+  "那": [
+   "nà",
+   "vậy, vậy thì, thế thì"
+  ],
+  "有时": [
+   "yǒushí",
+   "có lúc, có khi"
+  ],
+  "懂": [
+   "dǒng",
+   "hiểu"
+  ],
+  "北京烤鸭": [
+   "Běijīng Kǎoyā",
+   "vịt quay Bắc Kinh"
+  ],
+  "公交车": [
+   "gōngjiāochē",
+   "xe buýt"
+  ],
+  "但": [
+   "dàn",
+   "nhưng, nhưng mà"
+  ],
+  "打车": [
+   "dǎchē",
+   "gọi xe, đi xe, bắt (taxi)"
+  ],
+  "啊": [
+   "a",
+   "(trợ từ ngữ khí)"
+  ],
+  "万": [
+   "wàn",
+   "vạn, mười nghìn"
+  ],
+  "名": [
+   "míng",
+   "(lượng từ chỉ người), thứ hạng, tên"
+  ],
+  "间": [
+   "jiān",
+   "gian, căn... (phòng)"
+  ],
+  "票": [
+   "piào",
+   "vé"
+  ],
+  "别": [
+   "bié",
+   "đừng"
+  ],
+  "过来": [
+   "guòlái",
+   "đến, đến đây"
+  ],
+  "北京大学": [
+   "Běijīng Dàxué",
+   "Đại học Bắc Kinh"
+  ],
+  "完": [
+   "wán",
+   "xong"
+  ],
+  "洗": [
+   "xǐ",
+   "rửa"
+  ],
+  "拿": [
+   "ná",
+   "cầm, nắm"
+  ],
+  "手": [
+   "shǒu",
+   "tay"
+  ],
+  "每": [
+   "měi",
+   "mỗi, hàng (ngày, năm...)"
+  ],
+  "累": [
+   "lèi",
+   "mệt"
+  ],
+  "西安": [
+   "Xī'ān",
+   "Tây An"
   ]
  }
 }

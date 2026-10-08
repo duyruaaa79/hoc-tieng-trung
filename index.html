@@ -1623,6 +1623,9 @@ async function packToCloud(){
   const u=cloudURL().replace(/\.json$/,"")+"_pack.json";
   await fetch(u,{method:"PUT",headers:{"Content-Type":"application/json"},
     body:JSON.stringify({t:Date.now(),data:S.pack.data})})}
+function packSig(d){
+  if(!d||!d.lessons)return "";
+  return d.lessons.length+":"+d.lessons.map(l=>l.id+"-"+(l.words?l.words.length:0)).join(",")}
 async function packFromCloud(){
   if(!cloudOn())return false;
   const u=cloudURL().replace(/\.json$/,"")+"_pack.json";
@@ -1630,7 +1633,8 @@ async function packFromCloud(){
   if(!r.ok)return false;
   const o=await r.json();
   if(!o||!o.data||!validPack(o.data))return false;
-  if(S.pack&&S.pack.t>=(o.t||0))return false;
+  const now=(S.pack&&S.pack.data)?packSig(S.pack.data):"";
+  if(now===packSig(o.data))return false;
   applyPack(o.data,true);S.pack={t:o.t||Date.now(),data:o.data};save();
   return true}
 $("packPick").addEventListener("click",()=>$("packFile").click());
@@ -1792,8 +1796,13 @@ $("cSave").addEventListener("click",async()=>{
   S.cloud={url:u,code:c,at:0};save();
   cMsg("Đang kết nối…");await cloudSync();
   if(S.pack&&S.pack.data)packToCloud().catch(()=>{})});
-$("cNow").addEventListener("click",()=>{if(!cloudOn()){cMsg("Chưa bật đồng bộ.",true);return}
-  cMsg("Đang đồng bộ…");cloudSync()});
+$("cNow").addEventListener("click",async()=>{
+  if(!cloudOn()){cMsg("Chưa bật đồng bộ.",true);return}
+  cMsg("Đang đồng bộ…");
+  let got=false;
+  try{got=await packFromCloud()}catch(e){}
+  await cloudSync();
+  if(got)cMsg("Đã nhận bộ "+BASE_LESSONS.length+" bài từ máy khác và đồng bộ tiến độ.");});
 $("cOff").addEventListener("click",()=>{S.cloud={url:"",code:"",at:0};save();
   $("cUrl").value="";$("cCode").value="";cMsg("Đã tắt đồng bộ. Tiến độ vẫn lưu trong máy này.")});
 addEventListener("pagehide",()=>{if(cloudOn())try{

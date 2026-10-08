@@ -88,6 +88,25 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .les.cur{border-color:var(--accent);background:var(--accent-soft)}
 .les.all .n{background:var(--jade);color:#fff}
 .les.all{border-style:dashed}
+/* nhóm theo bộ sách */
+.grp{border:1px solid var(--line);border-radius:var(--r);background:var(--card);margin-bottom:10px;overflow:hidden}
+.grp.cur{border-color:var(--accent)}
+.ghead{display:flex;align-items:center;gap:12px;width:100%;text-align:left;color:inherit;cursor:pointer;
+  background:var(--card2);border:0;border-bottom:1px solid transparent;padding:12px 14px}
+.grp.op .ghead{border-bottom-color:var(--line)}
+.grp.cur .ghead{background:var(--accent-soft)}
+.ghead .gn{flex:none;min-width:52px;height:32px;padding:0 10px;border-radius:999px;background:var(--accent);
+  color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700;letter-spacing:.2px}
+.ghead .gm{flex:1;min-width:0}
+.ghead .gm b{display:block;font-size:14.5px}
+.ghead .gm>span{font-size:12px;color:var(--muted)}
+.ghead .gm .bar{margin-top:6px;height:5px}
+.ghead .gar{flex:none;color:var(--muted);font-size:19px;transition:transform .18s}
+.grp.op .ghead .gar{transform:rotate(90deg)}
+.gbody{display:none;padding:10px 10px 1px}
+.grp.op .gbody{display:block}
+.gbody .les{margin-bottom:9px}
+.les.gall{border-style:dashed}
 .sum{font-size:12.5px;color:var(--muted);margin:-4px 0 10px}
 .who-btn{background:var(--card2);border:1px solid var(--line);color:var(--ink);border-radius:999px;
   padding:6px 12px;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:6px;flex:none}
@@ -865,19 +884,40 @@ const L_HSK3_2={
 
 const BASE_PACK=[L_HSK3_1,L_HSK3_2];
 let BASE_LESSONS=BASE_PACK.slice();
-function makeAll(){
+/* tên ngắn của bộ sách: "Giáo trình New HSK 3" -> "HSK 3" */
+function shortBook(b){const m=/HSK\s*([0-9]+)/i.exec(b||"");return m?"HSK "+m[1]:(b||"Khác")}
+function bookKey(b){const m=/HSK\s*([0-9]+)/i.exec(b||"");return m?"hsk"+m[1]:"x-"+(b||"khac").toLowerCase().replace(/[^a-z0-9]+/g,"-")}
+function mergeLes(list,id,book,sub){
   const parts=[],words=[],grammar=[],quiz=[],seen={};
-  BASE_LESSONS.forEach(l=>{
+  list.forEach(l=>{
     const tag=l.sub.split("·")[0].trim();
     l.parts.forEach(p=>parts.push({name:tag+" — "+p.name,lines:p.lines}));
     l.words.forEach(w=>{if(!seen[w.zh]){seen[w.zh]=1;words.push(w)}});
-    l.grammar.forEach(g=>grammar.push(g));
+    (l.grammar||[]).forEach(g=>grammar.push(g));
     (l.quiz||[]).forEach(q=>quiz.push(q));
   });
-  return{id:"all",all:true,book:"Ôn tổng hợp",title:"综合复习",sub:"Tất cả các bài",
+  return{id:id,all:true,book:book,title:"综合复习",sub:sub,
     parts:parts,words:words,grammar:grammar,quiz:quiz};
 }
-let LESSONS=BASE_LESSONS.concat([makeAll()]);
+/* gom các bài theo bộ sách, giữ nguyên thứ tự xuất hiện trong gói */
+function bookOrder(){
+  const o=[],seen={};
+  BASE_LESSONS.forEach(l=>{const b=l.book||"Khác";if(!seen[b]){seen[b]=1;o.push(b)}});
+  o.sort((a,b)=>{const ma=/HSK\s*([0-9]+)/i.exec(a),mb=/HSK\s*([0-9]+)/i.exec(b);
+    if(ma&&mb)return +ma[1]-+mb[1]; if(ma)return -1; if(mb)return 1; return 0});
+  return o;
+}
+function makeAlls(){
+  const out=[],books=bookOrder();
+  books.forEach(b=>{
+    const list=BASE_LESSONS.filter(l=>(l.book||"Khác")===b);
+    if(list.length>1) out.push(mergeLes(list,"all-"+bookKey(b),b,"Ôn tổng hợp "+shortBook(b)));
+  });
+  if(books.length>1||!out.length)
+    out.push(mergeLes(BASE_LESSONS,"all","Ôn tổng hợp","Ôn tổng hợp tất cả các bộ"));
+  return out;
+}
+let LESSONS=BASE_LESSONS.concat(makeAlls());
 const DICT=Object.assign({},BASEDICT,EXTRA);
 
 
@@ -888,8 +928,9 @@ try{const r=localStorage.getItem(PKEY);if(r)USERS=Object.assign(USERS,JSON.parse
 function saveUsers(){try{localStorage.setItem(PKEY,JSON.stringify(USERS))}catch(e){}}
 function curUser(){return USERS.list.find(u=>u.id===USERS.cur)||USERS.list[0]}
 const KEY=USERS.cur==="u1"?"hoctrung_v3":"hoctrung_v3_"+USERS.cur;
-let S={srs:{},mark:[],extra:{},les:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,src:"",pack:null,cloud:{url:"",code:"",at:0},mine:[],gh:{repo:"",path:"lessons.json",token:"",at:0}};
+let S={srs:{},mark:[],extra:{},les:{},open:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,src:"",pack:null,cloud:{url:"",code:"",at:0},mine:[],gh:{repo:"",path:"lessons.json",token:"",at:0}};
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+if(!S.open||typeof S.open!=="object")S.open={};
 let saveT=null;
 function save(){clearTimeout(saveT);saveT=setTimeout(()=>{
   try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},500)}
@@ -1478,9 +1519,16 @@ function renderHome(){
   if(d.drill.total<10)T.push(["red","✍","Làm bài tập của bài này","Điền từ, sắp xếp câu, đọc hiểu",()=>go("drill")]);
   else T.push(["warn","✍","Luyện dịch câu","Việt sang Trung, tự chấm",()=>go("drill")]);
   if(!L.all){
+    const bk=L.book||"Khác",cid="all-"+bookKey(bk),combo=LESSONS.find(l=>l.id===cid);
+    if(combo){
+      let tb=0;BASE_LESSONS.filter(l=>(l.book||"Khác")===bk).forEach(l=>tb+=lesStat(l).due);
+      if(tb>st.due)T.push(["jade","∑","Ôn tổng hợp "+shortBook(bk),tb+" từ đến hạn trong cả bộ",
+        ()=>{switchLes(cid);go("vocab");deckSet("smart")}]);
+    }
     let td2=0;LESSONS.filter(l=>!l.all).forEach(l=>td2+=lesStat(l).due);
-    if(td2>st.due)T.push(["jade","∑","Ôn tổng hợp tất cả các bài",td2+" từ đến hạn trên toàn bộ",
-      ()=>{switchLes("all");go("vocab");deckSet("smart")}]);
+    if(bookOrder().length>1&&LESSONS.some(l=>l.id==="all")&&td2>st.due)
+      T.push(["jade","∑","Ôn tổng hợp tất cả các bộ",td2+" từ đến hạn trên toàn bộ",
+        ()=>{switchLes("all");go("vocab");deckSet("smart")}]);
   }
   const box=$("todos");box.innerHTML="";
   T.slice(0,4).forEach((t,i)=>{
@@ -1489,27 +1537,58 @@ function renderHome(){
     b.addEventListener("click",t[4]);box.appendChild(b)});
   let tk=0,ta=0,tdue=0;
   LESSONS.filter(l=>!l.all).forEach(l=>{const q=lesStat(l);tk+=q.known;ta+=q.all;tdue+=q.due});
-  $("allSum").textContent="Toàn bộ "+LESSONS.filter(l=>!l.all).length+" bài: "+tk+"/"+ta+" từ đã thuộc"+
+  const nb=bookOrder().length;
+  $("allSum").textContent=(nb>1?nb+" bộ · ":"")+LESSONS.filter(l=>!l.all).length+" bài: "+tk+"/"+ta+" từ đã thuộc"+
     (tdue?" · "+tdue+" từ đến hạn ôn":"");
   renderLessons($("lesList"));
 }
+function lesRow(l,n){
+  const st=lesStat(l),pct=st.all?Math.round(st.known/st.all*100):0;
+  const b=document.createElement("button");
+  b.className="les"+(l.id===L.id?" cur":"")+(l.all?" all":"");
+  b.innerHTML='<span class="n zh">'+(l.all?"∑":n)+'</span><span class="m"><b>'+l.sub+'</b>'+
+    '<span>'+l.words.length+' từ · '+l.parts.length+' bài khoá'+
+    (st.due?' · <b style="color:var(--accent)">'+st.due+' từ cần ôn</b>':'')+'</span>'+
+    '<span class="bar"><i style="width:'+pct+'%"></i></span></span>';
+  b.addEventListener("click",()=>switchLes(l.id));
+  return b;
+}
 function renderLessons(box){
   box.innerHTML="";
-  LESSONS.forEach((l,i)=>{
-    const st=lesStat(l),pct=Math.round(st.known/st.all*100);
-    const b=document.createElement("button");b.className="les"+(l.id===L.id?" cur":"");
-    b.className+=(l.all?" all":"");
-    b.innerHTML='<span class="n zh">'+(l.all?"∑":i+1)+'</span><span class="m"><b>'+l.sub+'</b>'+
-      '<span>'+l.book+' · '+l.words.length+' từ · '+l.parts.length+' bài khoá'+
-      (st.due?' · <b style="color:var(--accent)">'+st.due+' từ cần ôn</b>':'')+'</span>'+
-      '<span class="bar"><i style="width:'+pct+'%"></i></span></span>';
-    b.addEventListener("click",()=>switchLes(l.id));
-    box.appendChild(b)})}
+  const books=bookOrder();
+  books.forEach(bk=>{
+    const items=BASE_LESSONS.filter(l=>(l.book||"Khác")===bk);
+    const combo=LESSONS.find(l=>l.all&&l.id==="all-"+bookKey(bk));
+    const inThis=items.some(l=>l.id===L.id)||!!(combo&&combo.id===L.id);
+    if(S.open[bk]===undefined)S.open[bk]=inThis||books.length===1;
+    let tk=0,ta=0,td=0;
+    items.forEach(l=>{const q=lesStat(l);tk+=q.known;ta+=q.all;td+=q.due});
+    const pct=ta?Math.round(tk/ta*100):0;
+    const g=document.createElement("div");
+    g.className="grp"+(S.open[bk]?" op":"")+(inThis?" cur":"");
+    const h=document.createElement("button");h.className="ghead";
+    h.innerHTML='<span class="gn">'+shortBook(bk)+'</span><span class="gm"><b>'+bk+'</b>'+
+      '<span>'+items.length+' bài · '+tk+'/'+ta+' từ đã thuộc'+
+      (td?' · <b style="color:var(--accent)">'+td+' cần ôn</b>':'')+'</span>'+
+      '<span class="bar"><i style="width:'+pct+'%"></i></span></span><span class="gar">›</span>';
+    h.addEventListener("click",()=>{S.open[bk]=!S.open[bk];save();renderLessons(box)});
+    g.appendChild(h);
+    const body=document.createElement("div");body.className="gbody";
+    items.forEach((l,i)=>body.appendChild(lesRow(l,i+1)));
+    if(combo)body.appendChild(lesRow(combo));
+    g.appendChild(body);box.appendChild(g);
+  });
+  const glob=LESSONS.find(l=>l.id==="all");
+  if(glob&&books.length>1){const r=lesRow(glob);r.classList.add("gall");box.appendChild(r)}
+}
 
 /* ---------- đổi bài ---------- */
 function switchLes(id){
   if(id!==L.id){
-    stopAll();L=LESSONS.find(x=>x.id===id);S.cur=id;save();
+    const nx=LESSONS.find(x=>x.id===id);if(!nx){sheet(null);return}
+    stopAll();L=nx;S.cur=id;
+    if(!nx.all||/^all-/.test(nx.id))S.open[nx.book||"Khác"]=true;
+    save();
     idx=0;wQ="";$("wsearch").value="";
     builtText=false;builtDrill=false;
     if($("v-text").classList.contains("on"))ensureText();
@@ -1521,7 +1600,9 @@ function switchLes(id){
   sheet(null);renderHome();hdr();
   if($("v-text").classList.contains("on"))renderProg();
 }
-function hdr(){$("hdT").textContent=L.title;$("hdS").textContent=L.sub+" ▾"}
+function hdr(){$("hdT").textContent=L.title;
+  const pre=(L.all&&L.id==="all")?"":shortBook(L.book)+" · ";
+  $("hdS").textContent=pre+L.sub+" ▾"}
 function buildRoles(){
   const who=[...new Set(lines().map(l=>l.who))];
   const s=$("selRole");s.innerHTML='<option value="">Máy đọc hết</option>';
@@ -1633,7 +1714,7 @@ function applyPack(o,quiet){
   if(!validPack(o))throw new Error("sai định dạng");
   BASE_LESSONS=o.lessons.concat(S.mine||[]);
   if(o.dict)for(const k in o.dict)DICT[k]=o.dict[k];
-  LESSONS=BASE_LESSONS.concat([makeAll()]);
+  LESSONS=BASE_LESSONS.concat(makeAlls());
   indexWords();indexSeg();
   L=LESSONS.find(x=>x.id===S.cur)||LESSONS[0];S.cur=L.id;
   builtText=false;builtDrill=false;idx=0;
@@ -1823,7 +1904,8 @@ function pkStatus(){
   const n=BASE_LESSONS.length,mine=(S.mine||[]).length;
   const src=(S.pack&&S.pack.src)||"app";
   const el=$("pkState");if(!el)return;
-  el.textContent=n+" bài · "+(SRCN[src]||"kèm theo app")+
+  const bs=bookOrder();
+  el.textContent=(bs.length>1?bs.map(shortBook).join(" + ")+" · ":"")+n+" bài · "+(SRCN[src]||"kèm theo app")+
     (mine?" · "+mine+" bài bạn tự soạn":"")}
 function cStatus(){
   const on=cloudOn(),el=$("cState");if(!el)return;
@@ -1918,7 +2000,7 @@ $("mSave").addEventListener("click",()=>{
 function rebuildLessons(){
   const base=(S.pack&&S.pack.data&&S.pack.data.lessons)||BASE_PACK;
   BASE_LESSONS=base.concat(S.mine||[]);
-  LESSONS=BASE_LESSONS.concat([makeAll()]);
+  LESSONS=BASE_LESSONS.concat(makeAlls());
   indexWords();indexSeg();
   L=LESSONS.find(x=>x.id===S.cur)||LESSONS[0];S.cur=L.id;
   builtText=false;builtDrill=false;idx=0;

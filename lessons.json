@@ -2205,6 +2205,2115 @@
      "a": 1
     }
    ]
+  },
+  {
+   "id": "hsk3-6",
+   "book": "Giáo trình New HSK 3",
+   "title": "第六课",
+   "sub": "Bài 6 · Tàu cao tốc & đi ga",
+   "parts": [
+    {
+     "name": "Bài khoá 1 · Ở quán cà phê",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在咖啡厅里，李文和白家月在聊天儿。",
+       "py": "Zài kāfēitīng li, Lǐ Wén hé Bái Jiāyuè zài liáotiānr.",
+       "vi": "Lý Văn và Bạch Gia Nguyệt đang trò chuyện trong quán cà phê."
+      },
+      {
+       "who": "李文",
+       "zh": "家月，咱们该买去上海的票了。你打算怎么去上海？",
+       "py": "Jiāyuè, zánmen gāi mǎi qù Shànghǎi de piào le. Nǐ dǎsuàn zěnme qù Shànghǎi?",
+       "vi": "Gia Nguyệt, chúng ta nên mua vé đi Thượng Hải rồi. Cậu định đi Thượng Hải thế nào?"
+      },
+      {
+       "who": "白家月",
+       "zh": "我还没坐过高铁，咱们坐高铁去，怎么样？",
+       "py": "Wǒ hái méi zuòguo gāotiě, zánmen zuò gāotiě qù, zěnmeyàng?",
+       "vi": "Mình chưa đi tàu cao tốc bao giờ, chúng ta đi tàu cao tốc nhé, thế nào?"
+      },
+      {
+       "who": "李文",
+       "zh": "没问题，从北京到上海的高铁很多，非常方便。",
+       "py": "Méi wèntí, cóng Běijīng dào Shànghǎi de gāotiě hěn duō, fēicháng fāngbiàn.",
+       "vi": "Không vấn đề gì, tàu cao tốc từ Bắc Kinh đến Thượng Hải rất nhiều, vô cùng tiện lợi."
+      },
+      {
+       "who": "白家月",
+       "zh": "行！怎么买高铁票？",
+       "py": "Xíng! Zěnme mǎi gāotiě piào?",
+       "vi": "Được! Mua vé tàu cao tốc thế nào?"
+      },
+      {
+       "who": "李文",
+       "zh": "用手机App就能买。给我你的护照，我帮你买。",
+       "py": "Yòng shǒujī App jiù néng mǎi. Gěi wǒ nǐ de hùzhào, wǒ bāng nǐ mǎi.",
+       "vi": "Dùng App trên điện thoại là mua được. Đưa mình hộ chiếu của cậu, mình mua giúp cho."
+      },
+      {
+       "who": "白家月",
+       "zh": "早就听说过高铁，终于可以坐上了。",
+       "py": "Zǎo jiù tīngshuōguo gāotiě, zhōngyú kěyǐ zuòshang le.",
+       "vi": "Nghe nói về tàu cao tốc từ lâu rồi, cuối cùng cũng được đi."
+      },
+      {
+       "who": "李文",
+       "zh": "高铁又快又舒服，你一定会喜欢的。",
+       "py": "Gāotiě yòu kuài yòu shūfu, nǐ yídìng huì xǐhuan de.",
+       "vi": "Tàu cao tốc vừa nhanh vừa thoải mái, cậu nhất định sẽ thích."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 2 · Trên xe ra ga",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在车上，刘明开车送白家月和李文去高铁站。",
+       "py": "Zài chē shang, Liú Míng kāichē sòng Bái Jiāyuè hé Lǐ Wén qù gāotiězhàn.",
+       "vi": "Ở trên xe, Lưu Minh lái xe đưa Bạch Gia Nguyệt và Lý Văn đến ga tàu cao tốc."
+      },
+      {
+       "who": "刘明",
+       "zh": "过了前面的路口就到高铁站了。",
+       "py": "Guòle qiánmiàn de lùkǒu jiù dào gāotiězhàn le.",
+       "vi": "Qua ngã rẽ phía trước là đến ga tàu cao tốc rồi."
+      },
+      {
+       "who": "白家月",
+       "zh": "我看见了。马上就到了，这条路车很多，您小心点儿。",
+       "py": "Wǒ kànjiàn le. Mǎshàng jiù dào le, zhè tiáo lù chē hěn duō, nín xiǎoxīn diǎnr.",
+       "vi": "Cháu thấy rồi. Sắp đến rồi, đường này xe nhiều lắm, bác cẩn thận một chút."
+      },
+      {
+       "who": "刘明",
+       "zh": "好，你们还有一个小时，应该不会迟到的。",
+       "py": "Hǎo, nǐmen hái yǒu yí ge xiǎoshí, yīnggāi bú huì chídào de.",
+       "vi": "Được, các cháu còn một tiếng nữa, chắc sẽ không bị muộn đâu."
+      },
+      {
+       "who": "白家月",
+       "zh": "我发现这条路车多，红绿灯也多。",
+       "py": "Wǒ fāxiàn zhè tiáo lù chē duō, hónglǜdēng yě duō.",
+       "vi": "Cháu thấy đường này xe nhiều, đèn giao thông cũng nhiều."
+      },
+      {
+       "who": "刘明",
+       "zh": "是啊，这条路我走过一次，后来再也不走了。",
+       "py": "Shì a, zhè tiáo lù wǒ zǒuguo yí cì, hòulái zài yě bù zǒu le.",
+       "vi": "Đúng vậy, đường này bác đi một lần rồi, sau đó không bao giờ đi nữa."
+      },
+      {
+       "who": "白家月",
+       "zh": "那您今天为什么走了这条路？",
+       "py": "Nà nín jīntiān wèishénme zǒule zhè tiáo lù?",
+       "vi": "Vậy sao hôm nay bác lại đi đường này ạ?"
+      },
+      {
+       "who": "刘明",
+       "zh": "我一急就走错了。如果没走错，二十分钟以前就到了。",
+       "py": "Wǒ yì jí jiù zǒucuò le. Rúguǒ méi zǒucuò, èrshí fēnzhōng yǐqián jiù dào le.",
+       "vi": "Bác vội quá nên đi nhầm. Nếu không đi nhầm thì hai mươi phút trước đã đến rồi."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 3 · Ở ga, soát vé",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在高铁站，李文和白家月排队安检、检票。",
+       "py": "Zài gāotiězhàn, Lǐ Wén hé Bái Jiāyuè páiduì ānjiǎn, jiǎnpiào.",
+       "vi": "Lý Văn và Bạch Gia Nguyệt xếp hàng kiểm tra an ninh và soát vé ở ga tàu cao tốc."
+      },
+      {
+       "who": "白家月",
+       "zh": "李文，我的耳机没电了，你有充电宝吗？",
+       "py": "Lǐ Wén, wǒ de ěrjī méi diàn le, nǐ yǒu chōngdiànbǎo ma?",
+       "vi": "Lý Văn, tai nghe của mình hết pin rồi, cậu có sạc dự phòng không?"
+      },
+      {
+       "who": "李文",
+       "zh": "有，这些常用的东西我都放在包里了，我给你拿。",
+       "py": "Yǒu, zhèxiē chángyòng de dōngxi wǒ dōu fàng zài bāo li le, wǒ gěi nǐ ná.",
+       "vi": "Có, mấy thứ hay dùng này mình đều để trong túi, mình lấy cho cậu."
+      },
+      {
+       "who": "白家月",
+       "zh": "前面的人越来越多。",
+       "py": "Qiánmiàn de rén yuè lái yuè duō.",
+       "vi": "Người phía trước càng lúc càng đông."
+      },
+      {
+       "who": "李文",
+       "zh": "对，马上就进高铁站了。咱们一起走，别分开。",
+       "py": "Duì, mǎshàng jiù jìn gāotiězhàn le. Zánmen yìqǐ zǒu, bié fēnkāi.",
+       "vi": "Đúng, sắp vào ga rồi. Chúng ta đi cùng nhau, đừng tách ra."
+      },
+      {
+       "who": "白家月",
+       "zh": "好，你检查一下，高铁票都拿好了吗？",
+       "py": "Hǎo, nǐ jiǎnchá yíxià, gāotiě piào dōu náhǎo le ma?",
+       "vi": "Được, cậu kiểm tra xem, vé tàu cao tốc đã cầm đủ chưa?"
+      },
+      {
+       "who": "李文",
+       "zh": "不用拿票，刷护照就能检票进站。",
+       "py": "Búyòng ná piào, shuā hùzhào jiù néng jiǎnpiào jìn zhàn.",
+       "vi": "Không cần cầm vé, quét hộ chiếu là soát vé vào ga được."
+      },
+      {
+       "who": "白家月",
+       "zh": "去哪里检票？",
+       "py": "Qù nǎli jiǎnpiào?",
+       "vi": "Soát vé ở đâu?"
+      },
+      {
+       "who": "李文",
+       "zh": "检票口在二层，我们一会儿坐电梯上去。",
+       "py": "Jiǎnpiàokǒu zài èr céng, wǒmen yíhuìr zuò diàntī shàngqu.",
+       "vi": "Cửa soát vé ở tầng hai, lát nữa chúng ta đi thang máy lên."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 4 · Kể lại chuyến đi",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在家里，白家月给安妮打电话介绍自己的旅行。",
+       "py": "Zài jiā li, Bái Jiāyuè gěi Ānnī dǎ diànhuà jièshào zìjǐ de lǚxíng.",
+       "vi": "Trong nhà, Bạch Gia Nguyệt gọi điện cho Annie để giới thiệu về chuyến đi của mình."
+      },
+      {
+       "who": "白家月",
+       "zh": "这次放假，我去了北京，还去了上海。",
+       "py": "Zhè cì fàngjià, wǒ qùle Běijīng, hái qùle Shànghǎi.",
+       "vi": "Kỳ nghỉ này mình đã đi Bắc Kinh, còn đi cả Thượng Hải."
+      },
+      {
+       "who": "白家月",
+       "zh": "我是从北京南站坐高铁去的上海。",
+       "py": "Wǒ shì cóng Běijīng Nán Zhàn zuò gāotiě qù de Shànghǎi.",
+       "vi": "Mình đi tàu cao tốc từ ga Bắc Kinh Nam đến Thượng Hải."
+      },
+      {
+       "who": "白家月",
+       "zh": "我觉得坐在高铁上跟坐在家里的沙发上一样，又安静又舒服。",
+       "py": "Wǒ juéde zuò zài gāotiě shang gēn zuò zài jiā li de shāfā shang yíyàng, yòu ānjìng yòu shūfu.",
+       "vi": "Mình thấy ngồi trên tàu cao tốc giống như ngồi trên ghế sofa ở nhà, vừa yên tĩnh vừa thoải mái."
+      },
+      {
+       "who": "白家月",
+       "zh": "坐累了就站一会儿，饿了就点外卖。",
+       "py": "Zuò lèile jiù zhàn yíhuìr, èle jiù diǎn wàimài.",
+       "vi": "Ngồi mỏi thì đứng một lát, đói thì gọi đồ ăn ngoài."
+      },
+      {
+       "who": "白家月",
+       "zh": "对，你没听错，高铁上可以点外卖，只需要选择好车站和想吃的东西，到站时不用下车，服务员就会给你拿过来。",
+       "py": "Duì, nǐ méi tīngcuò, gāotiě shang kěyǐ diǎn wàimài, zhǐ xūyào xuǎnzé hǎo chēzhàn hé xiǎng chī de dōngxi, dào zhàn shí búyòng xià chē, fúwùyuán jiù huì gěi nǐ ná guòlai.",
+       "vi": "Đúng, cậu không nghe nhầm đâu, trên tàu cao tốc có thể gọi đồ ăn ngoài, chỉ cần chọn ga và món muốn ăn, đến ga không cần xuống tàu, nhân viên sẽ mang đến cho cậu."
+      },
+      {
+       "who": "白家月",
+       "zh": "现在喜欢坐高铁的人越来越多。",
+       "py": "Xiànzài xǐhuan zuò gāotiě de rén yuè lái yuè duō.",
+       "vi": "Bây giờ người thích đi tàu cao tốc càng ngày càng nhiều."
+      },
+      {
+       "who": "白家月",
+       "zh": "我爸妈来中国旅游的时候，必须带他们也坐一次高铁。",
+       "py": "Wǒ bàmā lái Zhōngguó lǚyóu de shíhou, bìxū dài tāmen yě zuò yí cì gāotiě.",
+       "vi": "Khi bố mẹ mình sang Trung Quốc du lịch, nhất định phải đưa họ đi tàu cao tốc một lần."
+      }
+     ]
+    }
+   ],
+   "words": [
+    {
+     "zh": "该",
+     "py": "gāi",
+     "vi": "nên"
+    },
+    {
+     "zh": "打算",
+     "py": "dǎsuàn",
+     "vi": "dự định, kế hoạch"
+    },
+    {
+     "zh": "高铁",
+     "py": "gāotiě",
+     "vi": "tàu cao tốc"
+    },
+    {
+     "zh": "行",
+     "py": "xíng",
+     "vi": "được, có thể"
+    },
+    {
+     "zh": "路口",
+     "py": "lùkǒu",
+     "vi": "giao lộ, lối rẽ, đầu đường"
+    },
+    {
+     "zh": "小心",
+     "py": "xiǎoxīn",
+     "vi": "cẩn thận, chú ý"
+    },
+    {
+     "zh": "迟到",
+     "py": "chídào",
+     "vi": "đến muộn"
+    },
+    {
+     "zh": "红绿灯",
+     "py": "hónglǜdēng",
+     "vi": "đèn giao thông, đèn xanh đèn đỏ"
+    },
+    {
+     "zh": "后来",
+     "py": "hòulái",
+     "vi": "sau đó, về sau"
+    },
+    {
+     "zh": "急",
+     "py": "jí",
+     "vi": "gấp, lo lắng"
+    },
+    {
+     "zh": "如果",
+     "py": "rúguǒ",
+     "vi": "nếu"
+    },
+    {
+     "zh": "以前",
+     "py": "yǐqián",
+     "vi": "trước đây"
+    },
+    {
+     "zh": "耳机",
+     "py": "ěrjī",
+     "vi": "tai nghe"
+    },
+    {
+     "zh": "充电宝",
+     "py": "chōngdiànbǎo",
+     "vi": "sạc dự phòng"
+    },
+    {
+     "zh": "常用",
+     "py": "chángyòng",
+     "vi": "thường dùng"
+    },
+    {
+     "zh": "越",
+     "py": "yuè",
+     "vi": "càng... (càng...)"
+    },
+    {
+     "zh": "分开",
+     "py": "fēnkāi",
+     "vi": "tách ra"
+    },
+    {
+     "zh": "检查",
+     "py": "jiǎnchá",
+     "vi": "kiểm tra"
+    },
+    {
+     "zh": "刷",
+     "py": "shuā",
+     "vi": "quét (thẻ, mã QR)"
+    },
+    {
+     "zh": "检票",
+     "py": "jiǎnpiào",
+     "vi": "kiểm vé, soát vé"
+    },
+    {
+     "zh": "电梯",
+     "py": "diàntī",
+     "vi": "thang máy"
+    },
+    {
+     "zh": "放假",
+     "py": "fàngjià",
+     "vi": "nghỉ phép, nghỉ lễ"
+    },
+    {
+     "zh": "沙发",
+     "py": "shāfā",
+     "vi": "ghế sofa"
+    },
+    {
+     "zh": "安静",
+     "py": "ānjìng",
+     "vi": "yên tĩnh"
+    },
+    {
+     "zh": "选择",
+     "py": "xuǎnzé",
+     "vi": "chọn, lựa chọn"
+    },
+    {
+     "zh": "必须",
+     "py": "bìxū",
+     "vi": "phải, nhất định phải"
+    },
+    {
+     "zh": "北京南站",
+     "py": "Běijīng Nán Zhàn",
+     "vi": "ga Bắc Kinh Nam"
+    }
+   ],
+   "grammar": [],
+   "quiz": [
+    {
+     "q": "李文和白家月打算怎么去上海？",
+     "o": [
+      "开车",
+      "坐飞机",
+      "坐高铁"
+     ],
+     "a": 2
+    },
+    {
+     "q": "李文觉得高铁怎么样？",
+     "o": [
+      "高铁票很贵",
+      "又快又舒服",
+      "买票不方便"
+     ],
+     "a": 1
+    },
+    {
+     "q": "如果没走错，他们什么时候到？",
+     "o": [
+      "马上就到了",
+      "二十分钟以前就到了",
+      "一个小时以前就到了"
+     ],
+     "a": 1
+    },
+    {
+     "q": "常用的东西李文放在哪里？",
+     "o": [
+      "手里",
+      "包里",
+      "行李箱里"
+     ],
+     "a": 1
+    },
+    {
+     "q": "他们在哪里检票进站？",
+     "o": [
+      "车站门口",
+      "一层门口",
+      "二层检票口"
+     ],
+     "a": 2
+    },
+    {
+     "q": "喜欢坐高铁的人多不多？",
+     "o": [
+      "不太多",
+      "有点儿多",
+      "越来越多"
+     ],
+     "a": 2
+    }
+   ]
+  },
+  {
+   "id": "hsk3-7",
+   "book": "Giáo trình New HSK 3",
+   "title": "第七课",
+   "sub": "Bài 7 · Mua sắm & so sánh",
+   "parts": [
+    {
+     "name": "Bài khoá 1 · Bàn mua xe đạp",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在家里，王一雪和刘明商量去买东西。",
+       "py": "Zài jiā li, Wáng Yīxuě hé Liú Míng shāngliang qù mǎi dōngxi.",
+       "vi": "Vương Nhất Tuyết và Lưu Minh đang ở trong nhà bàn bạc về việc đi mua đồ."
+      },
+      {
+       "who": "王一雪",
+       "zh": "这辆自行车是小雪八岁的时候买的，看起来有点儿旧了。",
+       "py": "Zhè liàng zìxíngchē shì Xiǎoxuě bā suì de shíhou mǎi de, kànqǐlai yǒudiǎnr jiù le.",
+       "vi": "Chiếc xe đạp này mua hồi Tiểu Tuyết tám tuổi, trông hơi cũ rồi."
+      },
+      {
+       "who": "刘明",
+       "zh": "是啊，她现在长高了，这辆车已经太矮了。",
+       "py": "Shì a, tā xiànzài zhǎnggāo le, zhè liàng chē yǐjīng tài ǎi le.",
+       "vi": "Đúng vậy, giờ con bé cao lên rồi, chiếc xe này đã quá thấp."
+      },
+      {
+       "who": "王一雪",
+       "zh": "商场里开了一家自行车店，咱们给她买辆新的吧。",
+       "py": "Shāngchǎng li kāile yì jiā zìxíngchē diàn, zánmen gěi tā mǎi liàng xīn de ba.",
+       "vi": "Trong trung tâm thương mại mới mở một cửa hàng xe đạp, chúng ta mua cho con bé chiếc mới đi."
+      },
+      {
+       "who": "刘明",
+       "zh": "好，咱们带小雪一起去，让她试一下。",
+       "py": "Hǎo, zánmen dài Xiǎoxuě yìqǐ qù, ràng tā shì yíxià.",
+       "vi": "Được, chúng ta đưa Tiểu Tuyết đi cùng, để con bé thử."
+      },
+      {
+       "who": "王一雪",
+       "zh": "那今天就去吧！我也想再看看衣服。咱们怎么去？",
+       "py": "Nà jīntiān jiù qù ba! Wǒ yě xiǎng zài kànkan yīfu. Zánmen zěnme qù?",
+       "vi": "Vậy hôm nay đi luôn đi! Em cũng muốn xem thêm quần áo. Chúng ta đi thế nào?"
+      },
+      {
+       "who": "刘明",
+       "zh": "商场不远，咱们可以走着去。",
+       "py": "Shāngchǎng bù yuǎn, zánmen kěyǐ zǒuzhe qù.",
+       "vi": "Trung tâm thương mại không xa, chúng ta có thể đi bộ."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 2 · Thử quần áo",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在商场，刘明和王一雪买完自行车，又来挑选衣服。",
+       "py": "Zài shāngchǎng, Liú Míng hé Wáng Yīxuě mǎiwán zìxíngchē, yòu lái tiāoxuǎn yīfu.",
+       "vi": "Ở trung tâm thương mại, Lưu Minh và Vương Nhất Tuyết mua xong xe đạp rồi lại chọn quần áo."
+      },
+      {
+       "who": "王一雪",
+       "zh": "你看我穿这条黄色的短裤好看吗？",
+       "py": "Nǐ kàn wǒ chuān zhè tiáo huángsè de duǎnkù hǎokàn ma?",
+       "vi": "Anh xem em mặc chiếc quần soóc màu vàng này có đẹp không?"
+      },
+      {
+       "who": "刘明",
+       "zh": "大小合适，但我觉得那条裙子比短裤更好看。",
+       "py": "Dàxiǎo héshì, dàn wǒ juéde nà tiáo qúnzi bǐ duǎnkù gèng hǎokàn.",
+       "vi": "Kích cỡ thì phù hợp, nhưng anh thấy chiếc váy kia đẹp hơn quần soóc."
+      },
+      {
+       "who": "王一雪",
+       "zh": "裙子比短裤贵一点儿。",
+       "py": "Qúnzi bǐ duǎnkù guì yìdiǎnr.",
+       "vi": "Váy đắt hơn quần soóc một chút."
+      },
+      {
+       "who": "刘明",
+       "zh": "贵多少？",
+       "py": "Guì duōshao?",
+       "vi": "Đắt hơn bao nhiêu?"
+      },
+      {
+       "who": "王一雪",
+       "zh": "裙子480，短裤400。",
+       "py": "Qúnzi sìbǎi bā, duǎnkù sìbǎi.",
+       "vi": "Váy 480, quần soóc 400."
+      },
+      {
+       "who": "刘明",
+       "zh": "裙子不比短裤贵多少，还是买裙子吧，你穿裙子更好看。",
+       "py": "Qúnzi bù bǐ duǎnkù guì duōshao, háishi mǎi qúnzi ba, nǐ chuān qúnzi gèng hǎokàn.",
+       "vi": "Váy chẳng đắt hơn quần soóc bao nhiêu, cứ mua váy đi, em mặc váy đẹp hơn."
+      },
+      {
+       "who": "王一雪",
+       "zh": "我多看看再决定。你看，那边有买二送一！",
+       "py": "Wǒ duō kànkan zài juédìng. Nǐ kàn, nàbian yǒu mǎi èr sòng yī!",
+       "vi": "Để em xem thêm rồi quyết định. Anh xem, đằng kia có mua hai tặng một!"
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 3 · Mua hoa quả",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在商店，王一雪在买东西。",
+       "py": "Zài shāngdiàn, Wáng Yīxuě zài mǎi dōngxi.",
+       "vi": "Vương Nhất Tuyết đang mua đồ ở cửa hàng."
+      },
+      {
+       "who": "店员",
+       "zh": "西瓜又大又新鲜，不甜不要钱！",
+       "py": "Xīguā yòu dà yòu xīnxiān, bù tián bú yào qián!",
+       "vi": "Dưa hấu vừa to vừa tươi, không ngọt không lấy tiền!"
+      },
+      {
+       "who": "王一雪",
+       "zh": "西瓜看起来不错，怎么卖？",
+       "py": "Xīguā kànqǐlai búcuò, zěnme mài?",
+       "vi": "Dưa hấu trông được đấy, bán thế nào?"
+      },
+      {
+       "who": "店员",
+       "zh": "五块钱一公斤。来，您先尝尝这块冰西瓜，甜极了！",
+       "py": "Wǔ kuài qián yì gōngjīn. Lái, nín xiān chángchang zhè kuài bīng xīguā, tián jí le!",
+       "vi": "Năm tệ một ký. Nào, chị nếm thử miếng dưa hấu ướp lạnh này, ngọt cực kỳ!"
+      },
+      {
+       "who": "王一雪",
+       "zh": "是挺甜的！帮我选个大点儿的，再来两斤香蕉。",
+       "py": "Shì tǐng tián de! Bāng wǒ xuǎn ge dà diǎnr de, zài lái liǎng jīn xiāngjiāo.",
+       "vi": "Ngọt thật đấy! Chọn giúp tôi quả to một chút, lấy thêm hai cân chuối nữa."
+      },
+      {
+       "who": "店员",
+       "zh": "一共五十八块五毛。",
+       "py": "Yígòng wǔshíbā kuài wǔ máo.",
+       "vi": "Tổng cộng năm mươi tám tệ năm hào."
+      },
+      {
+       "who": "王一雪",
+       "zh": "我买了这么多，便宜点儿吧。",
+       "py": "Wǒ mǎile zhème duō, piányi diǎnr ba.",
+       "vi": "Tôi mua nhiều thế này, bớt một chút đi."
+      },
+      {
+       "who": "店员",
+       "zh": "您给我五十五吧，不能再便宜了。",
+       "py": "Nín gěi wǒ wǔshíwǔ ba, bù néng zài piányi le.",
+       "vi": "Chị đưa tôi năm mươi lăm đi, không thể rẻ hơn được nữa."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 4 · Chọn ti vi mới",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在家里，刘明在看电视。",
+       "py": "Zài jiā li, Liú Míng zài kàn diànshì.",
+       "vi": "Lưu Minh đang xem ti vi ở trong nhà."
+      },
+      {
+       "who": "刘明",
+       "zh": "这几天我们在新家坐着看电视的时候，又发现了新问题。",
+       "py": "Zhè jǐ tiān wǒmen zài xīn jiā zuòzhe kàn diànshì de shíhou, yòu fāxiànle xīn wèntí.",
+       "vi": "Mấy hôm nay khi ngồi xem ti vi ở nhà mới, chúng tôi lại phát hiện ra vấn đề mới."
+      },
+      {
+       "who": "刘明",
+       "zh": "房子大了，电视看起来就有点儿小。",
+       "py": "Fángzi dà le, diànshì kànqǐlai jiù yǒudiǎnr xiǎo.",
+       "vi": "Nhà rộng ra rồi, cái ti vi trông có vẻ hơi nhỏ."
+      },
+      {
+       "who": "刘明",
+       "zh": "这个电视是我们结婚时买的，是时候换个新电视了。",
+       "py": "Zhège diànshì shì wǒmen jiéhūn shí mǎi de, shì shíhou huàn ge xīn diànshì le.",
+       "vi": "Cái ti vi này mua hồi chúng tôi kết hôn, đã đến lúc đổi ti vi mới."
+      },
+      {
+       "who": "刘明",
+       "zh": "今天我一直在网上选电视，没想到，现在的电视不但便宜，而且用着非常方便，有的电视叫它一声就能开机。",
+       "py": "Jīntiān wǒ yìzhí zài wǎngshàng xuǎn diànshì, méi xiǎngdào, xiànzài de diànshì búdàn piányi, érqiě yòngzhe fēicháng fāngbiàn, yǒude diànshì jiào tā yì shēng jiù néng kāijī.",
+       "vi": "Hôm nay tôi cứ chọn ti vi trên mạng, không ngờ ti vi bây giờ không những rẻ mà còn dùng rất tiện, có loại chỉ cần gọi một tiếng là bật máy được."
+      },
+      {
+       "who": "刘明",
+       "zh": "我看了好几个，都很满意，晚上让一雪来决定吧。",
+       "py": "Wǒ kànle hǎo jǐ ge, dōu hěn mǎnyì, wǎnshang ràng Yīxuě lái juédìng ba.",
+       "vi": "Tôi xem mấy cái, đều rất ưng, tối để Nhất Tuyết quyết định vậy."
+      }
+     ]
+    }
+   ],
+   "words": [
+    {
+     "zh": "辆",
+     "py": "liàng",
+     "vi": "chiếc (dùng cho xe cộ)"
+    },
+    {
+     "zh": "自行车",
+     "py": "zìxíngchē",
+     "vi": "xe đạp"
+    },
+    {
+     "zh": "旧",
+     "py": "jiù",
+     "vi": "cũ"
+    },
+    {
+     "zh": "矮",
+     "py": "ǎi",
+     "vi": "thấp, lùn"
+    },
+    {
+     "zh": "试",
+     "py": "shì",
+     "vi": "thử"
+    },
+    {
+     "zh": "黄色",
+     "py": "huángsè",
+     "vi": "màu vàng"
+    },
+    {
+     "zh": "短裤",
+     "py": "duǎnkù",
+     "vi": "quần soóc"
+    },
+    {
+     "zh": "大小",
+     "py": "dàxiǎo",
+     "vi": "kích cỡ"
+    },
+    {
+     "zh": "合适",
+     "py": "héshì",
+     "vi": "phù hợp"
+    },
+    {
+     "zh": "裙子",
+     "py": "qúnzi",
+     "vi": "váy, đầm"
+    },
+    {
+     "zh": "更",
+     "py": "gèng",
+     "vi": "càng, hơn"
+    },
+    {
+     "zh": "决定",
+     "py": "juédìng",
+     "vi": "quyết định"
+    },
+    {
+     "zh": "西瓜",
+     "py": "xīguā",
+     "vi": "dưa hấu"
+    },
+    {
+     "zh": "新鲜",
+     "py": "xīnxiān",
+     "vi": "tươi, tươi mới"
+    },
+    {
+     "zh": "甜",
+     "py": "tián",
+     "vi": "ngọt"
+    },
+    {
+     "zh": "公斤",
+     "py": "gōngjīn",
+     "vi": "kilôgam"
+    },
+    {
+     "zh": "冰",
+     "py": "bīng",
+     "vi": "đông, đá, ướp lạnh"
+    },
+    {
+     "zh": "极",
+     "py": "jí",
+     "vi": "cực kỳ"
+    },
+    {
+     "zh": "斤",
+     "py": "jīn",
+     "vi": "cân (0,5 kilôgam)"
+    },
+    {
+     "zh": "香蕉",
+     "py": "xiāngjiāo",
+     "vi": "chuối tiêu"
+    },
+    {
+     "zh": "一共",
+     "py": "yígòng",
+     "vi": "tổng cộng"
+    },
+    {
+     "zh": "毛",
+     "py": "máo",
+     "vi": "hào (đơn vị tiền tệ)"
+    },
+    {
+     "zh": "结婚",
+     "py": "jiéhūn",
+     "vi": "kết hôn"
+    },
+    {
+     "zh": "不但",
+     "py": "búdàn",
+     "vi": "không những"
+    },
+    {
+     "zh": "而且",
+     "py": "érqiě",
+     "vi": "mà còn"
+    },
+    {
+     "zh": "声",
+     "py": "shēng",
+     "vi": "tiếng, âm thanh"
+    },
+    {
+     "zh": "开机",
+     "py": "kāijī",
+     "vi": "mở máy, bật máy"
+    }
+   ],
+   "grammar": [],
+   "quiz": [
+    {
+     "q": "小雪的自行车是什么时候买的？",
+     "o": [
+      "昨天买的",
+      "今天买的",
+      "她八岁的时候买的"
+     ],
+     "a": 2
+    },
+    {
+     "q": "他们怎么去商场？",
+     "o": [
+      "走路",
+      "打车",
+      "骑自行车"
+     ],
+     "a": 0
+    },
+    {
+     "q": "课文里说，下面哪个更贵？",
+     "o": [
+      "短裤",
+      "裙子",
+      "运动鞋"
+     ],
+     "a": 1
+    },
+    {
+     "q": "王一雪后来是怎么决定的？",
+     "o": [
+      "买裙子",
+      "买裤子",
+      "看看再说"
+     ],
+     "a": 2
+    },
+    {
+     "q": "王一雪在买什么？",
+     "o": [
+      "苹果",
+      "牛奶",
+      "西瓜和香蕉"
+     ],
+     "a": 2
+    },
+    {
+     "q": "店员给王一雪便宜了多少钱？",
+     "o": [
+      "三块五",
+      "五块",
+      "八块五"
+     ],
+     "a": 0
+    },
+    {
+     "q": "刘明发现了什么新问题？",
+     "o": [
+      "电视太旧了",
+      "房子太大了",
+      "电视有点儿小"
+     ],
+     "a": 2
+    },
+    {
+     "q": "刘明选电视的时候发现了什么？",
+     "o": [
+      "新电视很方便",
+      "新电视不便宜",
+      "不能在网上选电视"
+     ],
+     "a": 0
+    }
+   ]
+  },
+  {
+   "id": "hsk3-8",
+   "book": "Giáo trình New HSK 3",
+   "title": "第八课",
+   "sub": "Bài 8 · Sức khoẻ & bệnh viện",
+   "parts": [
+    {
+     "name": "Bài khoá 1 · Ở nhà thi đấu",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在学校的体育馆，李文遇到了陈天中。",
+       "py": "Zài xuéxiào de tǐyùguǎn, Lǐ Wén yùdàole Chén Tiānzhōng.",
+       "vi": "Lý Văn đã gặp Trần Thiên Trung ở nhà thi đấu của trường."
+      },
+      {
+       "who": "李文",
+       "zh": "天中，最近常看见你来体育馆。",
+       "py": "Tiānzhōng, zuìjìn cháng kànjiàn nǐ lái tǐyùguǎn.",
+       "vi": "Thiên Trung, gần đây hay thấy cậu đến nhà thi đấu."
+      },
+      {
+       "who": "陈天中",
+       "zh": "我每天下午都来跑一个小时步。",
+       "py": "Wǒ měi tiān xiàwǔ dōu lái pǎo yí ge xiǎoshí bù.",
+       "vi": "Chiều nào mình cũng đến chạy bộ một tiếng."
+      },
+      {
+       "who": "李文",
+       "zh": "你的运动习惯真不错。",
+       "py": "Nǐ de yùndòng xíguàn zhēn búcuò.",
+       "vi": "Thói quen vận động của cậu tốt thật đấy."
+      },
+      {
+       "who": "陈天中",
+       "zh": "因为我今年胖了十多斤，不能再胖下去了，有点儿不健康。",
+       "py": "Yīnwèi wǒ jīnnián pàngle shí duō jīn, bù néng zài pàng xiàqu le, yǒudiǎnr bú jiànkāng.",
+       "vi": "Vì năm nay mình béo lên hơn mười cân, không thể béo tiếp được nữa, hơi không khoẻ."
+      },
+      {
+       "who": "李文",
+       "zh": "我下课以后常去打羽毛球，你也来玩吧。",
+       "py": "Wǒ xiàkè yǐhòu cháng qù dǎ yǔmáoqiú, nǐ yě lái wán ba.",
+       "vi": "Sau giờ học mình hay đi đánh cầu lông, cậu cũng đến chơi đi."
+      },
+      {
+       "who": "陈天中",
+       "zh": "我知道，但是你们的水平太高了，我打得不怎么样。",
+       "py": "Wǒ zhīdào, dànshì nǐmen de shuǐpíng tài gāo le, wǒ dǎ de bù zěnmeyàng.",
+       "vi": "Mình biết, nhưng trình độ các cậu cao quá, mình đánh không ra gì."
+      },
+      {
+       "who": "李文",
+       "zh": "没关系，我可以教你。",
+       "py": "Méi guānxi, wǒ kěyǐ jiāo nǐ.",
+       "vi": "Không sao, mình có thể dạy cậu."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 2 · Hỏi thăm trong lớp",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在教室，安妮问候陈天中。",
+       "py": "Zài jiàoshì, Ānnī wènhòu Chén Tiānzhōng.",
+       "vi": "Annie hỏi thăm Trần Thiên Trung ở trong lớp học."
+      },
+      {
+       "who": "安妮",
+       "zh": "你怎么了？看上去有点儿不舒服。",
+       "py": "Nǐ zěnme le? Kàn shàngqu yǒudiǎnr bù shūfu.",
+       "vi": "Cậu sao vậy? Trông hơi khó chịu."
+      },
+      {
+       "who": "陈天中",
+       "zh": "昨天游完泳以后，耳朵一直有点儿疼。",
+       "py": "Zuótiān yóuwán yǒng yǐhòu, ěrduo yìzhí yǒudiǎnr téng.",
+       "vi": "Hôm qua bơi xong, tai cứ hơi đau."
+      },
+      {
+       "who": "安妮",
+       "zh": "是不是感冒了？发烧吗？",
+       "py": "Shì bu shì gǎnmào le? Fāshāo ma?",
+       "vi": "Có phải bị cảm không? Có sốt không?"
+      },
+      {
+       "who": "陈天中",
+       "zh": "好像发低烧了。",
+       "py": "Hǎoxiàng fā dīshāo le.",
+       "vi": "Hình như sốt nhẹ."
+      },
+      {
+       "who": "安妮",
+       "zh": "我送你去医院，让医生检查一下吧。",
+       "py": "Wǒ sòng nǐ qù yīyuàn, ràng yīshēng jiǎnchá yíxià ba.",
+       "vi": "Mình đưa cậu đi bệnh viện, để bác sĩ kiểm tra một chút nhé."
+      },
+      {
+       "who": "陈天中",
+       "zh": "我先回去睡一觉，可能休息休息就好了。",
+       "py": "Wǒ xiān huíqu shuì yí jiào, kěnéng xiūxi xiūxi jiù hǎo le.",
+       "vi": "Mình về ngủ một giấc đã, có thể nghỉ ngơi là khỏi."
+      },
+      {
+       "who": "安妮",
+       "zh": "好吧，如果下午还发烧，就一定要去看医生。",
+       "py": "Hǎo ba, rúguǒ xiàwǔ hái fāshāo, jiù yídìng yào qù kàn yīshēng.",
+       "vi": "Được rồi, nếu chiều vẫn sốt thì nhất định phải đi khám bác sĩ."
+      },
+      {
+       "who": "陈天中",
+       "zh": "谢谢关心，我会注意的。",
+       "py": "Xièxie guānxīn, wǒ huì zhùyì de.",
+       "vi": "Cảm ơn cậu đã quan tâm, mình sẽ chú ý."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 3 · Thăm bệnh",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在医院病房，安妮探望陈天中。",
+       "py": "Zài yīyuàn bìngfáng, Ānnī tànwàng Chén Tiānzhōng.",
+       "vi": "Annie đến thăm Trần Thiên Trung ở phòng bệnh của bệnh viện."
+      },
+      {
+       "who": "安妮",
+       "zh": "你怎么突然住院了？大家都很担心你。",
+       "py": "Nǐ zěnme tūrán zhùyuàn le? Dàjiā dōu hěn dānxīn nǐ.",
+       "vi": "Sao cậu đột nhiên nhập viện vậy? Mọi người đều rất lo cho cậu."
+      },
+      {
+       "who": "陈天中",
+       "zh": "我的腿疼了几个星期了，医生说需要住院做检查。",
+       "py": "Wǒ de tuǐ téngle jǐ ge xīngqī le, yīshēng shuō xūyào zhùyuàn zuò jiǎnchá.",
+       "vi": "Chân mình đau mấy tuần rồi, bác sĩ nói cần nằm viện để kiểm tra."
+      },
+      {
+       "who": "安妮",
+       "zh": "你看起来一点儿也不像病人。",
+       "py": "Nǐ kànqǐlai yìdiǎnr yě bú xiàng bìngrén.",
+       "vi": "Trông cậu chẳng giống bệnh nhân chút nào."
+      },
+      {
+       "who": "陈天中",
+       "zh": "是啊，我很少生病。我上次来医院已经过去差不多两年了。",
+       "py": "Shì a, wǒ hěn shǎo shēngbìng. Wǒ shàng cì lái yīyuàn yǐjīng guòqù chàbuduō liǎng nián le.",
+       "vi": "Đúng vậy, mình rất ít khi ốm. Lần trước mình đến bệnh viện đã gần hai năm trước rồi."
+      },
+      {
+       "who": "安妮",
+       "zh": "你每天跑步，有时候还去游泳，是不是运动太多了？",
+       "py": "Nǐ měi tiān pǎobù, yǒushíhou hái qù yóuyǒng, shì bu shì yùndòng tài duō le?",
+       "vi": "Cậu ngày nào cũng chạy bộ, thỉnh thoảng còn đi bơi, có phải vận động nhiều quá không?"
+      },
+      {
+       "who": "陈天中",
+       "zh": "医生也这么说，但是还得做完检查才能知道。",
+       "py": "Yīshēng yě zhème shuō, dànshì hái děi zuòwán jiǎnchá cái néng zhīdào.",
+       "vi": "Bác sĩ cũng nói vậy, nhưng còn phải kiểm tra xong mới biết được."
+      },
+      {
+       "who": "安妮",
+       "zh": "别担心！听医生的话，好好休息，你的腿一定能好。",
+       "py": "Bié dānxīn! Tīng yīshēng de huà, hǎohāo xiūxi, nǐ de tuǐ yídìng néng hǎo.",
+       "vi": "Đừng lo! Nghe lời bác sĩ, nghỉ ngơi cho tốt, chân cậu nhất định sẽ khỏi."
+      },
+      {
+       "who": "陈天中",
+       "zh": "谢谢。有人来看我，我就开心多了。",
+       "py": "Xièxie. Yǒu rén lái kàn wǒ, wǒ jiù kāixīn duō le.",
+       "vi": "Cảm ơn. Có người đến thăm là mình vui hơn nhiều."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 4 · Xuất viện",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在家里，陈天中吃药、休息。",
+       "py": "Zài jiā li, Chén Tiānzhōng chī yào, xiūxi.",
+       "vi": "Trần Thiên Trung uống thuốc và nghỉ ngơi ở nhà."
+      },
+      {
+       "who": "陈天中",
+       "zh": "今天我出院了。",
+       "py": "Jīntiān wǒ chūyuàn le.",
+       "vi": "Hôm nay tôi xuất viện."
+      },
+      {
+       "who": "陈天中",
+       "zh": "出院前，医生给我开了几种药，而且告诉了我吃药的方法。",
+       "py": "Chūyuàn qián, yīshēng gěi wǒ kāile jǐ zhǒng yào, érqiě gàosule wǒ chī yào de fāngfǎ.",
+       "vi": "Trước khi xuất viện, bác sĩ kê cho tôi mấy loại thuốc, còn dặn tôi cách uống thuốc."
+      },
+      {
+       "who": "陈天中",
+       "zh": "有一种药需要每天睡前吃一次，其他几种每天吃三次，饭后吃。",
+       "py": "Yǒu yì zhǒng yào xūyào měi tiān shuì qián chī yí cì, qítā jǐ zhǒng měi tiān chī sān cì, fàn hòu chī.",
+       "vi": "Có một loại thuốc phải uống mỗi ngày một lần trước khi ngủ, mấy loại khác uống ba lần một ngày, uống sau bữa ăn."
+      },
+      {
+       "who": "陈天中",
+       "zh": "除了吃药，医生还说最重要的是多休息。",
+       "py": "Chúle chī yào, yīshēng hái shuō zuì zhòngyào de shì duō xiūxi.",
+       "vi": "Ngoài uống thuốc, bác sĩ còn nói quan trọng nhất là nghỉ ngơi nhiều."
+      },
+      {
+       "who": "陈天中",
+       "zh": "我都记在心里了，回家以后一定会多注意。",
+       "py": "Wǒ dōu jì zài xīnlǐ le, huí jiā yǐhòu yídìng huì duō zhùyì.",
+       "vi": "Tôi đều ghi nhớ trong lòng, sau khi về nhà nhất định sẽ chú ý hơn."
+      },
+      {
+       "who": "陈天中",
+       "zh": "希望我的腿能快一点儿好。",
+       "py": "Xīwàng wǒ de tuǐ néng kuài yìdiǎnr hǎo.",
+       "vi": "Mong chân tôi nhanh khỏi hơn một chút."
+      }
+     ]
+    }
+   ],
+   "words": [
+    {
+     "zh": "最近",
+     "py": "zuìjìn",
+     "vi": "gần đây"
+    },
+    {
+     "zh": "常",
+     "py": "cháng",
+     "vi": "thường, thường xuyên"
+    },
+    {
+     "zh": "体育馆",
+     "py": "tǐyùguǎn",
+     "vi": "nhà thi đấu"
+    },
+    {
+     "zh": "习惯",
+     "py": "xíguàn",
+     "vi": "thói quen, quen với"
+    },
+    {
+     "zh": "胖",
+     "py": "pàng",
+     "vi": "béo"
+    },
+    {
+     "zh": "健康",
+     "py": "jiànkāng",
+     "vi": "khoẻ mạnh"
+    },
+    {
+     "zh": "以后",
+     "py": "yǐhòu",
+     "vi": "sau, sau này, về sau"
+    },
+    {
+     "zh": "羽毛球",
+     "py": "yǔmáoqiú",
+     "vi": "cầu lông"
+    },
+    {
+     "zh": "耳朵",
+     "py": "ěrduo",
+     "vi": "tai"
+    },
+    {
+     "zh": "感冒",
+     "py": "gǎnmào",
+     "vi": "bị cảm, cảm"
+    },
+    {
+     "zh": "发烧",
+     "py": "fāshāo",
+     "vi": "sốt"
+    },
+    {
+     "zh": "低",
+     "py": "dī",
+     "vi": "thấp"
+    },
+    {
+     "zh": "关心",
+     "py": "guānxīn",
+     "vi": "quan tâm"
+    },
+    {
+     "zh": "注意",
+     "py": "zhùyì",
+     "vi": "chú ý"
+    },
+    {
+     "zh": "突然",
+     "py": "tūrán",
+     "vi": "đột nhiên, đột ngột"
+    },
+    {
+     "zh": "住院",
+     "py": "zhùyuàn",
+     "vi": "nằm viện"
+    },
+    {
+     "zh": "担心",
+     "py": "dānxīn",
+     "vi": "lo lắng"
+    },
+    {
+     "zh": "腿",
+     "py": "tuǐ",
+     "vi": "chân"
+    },
+    {
+     "zh": "病人",
+     "py": "bìngrén",
+     "vi": "bệnh nhân"
+    },
+    {
+     "zh": "差不多",
+     "py": "chàbuduō",
+     "vi": "gần như, tương tự, xấp xỉ"
+    },
+    {
+     "zh": "得",
+     "py": "děi",
+     "vi": "phải, cần"
+    },
+    {
+     "zh": "开心",
+     "py": "kāixīn",
+     "vi": "vui vẻ"
+    },
+    {
+     "zh": "出院",
+     "py": "chūyuàn",
+     "vi": "xuất viện"
+    },
+    {
+     "zh": "开",
+     "py": "kāi",
+     "vi": "kê (đơn thuốc)"
+    },
+    {
+     "zh": "种",
+     "py": "zhǒng",
+     "vi": "loại"
+    },
+    {
+     "zh": "方法",
+     "py": "fāngfǎ",
+     "vi": "phương pháp"
+    },
+    {
+     "zh": "其他",
+     "py": "qítā",
+     "vi": "khác"
+    },
+    {
+     "zh": "心里",
+     "py": "xīnlǐ",
+     "vi": "trong lòng"
+    }
+   ],
+   "grammar": [],
+   "quiz": [
+    {
+     "q": "陈天中为什么每天运动？",
+     "o": [
+      "他喜欢跑步",
+      "他要学打羽毛球",
+      "他不想再胖下去了"
+     ],
+     "a": 2
+    },
+    {
+     "q": "李文要教陈天中做什么？",
+     "o": [
+      "跑步",
+      "打篮球",
+      "打羽毛球"
+     ],
+     "a": 2
+    },
+    {
+     "q": "陈天中怎么了？",
+     "o": [
+      "头疼",
+      "发高烧",
+      "耳朵不舒服"
+     ],
+     "a": 2
+    },
+    {
+     "q": "如果下午还发烧，应该怎么办？",
+     "o": [
+      "去看医生",
+      "吃点儿药",
+      "回家休息"
+     ],
+     "a": 0
+    },
+    {
+     "q": "陈天中上次来医院是什么时候？",
+     "o": [
+      "几个星期前",
+      "一个月前",
+      "两年前"
+     ],
+     "a": 2
+    },
+    {
+     "q": "陈天中为什么觉得开心多了？",
+     "o": [
+      "有人来看他",
+      "他的腿不疼了",
+      "马上就能回家了"
+     ],
+     "a": 0
+    },
+    {
+     "q": "陈天中现在怎么样了？",
+     "o": [
+      "出院了",
+      "病都好了",
+      "还不能回家"
+     ],
+     "a": 0
+    },
+    {
+     "q": "医生说什么最重要？",
+     "o": [
+      "多走路",
+      "多休息",
+      "吃药的方法"
+     ],
+     "a": 1
+    }
+   ]
+  },
+  {
+   "id": "hsk3-9",
+   "book": "Giáo trình New HSK 3",
+   "title": "第九课",
+   "sub": "Bài 9 · Thể thao & thi đấu",
+   "parts": [
+    {
+     "name": "Bài khoá 1 · Trước thư viện",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在图书馆门口，李文向白家月跑过去。",
+       "py": "Zài túshūguǎn ménkǒu, Lǐ Wén xiàng Bái Jiāyuè pǎo guòqu.",
+       "vi": "Ở trước cửa thư viện, Lý Văn chạy về phía Bạch Gia Nguyệt."
+      },
+      {
+       "who": "李文",
+       "zh": "家月，对不起，我昨天忘了还你校园卡了。",
+       "py": "Jiāyuè, duìbuqǐ, wǒ zuótiān wàngle huán nǐ xiàoyuánkǎ le.",
+       "vi": "Gia Nguyệt, xin lỗi, hôm qua mình quên trả cậu thẻ sinh viên."
+      },
+      {
+       "who": "白家月",
+       "zh": "没关系。你怎么这么快就过来了？",
+       "py": "Méi guānxi. Nǐ zěnme zhème kuài jiù guòlai le?",
+       "vi": "Không sao. Sao cậu đến nhanh thế?"
+      },
+      {
+       "who": "李文",
+       "zh": "我正在球场打球呢，接了你的电话就跑过来了。",
+       "py": "Wǒ zhèngzài qiúchǎng dǎqiú ne, jiēle nǐ de diànhuà jiù pǎo guòlai le.",
+       "vi": "Mình đang chơi bóng ở sân, nghe điện thoại của cậu xong là chạy sang luôn."
+      },
+      {
+       "who": "白家月",
+       "zh": "听说为了准备运动会，你们几个男生每天都练球。",
+       "py": "Tīngshuō wèile zhǔnbèi yùndònghuì, nǐmen jǐ ge nánshēng měi tiān dōu liànqiú.",
+       "vi": "Nghe nói để chuẩn bị cho đại hội thể thao, mấy cậu nam sinh ngày nào cũng luyện bóng."
+      },
+      {
+       "who": "李文",
+       "zh": "是啊！你打算参加运动会吗？",
+       "py": "Shì a! Nǐ dǎsuàn cānjiā yùndònghuì ma?",
+       "vi": "Đúng vậy! Cậu định tham gia đại hội thể thao không?"
+      },
+      {
+       "who": "白家月",
+       "zh": "我想参加网球比赛，最近一直在练习。",
+       "py": "Wǒ xiǎng cānjiā wǎngqiú bǐsài, zuìjìn yìzhí zài liànxí.",
+       "vi": "Mình muốn tham gia thi đấu quần vợt, gần đây vẫn luyện tập."
+      },
+      {
+       "who": "李文",
+       "zh": "好，到时候我去看你的比赛。",
+       "py": "Hǎo, dào shíhou wǒ qù kàn nǐ de bǐsài.",
+       "vi": "Được, đến lúc đó mình sẽ đi xem cậu thi đấu."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 2 · Trong khuôn viên trường",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在校园里，李文和白家月在聊天儿。",
+       "py": "Zài xiàoyuán li, Lǐ Wén hé Bái Jiāyuè zài liáotiānr.",
+       "vi": "Lý Văn và Bạch Gia Nguyệt đang trò chuyện trong khuôn viên trường."
+      },
+      {
+       "who": "李文",
+       "zh": "家月，你跟我们一起打羽毛球吧？",
+       "py": "Jiāyuè, nǐ gēn wǒmen yìqǐ dǎ yǔmáoqiú ba?",
+       "vi": "Gia Nguyệt, cậu đánh cầu lông với bọn mình đi?"
+      },
+      {
+       "who": "白家月",
+       "zh": "我好多年没打羽毛球了，几乎忘了怎么打了。",
+       "py": "Wǒ hǎoduō nián méi dǎ yǔmáoqiú le, jīhū wàngle zěnme dǎ le.",
+       "vi": "Mình nhiều năm rồi không đánh cầu lông, hầu như quên mất cách đánh."
+      },
+      {
+       "who": "李文",
+       "zh": "不是比赛，打不好没关系。",
+       "py": "Bú shì bǐsài, dǎ bu hǎo méi guānxi.",
+       "vi": "Không phải thi đấu, đánh không tốt cũng không sao."
+      },
+      {
+       "who": "白家月",
+       "zh": "这么多同学一起打，如果总是接不住球，就太不好意思了。",
+       "py": "Zhème duō tóngxué yìqǐ dǎ, rúguǒ zǒngshì jiē bu zhù qiú, jiù tài bù hǎoyìsi le.",
+       "vi": "Đông bạn học chơi cùng thế này, nếu cứ đỡ hụt bóng thì ngại lắm."
+      },
+      {
+       "who": "李文",
+       "zh": "你想得太多了！大家打球只是为了锻炼身体。",
+       "py": "Nǐ xiǎng de tài duō le! Dàjiā dǎqiú zhǐshì wèile duànliàn shēntǐ.",
+       "vi": "Cậu nghĩ nhiều quá rồi! Mọi người chơi bóng chỉ là để rèn luyện sức khoẻ thôi."
+      },
+      {
+       "who": "白家月",
+       "zh": "我先自己练练吧，下周再跟你们一起打。",
+       "py": "Wǒ xiān zìjǐ liànlian ba, xià zhōu zài gēn nǐmen yìqǐ dǎ.",
+       "vi": "Mình tự tập trước đã, tuần sau sẽ chơi cùng các cậu."
+      },
+      {
+       "who": "李文",
+       "zh": "我在教天中打羽毛球，你可以过来跟我们一起练。",
+       "py": "Wǒ zài jiāo Tiānzhōng dǎ yǔmáoqiú, nǐ kěyǐ guòlai gēn wǒmen yìqǐ liàn.",
+       "vi": "Mình đang dạy Thiên Trung đánh cầu lông, cậu có thể sang tập cùng bọn mình."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 3 · Xem bóng đá",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在李文家，李文、白家月和陈天中一起看电视。",
+       "py": "Zài Lǐ Wén jiā, Lǐ Wén, Bái Jiāyuè hé Chén Tiānzhōng yìqǐ kàn diànshì.",
+       "vi": "Lý Văn xem ti vi cùng Bạch Gia Nguyệt và Trần Thiên Trung tại nhà anh ấy."
+      },
+      {
+       "who": "陈天中",
+       "zh": "足球比赛已经开始了，快过来看吧！",
+       "py": "Zúqiú bǐsài yǐjīng kāishǐ le, kuài guòlai kàn ba!",
+       "vi": "Trận bóng đá bắt đầu rồi, mau sang xem đi!"
+      },
+      {
+       "who": "李文",
+       "zh": "你们先看，冰箱里有啤酒和饮料，我去拿一下。",
+       "py": "Nǐmen xiān kàn, bīngxiāng li yǒu píjiǔ hé yǐnliào, wǒ qù ná yíxià.",
+       "vi": "Các cậu xem trước đi, trong tủ lạnh có bia và nước ngọt, mình đi lấy một chút."
+      },
+      {
+       "who": "白家月",
+       "zh": "今天怎么回事？总是踢不进去！",
+       "py": "Jīntiān zěnme huí shì? Zǒngshì tī bu jìnqu!",
+       "vi": "Hôm nay là sao vậy? Cứ sút không vào!"
+      },
+      {
+       "who": "陈天中",
+       "zh": "几个老球员生病了，新球员第一次参加这么重要的比赛，太紧张了。",
+       "py": "Jǐ ge lǎo qiúyuán shēngbìng le, xīn qiúyuán dì-yī cì cānjiā zhème zhòngyào de bǐsài, tài jǐnzhāng le.",
+       "vi": "Mấy cầu thủ kỳ cựu bị ốm, cầu thủ mới lần đầu tham gia trận đấu quan trọng thế này nên căng thẳng quá."
+      },
+      {
+       "who": "李文",
+       "zh": "是啊，主要的球员没参加比赛，所以大家也都受到影响了。",
+       "py": "Shì a, zhǔyào de qiúyuán méi cānjiā bǐsài, suǒyǐ dàjiā yě dōu shòudào yǐngxiǎng le.",
+       "vi": "Đúng vậy, các cầu thủ chính không thi đấu nên mọi người cũng đều bị ảnh hưởng."
+      },
+      {
+       "who": "白家月",
+       "zh": "越看越着急。我不看了，你们告诉我得分吧。",
+       "py": "Yuè kàn yuè zháojí. Wǒ bú kàn le, nǐmen gàosu wǒ défēn ba.",
+       "vi": "Càng xem càng sốt ruột. Mình không xem nữa, các cậu báo tỉ số cho mình nhé."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 4 · Bài phát biểu về Olympic",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在家里，李文准备演讲稿。",
+       "py": "Zài jiā li, Lǐ Wén zhǔnbèi yǎnjiǎnggǎo.",
+       "vi": "Lý Văn chuẩn bị bài phát biểu ở trong nhà."
+      },
+      {
+       "who": "李文",
+       "zh": "我喜欢看体育比赛，最爱看的就是奥运会。",
+       "py": "Wǒ xǐhuan kàn tǐyù bǐsài, zuì ài kàn de jiù shì Àoyùnhuì.",
+       "vi": "Tôi thích xem thi đấu thể thao, thích xem nhất chính là Thế vận hội Olympic."
+      },
+      {
+       "who": "李文",
+       "zh": "奥运会是世界上影响最大的体育比赛。",
+       "py": "Àoyùnhuì shì shìjiè shang yǐngxiǎng zuì dà de tǐyù bǐsài.",
+       "vi": "Olympic là giải thể thao có ảnh hưởng lớn nhất thế giới."
+      },
+      {
+       "who": "李文",
+       "zh": "从1896年到2024年，每次奥运会都有非常多的运动员参加。",
+       "py": "Cóng yībājiǔliù nián dào èrlíngèrsì nián, měi cì Àoyùnhuì dōu yǒu fēicháng duō de yùndòngyuán cānjiā.",
+       "vi": "Từ năm 1896 đến năm 2024, mỗi kỳ Olympic đều có rất nhiều vận động viên tham gia."
+      },
+      {
+       "who": "李文",
+       "zh": "第一位参加奥运会的中国运动员是刘长春，他1932年参加了100米和200米短跑比赛。",
+       "py": "Dì-yī wèi cānjiā Àoyùnhuì de Zhōngguó yùndòngyuán shì Liú Chángchūn, tā yījiǔsān'èr nián cānjiāle yībǎi mǐ hé èrbǎi mǐ duǎnpǎo bǐsài.",
+       "vi": "Vận động viên Trung Quốc đầu tiên tham dự Olympic là Lưu Trường Xuân, năm 1932 ông tham gia thi chạy ngắn 100 mét và 200 mét."
+      },
+      {
+       "who": "李文",
+       "zh": "虽然他没有得到好成绩，但是他让世界认识了中国。",
+       "py": "Suīrán tā méiyǒu dédào hǎo chéngjì, dànshì tā ràng shìjiè rènshile Zhōngguó.",
+       "vi": "Tuy ông không đạt thành tích tốt, nhưng ông đã khiến thế giới biết đến Trung Quốc."
+      }
+     ]
+    }
+   ],
+   "words": [
+    {
+     "zh": "校园",
+     "py": "xiàoyuán",
+     "vi": "khuôn viên trường"
+    },
+    {
+     "zh": "卡",
+     "py": "kǎ",
+     "vi": "thẻ"
+    },
+    {
+     "zh": "球场",
+     "py": "qiúchǎng",
+     "vi": "sân bóng"
+    },
+    {
+     "zh": "为了",
+     "py": "wèile",
+     "vi": "vì, để"
+    },
+    {
+     "zh": "运动会",
+     "py": "yùndònghuì",
+     "vi": "đại hội thể dục thể thao"
+    },
+    {
+     "zh": "男生",
+     "py": "nánshēng",
+     "vi": "nam sinh, nam giới"
+    },
+    {
+     "zh": "练",
+     "py": "liàn",
+     "vi": "luyện, tập"
+    },
+    {
+     "zh": "参加",
+     "py": "cānjiā",
+     "vi": "tham gia"
+    },
+    {
+     "zh": "网球",
+     "py": "wǎngqiú",
+     "vi": "quần vợt, tennis"
+    },
+    {
+     "zh": "比赛",
+     "py": "bǐsài",
+     "vi": "trận đấu, thi đấu"
+    },
+    {
+     "zh": "练习",
+     "py": "liànxí",
+     "vi": "luyện tập, bài tập"
+    },
+    {
+     "zh": "好多",
+     "py": "hǎoduō",
+     "vi": "khá nhiều"
+    },
+    {
+     "zh": "几乎",
+     "py": "jīhū",
+     "vi": "hầu như"
+    },
+    {
+     "zh": "只是",
+     "py": "zhǐshì",
+     "vi": "chỉ là, nhưng"
+    },
+    {
+     "zh": "啤酒",
+     "py": "píjiǔ",
+     "vi": "bia"
+    },
+    {
+     "zh": "回",
+     "py": "huí",
+     "vi": "vụ, lần"
+    },
+    {
+     "zh": "紧张",
+     "py": "jǐnzhāng",
+     "vi": "căng thẳng, hồi hộp"
+    },
+    {
+     "zh": "主要",
+     "py": "zhǔyào",
+     "vi": "chủ yếu, chính"
+    },
+    {
+     "zh": "受到",
+     "py": "shòudào",
+     "vi": "bị, nhận, chịu, nhận được"
+    },
+    {
+     "zh": "影响",
+     "py": "yǐngxiǎng",
+     "vi": "sự ảnh hưởng, ảnh hưởng"
+    },
+    {
+     "zh": "得分",
+     "py": "défēn",
+     "vi": "ghi điểm, ghi bàn, tỉ số"
+    },
+    {
+     "zh": "体育",
+     "py": "tǐyù",
+     "vi": "thể dục, thể thao"
+    },
+    {
+     "zh": "世界",
+     "py": "shìjiè",
+     "vi": "thế giới"
+    },
+    {
+     "zh": "运动员",
+     "py": "yùndòngyuán",
+     "vi": "vận động viên"
+    },
+    {
+     "zh": "得到",
+     "py": "dédào",
+     "vi": "đạt được, nhận được"
+    },
+    {
+     "zh": "成绩",
+     "py": "chéngjì",
+     "vi": "thành tích, kết quả"
+    },
+    {
+     "zh": "奥运会",
+     "py": "Àoyùnhuì",
+     "vi": "Thế vận hội Olympic"
+    },
+    {
+     "zh": "刘长春",
+     "py": "Liú Chángchūn",
+     "vi": "Lưu Trường Xuân"
+    }
+   ],
+   "grammar": [],
+   "quiz": [
+    {
+     "q": "李文昨天忘了做什么了？",
+     "o": [
+      "去学校打球",
+      "还白家月校园卡",
+      "给白家月打电话"
+     ],
+     "a": 1
+    },
+    {
+     "q": "运动会的时候，李文要做什么？",
+     "o": [
+      "游泳",
+      "踢足球",
+      "看白家月的比赛"
+     ],
+     "a": 2
+    },
+    {
+     "q": "李文和白家月在说什么？",
+     "o": [
+      "运动会",
+      "打网球",
+      "打羽毛球"
+     ],
+     "a": 2
+    },
+    {
+     "q": "大家为什么一起打球？",
+     "o": [
+      "为了比赛",
+      "为了锻炼身体",
+      "为了参加运动会"
+     ],
+     "a": 1
+    },
+    {
+     "q": "他们在做什么？",
+     "o": [
+      "看足球比赛",
+      "准备踢足球",
+      "准备参加比赛"
+     ],
+     "a": 0
+    },
+    {
+     "q": "白家月为什么着急？",
+     "o": [
+      "老球员生病了",
+      "球一直踢不进去",
+      "看不到比赛的得分"
+     ],
+     "a": 1
+    },
+    {
+     "q": "刘长春参加了哪个比赛？",
+     "o": [
+      "100米短跑",
+      "200米游泳",
+      "5000米长跑"
+     ],
+     "a": 0
+    }
+   ]
+  },
+  {
+   "id": "hsk3-10",
+   "book": "Giáo trình New HSK 3",
+   "title": "第十课",
+   "sub": "Bài 10 · Học tập & thi cử",
+   "parts": [
+    {
+     "name": "Bài khoá 1 · Phương pháp học",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在教室里，刘小雪跟同学聊学习方法。",
+       "py": "Zài jiàoshì li, Liú Xiǎoxuě gēn tóngxué liáo xuéxí fāngfǎ.",
+       "vi": "Lưu Tiểu Tuyết trò chuyện với bạn học về phương pháp học tập ở trong lớp học."
+      },
+      {
+       "who": "同学",
+       "zh": "你的数学越来越好，能不能介绍一下学习方法？",
+       "py": "Nǐ de shùxué yuè lái yuè hǎo, néng bu néng jièshào yíxià xuéxí fāngfǎ?",
+       "vi": "Môn Toán của cậu càng ngày càng tốt, giới thiệu một chút phương pháp học được không?"
+      },
+      {
+       "who": "刘小雪",
+       "zh": "没有什么特别的方法，认真听课，认真记笔记。",
+       "py": "Méiyǒu shénme tèbié de fāngfǎ, rènzhēn tīngkè, rènzhēn jì bǐjì.",
+       "vi": "Không có phương pháp gì đặc biệt, nghe giảng nghiêm túc, ghi chép nghiêm túc."
+      },
+      {
+       "who": "同学",
+       "zh": "我看过你的笔记，记得非常清楚。",
+       "py": "Wǒ kànguo nǐ de bǐjì, jì de fēicháng qīngchu.",
+       "vi": "Mình từng xem ghi chép của cậu, ghi rất rõ ràng."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "老师写在黑板上的题都很重要，所以我会把这些题记在本子上。",
+       "py": "Lǎoshī xiě zài hēibǎn shang de tí dōu hěn zhòngyào, suǒyǐ wǒ huì bǎ zhèxiē tí jì zài běnzi shang.",
+       "vi": "Những bài cô giáo viết trên bảng đều rất quan trọng, nên mình sẽ ghi những bài đó vào vở."
+      },
+      {
+       "who": "同学",
+       "zh": "你说得对。我没有记笔记的习惯。",
+       "py": "Nǐ shuō de duì. Wǒ méiyǒu jì bǐjì de xíguàn.",
+       "vi": "Cậu nói đúng. Mình không có thói quen ghi chép."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "笔记挺重要的，我每天写作业以前，都要看一遍。",
+       "py": "Bǐjì tǐng zhòngyào de, wǒ měi tiān xiě zuòyè yǐqián, dōu yào kàn yí biàn.",
+       "vi": "Ghi chép khá quan trọng, mỗi ngày trước khi làm bài tập mình đều xem lại một lượt."
+      },
+      {
+       "who": "同学",
+       "zh": "这个方法真好！我以后也试试，希望能提高成绩。",
+       "py": "Zhège fāngfǎ zhēn hǎo! Wǒ yǐhòu yě shìshi, xīwàng néng tígāo chéngjì.",
+       "vi": "Phương pháp này hay thật! Sau này mình cũng thử, mong có thể nâng cao thành tích."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 2 · Nói về bài kiểm tra",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在教室里，刘小雪跟同学聊昨天的考试。",
+       "py": "Zài jiàoshì li, Liú Xiǎoxuě gēn tóngxué liáo zuótiān de kǎoshì.",
+       "vi": "Lưu Tiểu Tuyết trò chuyện với bạn học về bài kiểm tra hôm qua ở trong lớp học."
+      },
+      {
+       "who": "同学",
+       "zh": "小雪，昨天的考试，你考得怎么样？",
+       "py": "Xiǎoxuě, zuótiān de kǎoshì, nǐ kǎo de zěnmeyàng?",
+       "vi": "Tiểu Tuyết, bài kiểm tra hôm qua cậu làm thế nào?"
+      },
+      {
+       "who": "刘小雪",
+       "zh": "我觉得历史有点儿难，你呢？",
+       "py": "Wǒ juéde lìshǐ yǒudiǎnr nán, nǐ ne?",
+       "vi": "Mình thấy môn Lịch sử hơi khó, còn cậu?"
+      },
+      {
+       "who": "同学",
+       "zh": "数学考试我没看清楚要求，做错了好几个题，考得挺差的。",
+       "py": "Shùxué kǎoshì wǒ méi kàn qīngchu yāoqiú, zuòcuòle hǎo jǐ ge tí, kǎo de tǐng chà de.",
+       "vi": "Bài kiểm tra Toán mình không đọc rõ yêu cầu, làm sai mấy câu, làm khá kém."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "明天还有考试呢，别想那么多了，先复习外语吧。",
+       "py": "Míngtiān hái yǒu kǎoshì ne, bié xiǎng nàme duō le, xiān fùxí wàiyǔ ba.",
+       "vi": "Ngày mai còn thi nữa, đừng nghĩ nhiều thế, ôn ngoại ngữ trước đi."
+      },
+      {
+       "who": "同学",
+       "zh": "外语作业里有几个问题，我可以问问你吗？",
+       "py": "Wàiyǔ zuòyè li yǒu jǐ ge wèntí, wǒ kěyǐ wènwen nǐ ma?",
+       "vi": "Trong bài tập ngoại ngữ có mấy câu hỏi, mình hỏi cậu được không?"
+      },
+      {
+       "who": "刘小雪",
+       "zh": "当然可以。在学习上，遇到什么问题都可以问我。",
+       "py": "Dāngrán kěyǐ. Zài xuéxí shang, yùdào shénme wèntí dōu kěyǐ wèn wǒ.",
+       "vi": "Đương nhiên được. Trong học tập, gặp vấn đề gì đều có thể hỏi mình."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "不好意思，这几个题我也不会。咱们还是一起去办公室问问李老师吧。",
+       "py": "Bù hǎoyìsi, zhè jǐ ge tí wǒ yě bú huì. Zánmen háishi yìqǐ qù bàngōngshì wènwen Lǐ lǎoshī ba.",
+       "vi": "Ngại quá, mấy câu này mình cũng không biết. Chúng ta cùng ra văn phòng hỏi cô Lý vậy."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 3 · Ở văn phòng cô giáo",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在李老师办公室，刘小雪跟同学问问题。",
+       "py": "Zài Lǐ lǎoshī bàngōngshì, Liú Xiǎoxuě gēn tóngxué wèn wèntí.",
+       "vi": "Lưu Tiểu Tuyết hỏi bài cùng bạn học ở trong phòng làm việc của cô Lý."
+      },
+      {
+       "who": "同学",
+       "zh": "李老师，书上有几个问题，我们想问问您。",
+       "py": "Lǐ lǎoshī, shū shang yǒu jǐ ge wèntí, wǒmen xiǎng wènwen nín.",
+       "vi": "Cô Lý ơi, trong sách có mấy câu hỏi, chúng em muốn hỏi cô."
+      },
+      {
+       "who": "李老师",
+       "zh": "好，坐下说吧，哪个题不会？",
+       "py": "Hǎo, zuòxia shuō ba, nǎge tí bú huì?",
+       "vi": "Được, ngồi xuống nói đi, câu nào không làm được?"
+      },
+      {
+       "who": "同学",
+       "zh": "书上第五页的这个对话我看不懂，小雪也不明白。",
+       "py": "Shū shang dì-wǔ yè de zhège duìhuà wǒ kàn bu dǒng, Xiǎoxuě yě bù míngbai.",
+       "vi": "Đoạn hội thoại ở trang năm trong sách em đọc không hiểu, Tiểu Tuyết cũng không hiểu."
+      },
+      {
+       "who": "李老师",
+       "zh": "我课上讲过这几句话，再给你们讲一遍。",
+       "py": "Wǒ kè shang jiǎngguo zhè jǐ jù huà, zài gěi nǐmen jiǎng yí biàn.",
+       "vi": "Trên lớp cô đã giảng mấy câu này rồi, cô giảng lại cho các em một lượt."
+      },
+      {
+       "who": "同学",
+       "zh": "我终于懂了。这些句子一点儿也不难。",
+       "py": "Wǒ zhōngyú dǒng le. Zhèxiē jùzi yìdiǎnr yě bù nán.",
+       "vi": "Em cuối cùng cũng hiểu rồi. Những câu này chẳng khó chút nào."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "我也明白了，谢谢您，李老师。",
+       "py": "Wǒ yě míngbai le, xièxie nín, Lǐ lǎoshī.",
+       "vi": "Em cũng hiểu rồi, cảm ơn cô, cô Lý."
+      },
+      {
+       "who": "李老师",
+       "zh": "我这本书上还有几个练习，你们回家也做一做，明天再把书还给我。",
+       "py": "Wǒ zhè běn shū shang hái yǒu jǐ ge liànxí, nǐmen huí jiā yě zuò yi zuò, míngtiān zài bǎ shū huán gěi wǒ.",
+       "vi": "Trong quyển sách này của cô còn mấy bài luyện tập, các em về nhà làm thử, ngày mai trả lại sách cho cô nhé."
+      }
+     ]
+    },
+    {
+     "name": "Bài khoá 4 · Viết email",
+     "lines": [
+      {
+       "who": "",
+       "zh": "在家里，刘小雪在写邮件。",
+       "py": "Zài jiā li, Liú Xiǎoxuě zài xiě yóujiàn.",
+       "vi": "Lưu Tiểu Tuyết đang viết email ở trong nhà."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "家月姐姐：你最近怎么样？忙不忙？",
+       "py": "Jiāyuè jiějie: Nǐ zuìjìn zěnmeyàng? Máng bu máng?",
+       "vi": "Chị Gia Nguyệt: Dạo này chị thế nào? Có bận không?"
+      },
+      {
+       "who": "刘小雪",
+       "zh": "我现在上初中二年级，学习越来越忙，后年就要考高中了。",
+       "py": "Wǒ xiànzài shàng chūzhōng èr niánjí, xuéxí yuè lái yuè máng, hòunián jiù yào kǎo gāozhōng le.",
+       "vi": "Em hiện đang học lớp hai cấp hai, việc học càng ngày càng bận, hai năm nữa là thi lên cấp ba rồi."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "中国的学校一般是小学六年，初中三年，高中三年。",
+       "py": "Zhōngguó de xuéxiào yìbān shì xiǎoxué liù nián, chūzhōng sān nián, gāozhōng sān nián.",
+       "vi": "Trường học ở Trung Quốc thường là tiểu học sáu năm, cấp hai ba năm, cấp ba ba năm."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "妈妈说想考上好大学，就得上一个好高中；为了考上好高中，初中就得有一个不错的成绩，所以我现在非常努力。",
+       "py": "Māma shuō xiǎng kǎoshàng hǎo dàxué, jiù děi shàng yí ge hǎo gāozhōng; wèile kǎoshàng hǎo gāozhōng, chūzhōng jiù děi yǒu yí ge búcuò de chéngjì, suǒyǐ wǒ xiànzài fēicháng nǔlì.",
+       "vi": "Mẹ nói muốn thi đỗ đại học tốt thì phải học một trường cấp ba tốt; để thi đỗ cấp ba tốt thì cấp hai phải có thành tích khá, nên bây giờ em rất chăm chỉ."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "家月姐姐，你知道吗？在你的影响下，我也开始喜欢拍照了。",
+       "py": "Jiāyuè jiějie, nǐ zhīdào ma? Zài nǐ de yǐngxiǎng xià, wǒ yě kāishǐ xǐhuan pāizhào le.",
+       "vi": "Chị Gia Nguyệt, chị biết không? Dưới ảnh hưởng của chị, em cũng bắt đầu thích chụp ảnh rồi."
+      },
+      {
+       "who": "刘小雪",
+       "zh": "下次你再来北京，我给你看看我照的照片。",
+       "py": "Xià cì nǐ zài lái Běijīng, wǒ gěi nǐ kànkan wǒ zhào de zhàopiàn.",
+       "vi": "Lần sau chị lại đến Bắc Kinh, em cho chị xem những bức ảnh em chụp."
+      }
+     ]
+    }
+   ],
+   "words": [
+    {
+     "zh": "数学",
+     "py": "shùxué",
+     "vi": "môn Toán, toán học"
+    },
+    {
+     "zh": "认真",
+     "py": "rènzhēn",
+     "vi": "chăm chỉ, nghiêm túc"
+    },
+    {
+     "zh": "笔记",
+     "py": "bǐjì",
+     "vi": "ghi chép"
+    },
+    {
+     "zh": "清楚",
+     "py": "qīngchu",
+     "vi": "rõ ràng, hiểu rõ"
+    },
+    {
+     "zh": "黑板",
+     "py": "hēibǎn",
+     "vi": "bảng đen"
+    },
+    {
+     "zh": "把",
+     "py": "bǎ",
+     "vi": "(đưa tân ngữ lên trước động từ)"
+    },
+    {
+     "zh": "作业",
+     "py": "zuòyè",
+     "vi": "bài tập về nhà"
+    },
+    {
+     "zh": "遍",
+     "py": "biàn",
+     "vi": "lượt"
+    },
+    {
+     "zh": "提高",
+     "py": "tígāo",
+     "vi": "nâng cao"
+    },
+    {
+     "zh": "历史",
+     "py": "lìshǐ",
+     "vi": "môn Lịch sử, lịch sử"
+    },
+    {
+     "zh": "难",
+     "py": "nán",
+     "vi": "khó, khó khăn"
+    },
+    {
+     "zh": "要求",
+     "py": "yāoqiú",
+     "vi": "yêu cầu, đòi hỏi"
+    },
+    {
+     "zh": "差",
+     "py": "chà",
+     "vi": "kém, thiếu"
+    },
+    {
+     "zh": "复习",
+     "py": "fùxí",
+     "vi": "ôn tập"
+    },
+    {
+     "zh": "外语",
+     "py": "wàiyǔ",
+     "vi": "ngoại ngữ"
+    },
+    {
+     "zh": "当然",
+     "py": "dāngrán",
+     "vi": "đương nhiên, dĩ nhiên"
+    },
+    {
+     "zh": "遇到",
+     "py": "yùdào",
+     "vi": "gặp, gặp phải"
+    },
+    {
+     "zh": "办公室",
+     "py": "bàngōngshì",
+     "vi": "văn phòng, phòng làm việc"
+    },
+    {
+     "zh": "页",
+     "py": "yè",
+     "vi": "trang (giấy, sách)"
+    },
+    {
+     "zh": "对话",
+     "py": "duìhuà",
+     "vi": "đối thoại, hội thoại, trò chuyện"
+    },
+    {
+     "zh": "明白",
+     "py": "míngbai",
+     "vi": "hiểu, rõ ràng"
+    },
+    {
+     "zh": "讲",
+     "py": "jiǎng",
+     "vi": "giảng, giải thích"
+    },
+    {
+     "zh": "句",
+     "py": "jù",
+     "vi": "câu (nói, văn)"
+    },
+    {
+     "zh": "句子",
+     "py": "jùzi",
+     "vi": "câu"
+    },
+    {
+     "zh": "年级",
+     "py": "niánjí",
+     "vi": "khối lớp"
+    },
+    {
+     "zh": "后年",
+     "py": "hòunián",
+     "vi": "năm kia, hai năm sau"
+    },
+    {
+     "zh": "一般",
+     "py": "yìbān",
+     "vi": "bình thường, phổ biến"
+    },
+    {
+     "zh": "努力",
+     "py": "nǔlì",
+     "vi": "chăm chỉ, nỗ lực"
+    }
+   ],
+   "grammar": [],
+   "quiz": [
+    {
+     "q": "同学让刘小雪做什么？",
+     "o": [
+      "看笔记",
+      "认真记笔记",
+      "介绍学习方法"
+     ],
+     "a": 2
+    },
+    {
+     "q": "同学听了刘小雪的学习方法后，有什么打算？",
+     "o": [
+      "认真听课",
+      "认真记笔记",
+      "每天写作业"
+     ],
+     "a": 1
+    },
+    {
+     "q": "刘小雪觉得昨天的考试怎么样？",
+     "o": [
+      "外语没考好",
+      "历史有点儿难",
+      "数学考得还可以"
+     ],
+     "a": 1
+    },
+    {
+     "q": "他们的问题在书上第几页？",
+     "o": [
+      "第五页",
+      "第七页",
+      "第十五页"
+     ],
+     "a": 0
+    },
+    {
+     "q": "李老师讲完以后，刘小雪和同学听懂了吗？",
+     "o": [
+      "没听懂",
+      "都明白了",
+      "还有几个不明白"
+     ],
+     "a": 1
+    },
+    {
+     "q": "刘小雪现在读几年级？",
+     "o": [
+      "小学六年级",
+      "初中二年级",
+      "高中一年级"
+     ],
+     "a": 1
+    },
+    {
+     "q": "在白家月的影响下，刘小雪喜欢做什么了？",
+     "o": [
+      "拍照",
+      "努力学习",
+      "给朋友看照片"
+     ],
+     "a": 0
+    }
+   ]
   }
  ],
  "dict": {
@@ -3611,6 +5720,1274 @@
   "短信": [
    "duǎnxìn",
    "tin nhắn"
+  ],
+  "聊天": [
+   "liáotiān",
+   "trò chuyện"
+  ],
+  "上海": [
+   "Shànghǎi",
+   "Thượng Hải"
+  ],
+  "咱们": [
+   "zánmen",
+   "chúng ta"
+  ],
+  "方便": [
+   "fāngbiàn",
+   "tiện lợi"
+  ],
+  "护照": [
+   "hùzhào",
+   "hộ chiếu"
+  ],
+  "听说": [
+   "tīngshuō",
+   "nghe nói"
+  ],
+  "终于": [
+   "zhōngyú",
+   "cuối cùng"
+  ],
+  "舒服": [
+   "shūfu",
+   "thoải mái"
+  ],
+  "一定": [
+   "yídìng",
+   "nhất định"
+  ],
+  "前面": [
+   "qiánmiàn",
+   "phía trước"
+  ],
+  "高铁站": [
+   "gāotiězhàn",
+   "ga tàu cao tốc"
+  ],
+  "马上": [
+   "mǎshàng",
+   "ngay lập tức"
+  ],
+  "应该": [
+   "yīnggāi",
+   "nên, chắc là"
+  ],
+  "发现": [
+   "fāxiàn",
+   "phát hiện"
+  ],
+  "为什么": [
+   "wèishénme",
+   "tại sao"
+  ],
+  "越来越": [
+   "yuè lái yuè",
+   "càng ngày càng"
+  ],
+  "检票口": [
+   "jiǎnpiàokǒu",
+   "cửa soát vé"
+  ],
+  "一会儿": [
+   "yíhuìr",
+   "một lát"
+  ],
+  "旅行": [
+   "lǚxíng",
+   "chuyến đi, du lịch"
+  ],
+  "一样": [
+   "yíyàng",
+   "giống nhau"
+  ],
+  "外卖": [
+   "wàimài",
+   "đồ ăn mang đi, đồ ăn ngoài"
+  ],
+  "需要": [
+   "xūyào",
+   "cần"
+  ],
+  "车站": [
+   "chēzhàn",
+   "bến xe, nhà ga"
+  ],
+  "爸妈": [
+   "bàmā",
+   "bố mẹ"
+  ],
+  "商量": [
+   "shāngliang",
+   "bàn bạc"
+  ],
+  "商场": [
+   "shāngchǎng",
+   "trung tâm thương mại"
+  ],
+  "挑选": [
+   "tiāoxuǎn",
+   "lựa chọn"
+  ],
+  "多少": [
+   "duōshao",
+   "bao nhiêu"
+  ],
+  "商店": [
+   "shāngdiàn",
+   "cửa hàng"
+  ],
+  "店员": [
+   "diànyuán",
+   "nhân viên bán hàng"
+  ],
+  "电视": [
+   "diànshì",
+   "ti vi"
+  ],
+  "房子": [
+   "fángzi",
+   "ngôi nhà"
+  ],
+  "网上": [
+   "wǎngshàng",
+   "trên mạng"
+  ],
+  "满意": [
+   "mǎnyì",
+   "hài lòng"
+  ],
+  "学校": [
+   "xuéxiào",
+   "trường học"
+  ],
+  "遇到": [
+   "yùdào",
+   "gặp phải"
+  ],
+  "跑步": [
+   "pǎobù",
+   "chạy bộ"
+  ],
+  "今年": [
+   "jīnnián",
+   "năm nay"
+  ],
+  "下课": [
+   "xiàkè",
+   "tan học"
+  ],
+  "水平": [
+   "shuǐpíng",
+   "trình độ"
+  ],
+  "教室": [
+   "jiàoshì",
+   "lớp học"
+  ],
+  "问候": [
+   "wènhòu",
+   "hỏi thăm"
+  ],
+  "游泳": [
+   "yóuyǒng",
+   "bơi lội"
+  ],
+  "一直": [
+   "yìzhí",
+   "luôn luôn"
+  ],
+  "医生": [
+   "yīshēng",
+   "bác sĩ"
+  ],
+  "病房": [
+   "bìngfáng",
+   "phòng bệnh"
+  ],
+  "探望": [
+   "tànwàng",
+   "thăm hỏi"
+  ],
+  "大家": [
+   "dàjiā",
+   "mọi người"
+  ],
+  "生病": [
+   "shēngbìng",
+   "ốm, bị bệnh"
+  ],
+  "好好": [
+   "hǎohāo",
+   "cho tốt, tử tế"
+  ],
+  "除了": [
+   "chúle",
+   "ngoài ra"
+  ],
+  "重要": [
+   "zhòngyào",
+   "quan trọng"
+  ],
+  "希望": [
+   "xīwàng",
+   "hy vọng"
+  ],
+  "图书馆": [
+   "túshūguǎn",
+   "thư viện"
+  ],
+  "门口": [
+   "ménkǒu",
+   "cửa ra vào"
+  ],
+  "对不起": [
+   "duìbuqǐ",
+   "xin lỗi"
+  ],
+  "校园卡": [
+   "xiàoyuánkǎ",
+   "thẻ sinh viên"
+  ],
+  "正在": [
+   "zhèngzài",
+   "đang"
+  ],
+  "打球": [
+   "dǎqiú",
+   "chơi bóng"
+  ],
+  "练球": [
+   "liànqiú",
+   "luyện bóng"
+  ],
+  "同学": [
+   "tóngxué",
+   "bạn học"
+  ],
+  "总是": [
+   "zǒngshì",
+   "luôn luôn"
+  ],
+  "锻炼": [
+   "duànliàn",
+   "rèn luyện"
+  ],
+  "足球": [
+   "zúqiú",
+   "bóng đá"
+  ],
+  "冰箱": [
+   "bīngxiāng",
+   "tủ lạnh"
+  ],
+  "饮料": [
+   "yǐnliào",
+   "nước uống"
+  ],
+  "回事": [
+   "huí shì",
+   "chuyện"
+  ],
+  "球员": [
+   "qiúyuán",
+   "cầu thủ"
+  ],
+  "第一": [
+   "dì-yī",
+   "thứ nhất"
+  ],
+  "所以": [
+   "suǒyǐ",
+   "vì vậy"
+  ],
+  "着急": [
+   "zháojí",
+   "sốt ruột"
+  ],
+  "演讲稿": [
+   "yǎnjiǎnggǎo",
+   "bài phát biểu"
+  ],
+  "短跑": [
+   "duǎnpǎo",
+   "chạy ngắn"
+  ],
+  "认识": [
+   "rènshi",
+   "biết, quen"
+  ],
+  "学习": [
+   "xuéxí",
+   "học tập"
+  ],
+  "特别": [
+   "tèbié",
+   "đặc biệt"
+  ],
+  "听课": [
+   "tīngkè",
+   "nghe giảng"
+  ],
+  "本子": [
+   "běnzi",
+   "quyển vở"
+  ],
+  "邮件": [
+   "yóujiàn",
+   "thư, email"
+  ],
+  "初中": [
+   "chūzhōng",
+   "trung học cơ sở"
+  ],
+  "高中": [
+   "gāozhōng",
+   "trung học phổ thông"
+  ],
+  "小学": [
+   "xiǎoxué",
+   "tiểu học"
+  ],
+  "大学": [
+   "dàxué",
+   "đại học"
+  ],
+  "拍照": [
+   "pāizhào",
+   "chụp ảnh"
+  ],
+  "照片": [
+   "zhàopiàn",
+   "bức ảnh"
+  ],
+  "最近": [
+   "zuìjìn",
+   "gần đây"
+  ],
+  "以为": [
+   "yǐwéi",
+   "cho rằng, nghĩ rằng"
+  ],
+  "像": [
+   "xiàng",
+   "giống, giống như"
+  ],
+  "米": [
+   "mǐ",
+   "mét (đơn vị đo)"
+  ],
+  "瘦": [
+   "shòu",
+   "gầy, ốm"
+  ],
+  "接": [
+   "jiē",
+   "đón"
+  ],
+  "行李": [
+   "xíngli",
+   "hành lý"
+  ],
+  "丢": [
+   "diū",
+   "làm mất, bị mất"
+  ],
+  "箱子": [
+   "xiāngzi",
+   "va li, thùng"
+  ],
+  "号码": [
+   "hàomǎ",
+   "số, mã số"
+  ],
+  "好像": [
+   "hǎoxiàng",
+   "dường như, có vẻ như"
+  ],
+  "服务台": [
+   "fúwùtái",
+   "quầy phục vụ"
+  ],
+  "站": [
+   "zhàn",
+   "đứng"
+  ],
+  "中间": [
+   "zhōngjiān",
+   "ở giữa, trung gian"
+  ],
+  "短": [
+   "duǎn",
+   "ngắn"
+  ],
+  "年轻": [
+   "niánqīng",
+   "trẻ, trẻ tuổi"
+  ],
+  "不见": [
+   "bújiàn",
+   "bị mất, không thấy"
+  ],
+  "帮助": [
+   "bāngzhù",
+   "giúp, giúp đỡ"
+  ],
+  "又": [
+   "yòu",
+   "lại, vừa"
+  ],
+  "饿": [
+   "è",
+   "đói"
+  ],
+  "渴": [
+   "kě",
+   "khát"
+  ],
+  "客气": [
+   "kèqi",
+   "khách sáo, khách khí"
+  ],
+  "好久": [
+   "hǎojiǔ",
+   "lâu, rất lâu"
+  ],
+  "员": [
+   "yuán",
+   "hậu tố chỉ người làm nghề"
+  ],
+  "双": [
+   "shuāng",
+   "đôi (lượng từ)"
+  ],
+  "筷子": [
+   "kuàizi",
+   "đũa"
+  ],
+  "勺子": [
+   "sháozi",
+   "thìa"
+  ],
+  "碗": [
+   "wǎn",
+   "bát"
+  ],
+  "热情": [
+   "rèqíng",
+   "nhiệt tình"
+  ],
+  "尝": [
+   "cháng",
+   "nếm, thử"
+  ],
+  "记": [
+   "jì",
+   "nhớ, ghi nhớ"
+  ],
+  "用": [
+   "yòng",
+   "dùng, sử dụng"
+  ],
+  "鸡": [
+   "jī",
+   "gà"
+  ],
+  "张": [
+   "zhāng",
+   "tờ, bức (lượng từ)"
+  ],
+  "选": [
+   "xuǎn",
+   "chọn, lựa chọn"
+  ],
+  "蛋糕": [
+   "dàngāo",
+   "bánh ngọt, bánh kem"
+  ],
+  "方便面": [
+   "fāngbiànmiàn",
+   "mì ăn liền"
+  ],
+  "简单": [
+   "jiǎndān",
+   "đơn giản"
+  ],
+  "换": [
+   "huàn",
+   "thay, thay đổi, đổi"
+  ],
+  "小区": [
+   "xiǎoqū",
+   "khu dân cư, khu nhà ở"
+  ],
+  "环境": [
+   "huánjìng",
+   "môi trường"
+  ],
+  "挺": [
+   "tǐng",
+   "khá, rất"
+  ],
+  "空调": [
+   "kōngtiáo",
+   "máy điều hoà"
+  ],
+  "洗衣机": [
+   "xǐyījī",
+   "máy giặt"
+  ],
+  "层": [
+   "céng",
+   "tầng (lượng từ)"
+  ],
+  "花园": [
+   "huāyuán",
+   "vườn hoa"
+  ],
+  "灯": [
+   "dēng",
+   "đèn"
+  ],
+  "关": [
+   "guān",
+   "tắt, đóng"
+  ],
+  "卫生间": [
+   "wèishēngjiān",
+   "nhà vệ sinh"
+  ],
+  "打扫": [
+   "dǎsǎo",
+   "dọn dẹp, quét dọn"
+  ],
+  "搬家": [
+   "bānjiā",
+   "chuyển nhà"
+  ],
+  "办": [
+   "bàn",
+   "làm, xử lý"
+  ],
+  "信用卡": [
+   "xìnyòngkǎ",
+   "thẻ tín dụng"
+  ],
+  "银行": [
+   "yínháng",
+   "ngân hàng"
+  ],
+  "才": [
+   "cái",
+   "(mãi)… mới"
+  ],
+  "纸": [
+   "zhǐ",
+   "giấy"
+  ],
+  "搬": [
+   "bān",
+   "chuyển, mang, bê"
+  ],
+  "假期": [
+   "jiàqī",
+   "kỳ nghỉ"
+  ],
+  "海": [
+   "hǎi",
+   "biển"
+  ],
+  "草原": [
+   "cǎoyuán",
+   "thảo nguyên"
+  ],
+  "主意": [
+   "zhǔyi",
+   "ý tưởng, ý kiến"
+  ],
+  "骑": [
+   "qí",
+   "cưỡi"
+  ],
+  "马": [
+   "mǎ",
+   "ngựa"
+  ],
+  "羊": [
+   "yáng",
+   "cừu, dê"
+  ],
+  "月亮": [
+   "yuèliang",
+   "mặt trăng"
+  ],
+  "刻": [
+   "kè",
+   "khắc (15 phút)"
+  ],
+  "起飞": [
+   "qǐfēi",
+   "cất cánh"
+  ],
+  "宾馆": [
+   "bīnguǎn",
+   "khách sạn"
+  ],
+  "别的": [
+   "biéde",
+   "khác"
+  ],
+  "牛": [
+   "niú",
+   "bò"
+  ],
+  "相机": [
+   "xiàngjī",
+   "máy ảnh"
+  ],
+  "欢迎": [
+   "huānyíng",
+   "chào đón, hoan nghênh"
+  ],
+  "司机": [
+   "sījī",
+   "tài xế"
+  ],
+  "晚点": [
+   "wǎndiǎn",
+   "muộn giờ, trễ giờ"
+  ],
+  "久": [
+   "jiǔ",
+   "lâu"
+  ],
+  "以外": [
+   "yǐwài",
+   "(ngoài)… ra"
+  ],
+  "先": [
+   "xiān",
+   "trước, trước tiên"
+  ],
+  "干净": [
+   "gānjìng",
+   "sạch, sạch sẽ"
+  ],
+  "爬": [
+   "pá",
+   "leo, leo trèo"
+  ],
+  "山": [
+   "shān",
+   "núi, đồi"
+  ],
+  "照": [
+   "zhào",
+   "chụp (ảnh)"
+  ],
+  "鞋": [
+   "xié",
+   "giày"
+  ],
+  "大衣": [
+   "dàyī",
+   "áo khoác"
+  ],
+  "感兴趣": [
+   "gǎn xìngqù",
+   "hứng thú, có hứng thú (với)"
+  ],
+  "照相": [
+   "zhàoxiàng",
+   "chụp ảnh"
+  ],
+  "难看": [
+   "nánkàn",
+   "xấu, khó coi"
+  ],
+  "比较": [
+   "bǐjiào",
+   "so sánh, tương đối"
+  ],
+  "太阳": [
+   "tàiyáng",
+   "mặt trời"
+  ],
+  "树": [
+   "shù",
+   "cây"
+  ],
+  "干": [
+   "gàn",
+   "làm"
+  ],
+  "电": [
+   "diàn",
+   "điện"
+  ],
+  "收到": [
+   "shōudào",
+   "nhận được"
+  ],
+  "封": [
+   "fēng",
+   "bức, lá (thư)"
+  ],
+  "难过": [
+   "nánguò",
+   "buồn, buồn rầu"
+  ],
+  "哈哈": [
+   "hāhā",
+   "ha ha (tiếng cười)"
+  ],
+  "音乐": [
+   "yīnyuè",
+   "âm nhạc"
+  ],
+  "兴趣": [
+   "xìngqù",
+   "hứng thú"
+  ],
+  "会": [
+   "huì",
+   "buổi gặp mặt, bữa tiệc"
+  ],
+  "结束": [
+   "jiéshù",
+   "kết thúc"
+  ],
+  "该": [
+   "gāi",
+   "nên"
+  ],
+  "打算": [
+   "dǎsuàn",
+   "dự định, kế hoạch"
+  ],
+  "高铁": [
+   "gāotiě",
+   "tàu cao tốc"
+  ],
+  "行": [
+   "xíng",
+   "được, có thể"
+  ],
+  "路口": [
+   "lùkǒu",
+   "giao lộ, lối rẽ, đầu đường"
+  ],
+  "小心": [
+   "xiǎoxīn",
+   "cẩn thận, chú ý"
+  ],
+  "迟到": [
+   "chídào",
+   "đến muộn"
+  ],
+  "红绿灯": [
+   "hónglǜdēng",
+   "đèn giao thông, đèn xanh đèn đỏ"
+  ],
+  "后来": [
+   "hòulái",
+   "sau đó, về sau"
+  ],
+  "急": [
+   "jí",
+   "gấp, lo lắng"
+  ],
+  "如果": [
+   "rúguǒ",
+   "nếu"
+  ],
+  "以前": [
+   "yǐqián",
+   "trước đây"
+  ],
+  "耳机": [
+   "ěrjī",
+   "tai nghe"
+  ],
+  "充电宝": [
+   "chōngdiànbǎo",
+   "sạc dự phòng"
+  ],
+  "常用": [
+   "chángyòng",
+   "thường dùng"
+  ],
+  "越": [
+   "yuè",
+   "càng... (càng...)"
+  ],
+  "分开": [
+   "fēnkāi",
+   "tách ra"
+  ],
+  "检查": [
+   "jiǎnchá",
+   "kiểm tra"
+  ],
+  "刷": [
+   "shuā",
+   "quét (thẻ, mã QR)"
+  ],
+  "检票": [
+   "jiǎnpiào",
+   "kiểm vé, soát vé"
+  ],
+  "电梯": [
+   "diàntī",
+   "thang máy"
+  ],
+  "放假": [
+   "fàngjià",
+   "nghỉ phép, nghỉ lễ"
+  ],
+  "沙发": [
+   "shāfā",
+   "ghế sofa"
+  ],
+  "安静": [
+   "ānjìng",
+   "yên tĩnh"
+  ],
+  "选择": [
+   "xuǎnzé",
+   "chọn, lựa chọn"
+  ],
+  "必须": [
+   "bìxū",
+   "phải, nhất định phải"
+  ],
+  "北京南站": [
+   "Běijīng Nán Zhàn",
+   "ga Bắc Kinh Nam"
+  ],
+  "辆": [
+   "liàng",
+   "chiếc (dùng cho xe cộ)"
+  ],
+  "自行车": [
+   "zìxíngchē",
+   "xe đạp"
+  ],
+  "旧": [
+   "jiù",
+   "cũ"
+  ],
+  "矮": [
+   "ǎi",
+   "thấp, lùn"
+  ],
+  "试": [
+   "shì",
+   "thử"
+  ],
+  "黄色": [
+   "huángsè",
+   "màu vàng"
+  ],
+  "短裤": [
+   "duǎnkù",
+   "quần soóc"
+  ],
+  "大小": [
+   "dàxiǎo",
+   "kích cỡ"
+  ],
+  "合适": [
+   "héshì",
+   "phù hợp"
+  ],
+  "裙子": [
+   "qúnzi",
+   "váy, đầm"
+  ],
+  "更": [
+   "gèng",
+   "càng, hơn"
+  ],
+  "决定": [
+   "juédìng",
+   "quyết định"
+  ],
+  "西瓜": [
+   "xīguā",
+   "dưa hấu"
+  ],
+  "新鲜": [
+   "xīnxiān",
+   "tươi, tươi mới"
+  ],
+  "甜": [
+   "tián",
+   "ngọt"
+  ],
+  "公斤": [
+   "gōngjīn",
+   "kilôgam"
+  ],
+  "冰": [
+   "bīng",
+   "đông, đá, ướp lạnh"
+  ],
+  "极": [
+   "jí",
+   "cực kỳ"
+  ],
+  "斤": [
+   "jīn",
+   "cân (0,5 kilôgam)"
+  ],
+  "香蕉": [
+   "xiāngjiāo",
+   "chuối tiêu"
+  ],
+  "一共": [
+   "yígòng",
+   "tổng cộng"
+  ],
+  "毛": [
+   "máo",
+   "hào (đơn vị tiền tệ)"
+  ],
+  "结婚": [
+   "jiéhūn",
+   "kết hôn"
+  ],
+  "不但": [
+   "búdàn",
+   "không những"
+  ],
+  "而且": [
+   "érqiě",
+   "mà còn"
+  ],
+  "声": [
+   "shēng",
+   "tiếng, âm thanh"
+  ],
+  "开机": [
+   "kāijī",
+   "mở máy, bật máy"
+  ],
+  "常": [
+   "cháng",
+   "thường, thường xuyên"
+  ],
+  "体育馆": [
+   "tǐyùguǎn",
+   "nhà thi đấu"
+  ],
+  "习惯": [
+   "xíguàn",
+   "thói quen, quen với"
+  ],
+  "胖": [
+   "pàng",
+   "béo"
+  ],
+  "健康": [
+   "jiànkāng",
+   "khoẻ mạnh"
+  ],
+  "以后": [
+   "yǐhòu",
+   "sau, sau này, về sau"
+  ],
+  "羽毛球": [
+   "yǔmáoqiú",
+   "cầu lông"
+  ],
+  "耳朵": [
+   "ěrduo",
+   "tai"
+  ],
+  "感冒": [
+   "gǎnmào",
+   "bị cảm, cảm"
+  ],
+  "发烧": [
+   "fāshāo",
+   "sốt"
+  ],
+  "低": [
+   "dī",
+   "thấp"
+  ],
+  "关心": [
+   "guānxīn",
+   "quan tâm"
+  ],
+  "注意": [
+   "zhùyì",
+   "chú ý"
+  ],
+  "突然": [
+   "tūrán",
+   "đột nhiên, đột ngột"
+  ],
+  "住院": [
+   "zhùyuàn",
+   "nằm viện"
+  ],
+  "担心": [
+   "dānxīn",
+   "lo lắng"
+  ],
+  "腿": [
+   "tuǐ",
+   "chân"
+  ],
+  "病人": [
+   "bìngrén",
+   "bệnh nhân"
+  ],
+  "差不多": [
+   "chàbuduō",
+   "gần như, tương tự, xấp xỉ"
+  ],
+  "开心": [
+   "kāixīn",
+   "vui vẻ"
+  ],
+  "出院": [
+   "chūyuàn",
+   "xuất viện"
+  ],
+  "种": [
+   "zhǒng",
+   "loại"
+  ],
+  "方法": [
+   "fāngfǎ",
+   "phương pháp"
+  ],
+  "其他": [
+   "qítā",
+   "khác"
+  ],
+  "心里": [
+   "xīnlǐ",
+   "trong lòng"
+  ],
+  "校园": [
+   "xiàoyuán",
+   "khuôn viên trường"
+  ],
+  "卡": [
+   "kǎ",
+   "thẻ"
+  ],
+  "球场": [
+   "qiúchǎng",
+   "sân bóng"
+  ],
+  "为了": [
+   "wèile",
+   "vì, để"
+  ],
+  "运动会": [
+   "yùndònghuì",
+   "đại hội thể dục thể thao"
+  ],
+  "男生": [
+   "nánshēng",
+   "nam sinh, nam giới"
+  ],
+  "练": [
+   "liàn",
+   "luyện, tập"
+  ],
+  "参加": [
+   "cānjiā",
+   "tham gia"
+  ],
+  "网球": [
+   "wǎngqiú",
+   "quần vợt, tennis"
+  ],
+  "比赛": [
+   "bǐsài",
+   "trận đấu, thi đấu"
+  ],
+  "练习": [
+   "liànxí",
+   "luyện tập, bài tập"
+  ],
+  "好多": [
+   "hǎoduō",
+   "khá nhiều"
+  ],
+  "几乎": [
+   "jīhū",
+   "hầu như"
+  ],
+  "只是": [
+   "zhǐshì",
+   "chỉ là, nhưng"
+  ],
+  "啤酒": [
+   "píjiǔ",
+   "bia"
+  ],
+  "回": [
+   "huí",
+   "vụ, lần"
+  ],
+  "紧张": [
+   "jǐnzhāng",
+   "căng thẳng, hồi hộp"
+  ],
+  "主要": [
+   "zhǔyào",
+   "chủ yếu, chính"
+  ],
+  "受到": [
+   "shòudào",
+   "bị, nhận, chịu, nhận được"
+  ],
+  "影响": [
+   "yǐngxiǎng",
+   "sự ảnh hưởng, ảnh hưởng"
+  ],
+  "得分": [
+   "défēn",
+   "ghi điểm, ghi bàn, tỉ số"
+  ],
+  "体育": [
+   "tǐyù",
+   "thể dục, thể thao"
+  ],
+  "世界": [
+   "shìjiè",
+   "thế giới"
+  ],
+  "运动员": [
+   "yùndòngyuán",
+   "vận động viên"
+  ],
+  "得到": [
+   "dédào",
+   "đạt được, nhận được"
+  ],
+  "成绩": [
+   "chéngjì",
+   "thành tích, kết quả"
+  ],
+  "奥运会": [
+   "Àoyùnhuì",
+   "Thế vận hội Olympic"
+  ],
+  "刘长春": [
+   "Liú Chángchūn",
+   "Lưu Trường Xuân"
+  ],
+  "数学": [
+   "shùxué",
+   "môn Toán, toán học"
+  ],
+  "认真": [
+   "rènzhēn",
+   "chăm chỉ, nghiêm túc"
+  ],
+  "笔记": [
+   "bǐjì",
+   "ghi chép"
+  ],
+  "清楚": [
+   "qīngchu",
+   "rõ ràng, hiểu rõ"
+  ],
+  "黑板": [
+   "hēibǎn",
+   "bảng đen"
+  ],
+  "把": [
+   "bǎ",
+   "(đưa tân ngữ lên trước động từ)"
+  ],
+  "作业": [
+   "zuòyè",
+   "bài tập về nhà"
+  ],
+  "遍": [
+   "biàn",
+   "lượt"
+  ],
+  "提高": [
+   "tígāo",
+   "nâng cao"
+  ],
+  "历史": [
+   "lìshǐ",
+   "môn Lịch sử, lịch sử"
+  ],
+  "难": [
+   "nán",
+   "khó, khó khăn"
+  ],
+  "要求": [
+   "yāoqiú",
+   "yêu cầu, đòi hỏi"
+  ],
+  "差": [
+   "chà",
+   "kém, thiếu"
+  ],
+  "复习": [
+   "fùxí",
+   "ôn tập"
+  ],
+  "外语": [
+   "wàiyǔ",
+   "ngoại ngữ"
+  ],
+  "办公室": [
+   "bàngōngshì",
+   "văn phòng, phòng làm việc"
+  ],
+  "页": [
+   "yè",
+   "trang (giấy, sách)"
+  ],
+  "对话": [
+   "duìhuà",
+   "đối thoại, hội thoại, trò chuyện"
+  ],
+  "明白": [
+   "míngbai",
+   "hiểu, rõ ràng"
+  ],
+  "讲": [
+   "jiǎng",
+   "giảng, giải thích"
+  ],
+  "句": [
+   "jù",
+   "câu (nói, văn)"
+  ],
+  "句子": [
+   "jùzi",
+   "câu"
+  ],
+  "年级": [
+   "niánjí",
+   "khối lớp"
+  ],
+  "后年": [
+   "hòunián",
+   "năm kia, hai năm sau"
+  ],
+  "一般": [
+   "yìbān",
+   "bình thường, phổ biến"
+  ],
+  "努力": [
+   "nǔlì",
+   "chăm chỉ, nỗ lực"
   ]
  }
 }

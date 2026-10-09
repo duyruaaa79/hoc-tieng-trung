@@ -2237,7 +2237,7 @@ mineRender();
 whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
 
 /* ---------- tự phát hiện bản mới trên GitHub ---------- */
-const APP_VER="2026-10-09.1";
+const APP_VER="2026-10-09.2";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
 function updBar(v){
@@ -3355,5 +3355,307 @@ if(S.en.open)setTimeout(enOpen,60);
 
 </script>
 <!-- EN-APP-END -->
+<!-- AI-START -->
+<style>
+#aiFab{position:fixed;right:14px;bottom:78px;z-index:65;width:50px;height:50px;border-radius:50%;border:none;
+  background:linear-gradient(135deg,var(--accent),var(--jade));color:#fff;font-size:22px;cursor:pointer;
+  box-shadow:0 8px 22px rgba(0,0,0,.28)}
+#aiSheet{z-index:92}
+#aiScrim{z-index:91}
+.aimsgs{display:flex;flex-direction:column;gap:9px;margin-bottom:12px;min-height:120px}
+.aim{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.6;white-space:normal;word-break:break-word}
+.aim.u{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:4px}
+.aim.a{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px}
+.aim.a .zh,.aibox .zh{font-size:1.08em}
+.aim.err{border-color:var(--accent);color:var(--accent)}
+.aibox{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px 13px;margin-top:10px;font-size:14px;line-height:1.65}
+.aibox b{color:var(--ink)}
+.aibox ul{margin:4px 0;padding-left:20px}
+.aibtn{border-color:var(--jade)!important;color:var(--jade)!important}
+.aidots:after{content:"…";animation:aid 1s steps(3) infinite}
+@keyframes aid{0%{content:"."}33%{content:".."}66%{content:"..."}}
+#aiIn{flex:1;min-width:0}
+</style>
+
+<button id="aiFab" title="Trợ lý AI">✦</button>
+<div class="scrim" id="aiScrim"></div>
+<div class="sheet" id="aiSheet">
+  <div class="grab"></div>
+  <div class="sh"><h3 id="aiTitle">Trợ lý AI</h3><div class="sp"></div><button class="mini" id="aiX">Xong</button></div>
+  <div class="seg" id="aiMode" style="margin-bottom:10px">
+    <button data-m="ask" aria-pressed="true">Hỏi đáp</button>
+    <button data-m="talk" aria-pressed="false">Luyện hội thoại</button>
+  </div>
+  <p class="hint" id="aiModeHint" style="margin:0 0 10px"></p>
+  <div class="aimsgs" id="aiMsgs"></div>
+  <div class="row" style="position:sticky;bottom:0;background:var(--bg);padding:8px 0 14px">
+    <input type="text" id="aiIn" placeholder="Nhập câu hỏi…">
+    <button class="btn" id="aiSend">Gửi</button>
+  </div>
+</div>
+
+<script>
+/* ===== Trợ lý AI — khoá lưu riêng trong máy, không bao giờ đồng bộ lên mạng ===== */
+const AIKEY="hoctrung_ai";
+let AI={prov:"gemini",key:"",model:""};
+try{const r=localStorage.getItem(AIKEY);if(r)AI=Object.assign(AI,JSON.parse(r))}catch(e){}
+const AIDEF={gemini:"gemini-flash-latest",claude:"claude-haiku-4-5"};
+function aiSave(){try{localStorage.setItem(AIKEY,JSON.stringify(AI))}catch(e){}}
+function aiOn(){return !!AI.key}
+function aiModel(){return (AI.model||"").trim()||AIDEF[AI.prov]}
+
+async function aiCall(system,msgs){
+  if(!aiOn())throw new Error("NOKEY");
+  if(AI.prov==="claude"){
+    const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",
+      headers:{"content-type":"application/json","x-api-key":AI.key.trim(),"anthropic-version":"2023-06-01",
+        "anthropic-dangerous-direct-browser-access":"true"},
+      body:JSON.stringify({model:aiModel(),max_tokens:1200,system:system,
+        messages:msgs.map(m=>({role:m.role==="user"?"user":"assistant",content:m.text}))})});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));
+    return (j.content||[]).map(c=>c.text||"").join("").trim();
+  }
+  const url="https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(aiModel())+
+    ":generateContent?key="+encodeURIComponent(AI.key.trim());
+  const r=await fetch(url,{method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({systemInstruction:{parts:[{text:system}]},
+      contents:msgs.map(m=>({role:m.role==="user"?"user":"model",parts:[{text:m.text}]})),
+      generationConfig:{temperature:.6,maxOutputTokens:1200}})});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok){const m=(j.error&&j.error.message)||("HTTP "+r.status);
+    if(r.status===429)throw new Error("LIMIT");
+    throw new Error(m)}
+  const c=j.candidates&&j.candidates[0];
+  const t=c&&c.content&&c.content.parts?c.content.parts.map(p=>p.text||"").join(""):"";
+  if(!t)throw new Error("AI không trả lời (có thể nội dung bị chặn). Thử hỏi cách khác.");
+  return t.trim();
+}
+function aiErr(e){const m=String(e&&e.message||e);
+  if(m==="NOKEY")return 'Chưa có khoá AI. Vào ⚙ Cài đặt → <b>Trợ lý AI</b> để dán khoá Gemini (miễn phí).';
+  if(m==="LIMIT")return "Đã chạm giới hạn lượt dùng miễn phí. Đợi một lát (hoặc sang ngày mai) rồi thử lại.";
+  if(/API key not valid|API_KEY_INVALID|invalid x-api-key|authentication/i.test(m))return "Khoá AI không đúng. Kiểm tra lại trong ⚙ Cài đặt → Trợ lý AI.";
+  if(/not found|is not supported/i.test(m))return "Tên mô hình không dùng được ("+aiModel()+"). Xoá ô Mô hình trong cài đặt để dùng mặc định.";
+  if(/Failed to fetch|NetworkError/i.test(m))return "Không kết nối được tới AI. Kiểm tra mạng rồi thử lại.";
+  return "Lỗi AI: "+aiEsc(m)}
+function aiEsc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function aiMd(s){
+  let t=aiEsc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*/g,"$1<i>$2</i>")
+    .replace(/`([^`]+)`/g,"<b>$1</b>").replace(/^#{1,4}\s*(.+)$/gm,"<b>$1</b>");
+  const out=[];let ul=false;
+  t.split("\n").forEach(l=>{const m=/^\s*(?:[-*•]|\d+[.)])\s+(.*)$/.exec(l);
+    if(m){if(!ul){out.push("<ul>");ul=true}out.push("<li>"+m[1]+"</li>")}
+    else{if(ul){out.push("</ul>");ul=false}out.push(l.trim()?l+"<br>":"<br>")}});
+  if(ul)out.push("</ul>");
+  return out.join("").replace(/(<br>){3,}/g,"<br><br>").replace(/<br>$/,"")}
+async function aiInto(box,system,prompt){
+  box.style.display="block";box.classList.add("aibox");box.innerHTML='<span class="aidots">AI đang suy nghĩ</span>';
+  try{box.innerHTML=aiMd(await aiCall(system,[{role:"user",text:prompt}]))}
+  catch(e){box.innerHTML=aiErr(e)}}
+
+/* ---------- bối cảnh ---------- */
+function aiIsEn(){const e=document.getElementById("enApp");return !!(e&&e.classList.contains("on"))}
+function aiLevel(){return /HSK\s*([0-9])/i.exec(L.book||"")?"HSK "+/HSK\s*([0-9])/i.exec(L.book)[1]:"HSK 2–3"}
+function sysZh(){return "Bạn là giáo viên tiếng Trung thân thiện, dạy người Việt đang học giáo trình New HSK ("+aiLevel()+"). "+
+  "Luôn trả lời bằng tiếng Việt, ngắn gọn, rõ ràng. Khi viết chữ Hán thì kèm pinyin có dấu thanh trong ngoặc. "+
+  "Ưu tiên dùng từ trong phạm vi "+aiLevel()+". Không dùng bảng. Dùng gạch đầu dòng khi liệt kê."}
+function sysEn(){return "Bạn là giáo viên tiếng Anh thân thiện, dạy người Việt luyện nói theo chủ đề (trình độ khoảng B1). "+
+  "Luôn giải thích bằng tiếng Việt, ngắn gọn, rõ ràng; câu ví dụ viết bằng tiếng Anh kèm nghĩa tiếng Việt. Không dùng bảng."}
+
+/* ---------- 1. giải thích một câu trong bài khoá ---------- */
+function aiExplainZh(l,box){
+  aiInto(box,sysZh(),"Giải thích câu sau trong bài khoá:\n"+l.zh+"\nPinyin: "+l.py+"\nNghĩa: "+l.vi+
+    "\n\nHãy: (1) tách câu thành các cụm, giải nghĩa từng cụm; (2) chỉ ra điểm ngữ pháp đáng chú ý và giải thích; "+
+    "(3) cho 2 câu ví dụ khác dùng cùng cấu trúc (chữ Hán + pinyin + nghĩa).")}
+function aiExplainEn(l,box){
+  aiInto(box,sysEn(),"Giải thích câu sau:\n"+l[0]+"\nNghĩa: "+l[1]+
+    "\n\nHãy: (1) chỉ ra cấu trúc ngữ pháp chính; (2) giải thích các cụm từ hay/collocation đáng học; "+
+    "(3) gợi ý 2 cách nói khác tự nhiên có cùng ý; (4) lưu ý phát âm hoặc nối âm nếu có.")}
+
+/* ---------- 2. chấm bài dịch ---------- */
+function aiGradeZh(it,dir,ans,box){
+  const src=dir==="v2c"?it.vi:it.zh,ref=dir==="v2c"?it.zh+" ("+it.py+")":it.vi;
+  aiInto(box,sysZh(),"Chấm bài dịch của học viên.\nHướng dịch: "+(dir==="v2c"?"Việt → Trung":"Trung → Việt")+
+    "\nCâu gốc: "+src+"\nĐáp án tham khảo: "+ref+"\nBài làm của học viên: "+ans+
+    "\n\nTrả lời theo mẫu:\n**Điểm: x/10**\n- Đúng gì\n- Sai gì (ngữ pháp, từ vựng, trật tự từ), sửa cụ thể\n"+
+    "- Câu sửa hoàn chỉnh"+(dir==="v2c"?" (chữ Hán + pinyin)":"")+"\nNếu bài làm đúng ý nhưng khác đáp án thì vẫn cho điểm cao và nói rõ là cách nói chấp nhận được.")}
+function aiGradeEn(l,ans,box){
+  aiInto(box,sysEn(),"Chấm bài dịch Việt → Anh của học viên.\nCâu tiếng Việt: "+l[1]+"\nCâu mẫu: "+l[0]+
+    "\nBài làm: "+ans+"\n\nTrả lời theo mẫu:\n**Điểm: x/10**\n- Đúng gì\n- Lỗi ngữ pháp/từ vựng, sửa cụ thể\n"+
+    "- Câu sửa hoàn chỉnh\nNếu đúng ý nhưng khác câu mẫu thì vẫn cho điểm cao và nói rõ.")}
+
+/* ---------- 3. câu ví dụ cho từ hay quên ---------- */
+function aiExamplesZh(words,box){
+  aiInto(box,sysZh(),"Học viên hay quên các từ sau: "+words.map(w=>w.zh+" ("+w.py+": "+w.vi+")").join("; ")+
+    ".\nVới mỗi từ, viết 2 câu ví dụ ngắn, đời thường, dễ nhớ (chữ Hán + pinyin + nghĩa), và 1 mẹo nhớ ngắn "+
+    "(liên tưởng hình chữ, âm đọc giống tiếng Việt, hoặc phân biệt với từ dễ nhầm).")}
+
+/* ---------- 4. trò chuyện ---------- */
+let aiHist=[],aiMode="ask";
+function aiCtx(){
+  if(aiIsEn()){const t=typeof EL!=="undefined"?EL:null;
+    return{en:true,name:t?t.sub:"",words:t?t.words.slice(0,25).map(w=>w[0]).join(", "):"",
+      text:t?t.lines.slice(0,12).map(x=>x[0]).join(" "):""}}
+  return{en:false,name:L.sub,words:vocab().slice(0,30).map(w=>w.zh).join("、"),
+    text:lines().slice(0,10).map(x=>x.zh).join("")}}
+function aiSys(){
+  const c=aiCtx();
+  if(aiMode==="talk"){
+    if(c.en)return sysEn()+" Bây giờ bạn đóng vai người đối thoại để học viên luyện nói tiếng Anh về chủ đề \""+c.name+
+      "\". Nội dung tham khảo: "+c.text+"\nQuy tắc: mỗi lượt bạn chỉ nói 1–2 câu tiếng Anh đơn giản rồi hỏi lại một câu. "+
+      "Nếu câu trước của học viên có lỗi, thêm một dòng '✎ Sửa:' ngắn bằng tiếng Việt ở cuối. Dùng các từ: "+c.words;
+    return sysZh()+" Bây giờ bạn đóng vai một nhân vật trong bài \""+c.name+"\" để học viên luyện hội thoại tiếng Trung. "+
+      "Nội dung bài: "+c.text+"\nQuy tắc: mỗi lượt bạn chỉ nói 1–2 câu tiếng Trung ngắn (kèm pinyin và nghĩa tiếng Việt ở dòng dưới), "+
+      "rồi hỏi lại học viên một câu. Học viên có thể trả lời bằng chữ Hán, pinyin hoặc tiếng Việt. "+
+      "Nếu câu trước của học viên có lỗi, thêm một dòng '✎ Sửa:' ngắn ở cuối. Ưu tiên dùng các từ: "+c.words}
+  return (c.en?sysEn():sysZh())+" Học viên đang học bài \""+c.name+"\". Trả lời mọi câu hỏi về ngôn ngữ, ngữ pháp, từ vựng, văn hoá. "+
+    "Nếu câu hỏi không liên quan việc học thì vẫn trả lời ngắn gọn rồi gợi ý quay lại bài học."}
+function aiPaintHint(){
+  const c=aiCtx();
+  document.getElementById("aiTitle").textContent=(c.en?"Trợ lý tiếng Anh":"Trợ lý tiếng Trung");
+  document.getElementById("aiModeHint").textContent=aiMode==="talk"
+    ?"AI đóng vai nhân vật trong bài \""+c.name+"\". Cứ trả lời tự nhiên, sai đâu AI sửa đó."
+    :"Hỏi bất cứ điều gì về bài \""+c.name+"\": ngữ pháp, cách dùng từ, phân biệt từ dễ nhầm…";
+  document.getElementById("aiIn").placeholder=aiMode==="talk"?(c.en?"Reply in English…":"Trả lời bằng tiếng Trung…"):"Nhập câu hỏi…"}
+function aiPaint(){
+  const b=document.getElementById("aiMsgs");b.innerHTML="";
+  if(!aiHist.length){b.innerHTML='<p class="hint" style="margin:0">'+(aiOn()
+    ?(aiMode==="talk"?"Bấm Gửi (để trống) để AI mở lời trước, hoặc chào một câu.":"Ví dụ: “还是 và 或者 khác nhau thế nào?”")
+    :aiErr(new Error("NOKEY")))+'</p>';return}
+  aiHist.forEach(m=>{const d=document.createElement("div");
+    d.className="aim "+(m.role==="user"?"u":"a")+(m.err?" err":"");
+    d.innerHTML=m.role==="user"?aiEsc(m.text):(m.err?m.text:aiMd(m.text));b.appendChild(d)});
+  const sh=document.getElementById("aiSheet");sh.scrollTop=sh.scrollHeight}
+async function aiSend(){
+  const inp=document.getElementById("aiIn");let t=inp.value.trim();
+  if(!t&&aiMode!=="talk")return;
+  if(!t)t=aiIsEn()?"(Hãy mở đầu cuộc trò chuyện.)":"(请你先开始对话。)";
+  inp.value="";
+  aiHist.push({role:"user",text:t});aiPaint();
+  const wait=document.createElement("div");wait.className="aim a";wait.innerHTML='<span class="aidots">AI đang trả lời</span>';
+  document.getElementById("aiMsgs").appendChild(wait);
+  try{const r=await aiCall(aiSys(),aiHist.filter(m=>!m.err).slice(-16));aiHist.push({role:"model",text:r})}
+  catch(e){aiHist.push({role:"model",text:aiErr(e),err:true})}
+  aiPaint()}
+function aiOpen(){aiPaintHint();aiPaint();
+  document.getElementById("aiScrim").classList.add("on");document.getElementById("aiSheet").classList.add("on");
+  setTimeout(()=>{try{document.getElementById("aiIn").focus()}catch(e){}},200)}
+function aiClose(){document.getElementById("aiScrim").classList.remove("on");document.getElementById("aiSheet").classList.remove("on")}
+document.getElementById("aiFab").addEventListener("click",aiOpen);
+document.getElementById("aiX").addEventListener("click",aiClose);
+document.getElementById("aiScrim").addEventListener("click",aiClose);
+document.getElementById("aiSend").addEventListener("click",aiSend);
+document.getElementById("aiIn").addEventListener("keydown",e=>{if(e.key==="Enter")aiSend()});
+document.getElementById("aiMode").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  aiMode=b.dataset.m;aiHist=[];
+  [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));aiPaintHint();aiPaint()});
+
+/* ---------- gắn vào giao diện tiếng Trung ---------- */
+(function(){
+  /* nút giải thích trong mỗi câu bài khoá */
+  const ob=buildText;
+  buildText=function(){ob();
+    dlg.querySelectorAll(".line").forEach(el=>{
+      const w=el.querySelector(".who");if(!w||w.querySelector('[data-a="ai"]'))return;
+      const b=document.createElement("button");b.className="mini aibtn";b.dataset.a="ai";b.textContent="✦ Giải thích";
+      b.style.marginLeft="6px";w.appendChild(b);
+      const box=document.createElement("div");box.className="aibox aiexp";box.style.display="none";el.appendChild(box)})};
+  if(builtText)buildText();
+  dlg.addEventListener("click",e=>{const b=e.target.closest('button[data-a="ai"]');if(!b)return;
+    e.stopPropagation();const el=b.closest(".line"),box=el.querySelector(".aiexp");
+    if(box.style.display==="block"&&box.dataset.done){box.style.display="none";return}
+    box.dataset.done=1;aiExplainZh(LN[el.dataset.i],box)},true);
+
+  /* chấm dịch */
+  const row=document.getElementById("tShow").parentElement;
+  const g=document.createElement("button");g.className="mini aibtn";g.id="tAI";g.textContent="✦ AI chấm bài";
+  row.appendChild(g);
+  const gb=document.createElement("div");gb.id="tAIres";gb.style.display="none";row.parentElement.insertBefore(gb,row.nextSibling);
+  g.addEventListener("click",()=>{const v=document.getElementById("tInput").value.trim();
+    if(!v){gb.style.display="block";gb.className="aibox";gb.textContent="Viết bản dịch của bạn vào ô trên trước nhé.";return}
+    aiGradeZh(TR[ti],tDir,v,gb)});
+  const ots=tShow;tShow=function(){ots();gb.style.display="none";gb.innerHTML=""};
+
+  /* câu ví dụ cho từ hay quên (trong bảng phân tích) */
+  const orm=renderMem;
+  renderMem=function(){orm();
+    const box=document.getElementById("memBox");
+    const hard=[];vocab().forEach(w=>{const d=wordDiff(w.zh);if(d!==null&&d>=35)hard.push([w,d])});
+    if(!hard.length)return;
+    hard.sort((a,b)=>b[1]-a[1]);
+    const b=document.createElement("button");b.className="btn sec aibtn";b.style.cssText="width:100%;margin-top:12px";
+    b.textContent="✦ Nhờ AI tạo câu ví dụ & mẹo nhớ cho các từ này";
+    const out=document.createElement("div");out.style.display="none";
+    b.addEventListener("click",()=>aiExamplesZh(hard.slice(0,5).map(x=>x[0]),out));
+    box.appendChild(b);box.appendChild(out)};
+})();
+
+/* ---------- gắn vào app tiếng Anh ---------- */
+(function(){
+  if(typeof enRenderText!=="function")return;
+  const ort=enRenderText;
+  enRenderText=function(){ort();
+    [...document.querySelectorAll("#enLines .eline")].forEach((d,i)=>{
+      const bar=d.querySelector(".say");if(!bar)return;
+      const b=document.createElement("button");b.className="esay aibtn";b.textContent="✦ Giải thích";
+      const box=document.createElement("div");box.style.display="none";
+      b.addEventListener("click",e=>{e.stopPropagation();
+        if(box.style.display==="block"&&box.dataset.done){box.style.display="none";return}
+        box.dataset.done=1;aiExplainEn(EL.lines[i],box)});
+      bar.appendChild(b);d.appendChild(box)})};
+  const otr=eTran;
+  eTran=function(box){otr(box);
+    const row=document.getElementById("eShow3").parentElement;
+    const b=document.createElement("button");b.className="btn sec aibtn";b.textContent="✦ AI chấm";
+    const out=document.createElement("div");out.style.display="none";
+    row.appendChild(b);row.parentElement.insertBefore(out,row.nextSibling);
+    const line=EL.lines.find(l=>l[1]===box.querySelector(".card div").textContent)||EL.lines[0];
+    b.addEventListener("click",()=>{const v=document.getElementById("eIn3").value.trim();
+      if(!v){out.style.display="block";out.className="aibox";out.textContent="Viết câu tiếng Anh của bạn vào ô trên trước nhé.";return}
+      aiGradeEn(line,v,out)})};
+})();
+
+/* ---------- cài đặt ---------- */
+(function(){
+  const card=document.createElement("div");card.className="card";card.id="aiCard";
+  card.innerHTML='<h3 style="margin:0">Trợ lý AI</h3>'+
+    '<div class="score" id="aiState" style="margin-top:3px"></div>'+
+    '<div class="row" style="margin-top:10px"><span class="lab">Nhà cung cấp</span>'+
+    '<select id="aiProv"><option value="gemini">Google Gemini (miễn phí)</option><option value="claude">Claude (trả phí)</option></select></div>'+
+    '<div class="row"><span class="lab">Khoá API</span><input type="password" id="aiKeyIn" placeholder="Dán khoá vào đây" autocomplete="off" style="flex:1;min-width:0"></div>'+
+    '<div class="row"><span class="lab">Mô hình</span><input type="text" id="aiModelIn" placeholder="" autocomplete="off" style="flex:1;min-width:0"></div>'+
+    '<div class="row" style="margin-top:6px"><button class="btn" id="aiSave">Lưu & thử</button><button class="mini" id="aiDel">Xoá khoá</button></div>'+
+    '<p class="hint" id="aiMsg"></p>'+
+    '<p class="hint">Lấy khoá Gemini miễn phí: vào <b>aistudio.google.com</b> → đăng nhập Google → <b>Get API key</b> → Create API key → sao chép. '+
+    'Khoá chỉ lưu trong trình duyệt của máy này, không đồng bộ lên mạng và không đưa lên GitHub. Mỗi máy cần nhập một lần.</p>';
+  const sheet=document.getElementById("sheet");
+  const anchor=[...sheet.querySelectorAll(":scope > .card")][1];
+  sheet.insertBefore(card,anchor||null);
+  const paint=()=>{
+    document.getElementById("aiProv").value=AI.prov;
+    document.getElementById("aiKeyIn").value=AI.key?"••••••••••••":"";
+    document.getElementById("aiModelIn").value=AI.model||"";
+    document.getElementById("aiModelIn").placeholder="mặc định: "+AIDEF[AI.prov];
+    document.getElementById("aiState").textContent=aiOn()?("Đang bật · "+(AI.prov==="claude"?"Claude":"Gemini")+" · "+aiModel()):"Chưa bật — cần khoá API";
+    document.getElementById("aiFab").style.opacity=aiOn()?"1":".55"};
+  paint();
+  document.getElementById("aiProv").addEventListener("change",e=>{
+    if(e.target.value!==AI.prov){AI.prov=e.target.value;AI.model="";AI.key="";aiSave();paint()}});
+  document.getElementById("aiSave").addEventListener("click",async()=>{
+    const k=document.getElementById("aiKeyIn").value.trim(),m=document.getElementById("aiModelIn").value.trim();
+    if(k&&k.indexOf("•")<0)AI.key=k;
+    AI.model=m;AI.prov=document.getElementById("aiProv").value;aiSave();paint();
+    const msg=document.getElementById("aiMsg");
+    if(!AI.key){msg.textContent="Chưa có khoá.";return}
+    msg.innerHTML='<span class="aidots">Đang thử kết nối</span>';
+    try{const r=await aiCall("Trả lời đúng một từ.",[{role:"user",text:"Nói 'xin chào' bằng tiếng Trung."}]);
+      msg.innerHTML="✓ Kết nối được. AI trả lời: <b>"+aiEsc(r.slice(0,40))+"</b>"}
+    catch(e){msg.innerHTML=aiErr(e)}});
+  document.getElementById("aiDel").addEventListener("click",()=>{AI.key="";aiSave();paint();
+    document.getElementById("aiMsg").textContent="Đã xoá khoá khỏi máy này."});
+})();
+</script>
+<!-- AI-END -->
+
 </body>
 </html>

@@ -556,6 +556,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
   <div class="grab"></div>
   <div class="sh"><h3>Có gì mới</h3><div class="sp"></div></div>
   <div class="card" style="line-height:1.55;font-size:14.5px">
+    <p style="margin:0 0 8px"><b>Thống kê sử dụng của tôi</b> (Cài đặt): xem bạn học bao lâu, hay dùng phần nào. Số liệu chỉ nằm trong máy, không gửi đi đâu, tắt hoặc xoá được bất cứ lúc nào.</p>
     <p style="margin:0 0 8px"><b>Nút “Ôn tất cả từ đến hạn”</b> ngay ở trang chủ: một chạm là vào ôn các từ sắp quên, từ mọi bài.</p>
     <p style="margin:0 0 8px"><b>Trạng thái đồng bộ</b> hiện dưới mục “Hôm nay nên làm” khi bạn đã bật đồng bộ.</p>
     <p style="margin:0 0 8px"><b>Đã gỡ phần học tiếng Anh</b> để app gọn hơn. Tiến độ tiếng Trung không bị ảnh hưởng.</p>
@@ -659,6 +660,14 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
     </div>
     <div class="score" id="srcMsg"></div>
     <div class="score" id="mMsg"></div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="align-items:center">
+      <div style="flex:1;min-width:0"><h3 style="margin:0">Thống kê sử dụng của tôi</h3>
+      <div class="score" style="margin-top:3px">Bộ đếm ẩn danh, chỉ nằm trong máy này.</div></div>
+      <button class="mini" id="useOpen" style="min-height:44px">Xem</button>
+    </div>
   </div>
 
   <div class="card">
@@ -1060,7 +1069,7 @@ if(!USERS.list.some(u=>u.id===USERS.cur))USERS.cur=USERS.list[0].id;
 function saveUsers(){try{localStorage.setItem(PKEY,JSON.stringify(USERS))}catch(e){}}
 function curUser(){return USERS.list.find(u=>u.id===USERS.cur)||USERS.list[0]}
 const KEY=USERS.cur==="u1"?"hoctrung_v3":"hoctrung_v3_"+USERS.cur;
-let S={srs:{},mark:[],extra:{},les:{},open:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,autoNext:true,src:"",pack:null,cloud:{url:"",code:"",at:0},mine:[],gh:{repo:"",path:"lessons.json",token:"",at:0},markDel:{},mineDel:{},errDel:{},dirty:false,onboard:0,level:"",goal:20,daily:{date:"",n:0},streak:{cur:0,best:0,last:""},errs:[],exams:[],say:{},toneColor:false,sayScore:false,pyDone:0};
+let S={srs:{},mark:[],extra:{},les:{},open:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,autoNext:true,src:"",pack:null,cloud:{url:"",code:"",at:0},mine:[],gh:{repo:"",path:"lessons.json",token:"",at:0},markDel:{},mineDel:{},errDel:{},dirty:false,onboard:0,level:"",goal:20,daily:{date:"",n:0},streak:{cur:0,best:0,last:""},errs:[],exams:[],say:{},toneColor:false,sayScore:false,pyDone:0,use:{on:true,id:"",days:{}}};
 const S_DEF=JSON.parse(JSON.stringify(S));
 /* mã thiết bị: sinh 1 lần, lưu riêng, không đồng bộ — đếm thẻ/ngày theo từng máy */
 const DEV=(function(){let d="";try{d=localStorage.getItem("hoctrung_dev")||""}catch(e){}
@@ -3149,7 +3158,7 @@ whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();next
 paintSet();if(!S.onboard)obShow();
 
 /* ---------- tự phát hiện bản mới trên GitHub ---------- */
-const APP_VER="2026-10-09.14";
+const APP_VER="2026-10-10.1";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
 $("dueAll").addEventListener("click",dueAllGo);
@@ -3471,6 +3480,75 @@ document.getElementById("aiMode").addEventListener("click",e=>{const b=e.target.
 })();
 </script>
 <!-- AI-END -->
+
+<script>
+/* ---------- Thống kê sử dụng ẩn danh: chỉ đếm số, chỉ lưu trong máy (S.use), không gọi mạng ---------- */
+(function(){
+const SC={home:"Trang chủ",text:"Bài khoá/Nghe",vocab:"Thẻ từ",drill:"Luyện tập",exam:"Thi thử",pinyin:"Pinyin",mic:"Ghi âm",ai:"Trợ lý AI",set:"Cài đặt"};
+const isO=v=>!!v&&typeof v==="object"&&!Array.isArray(v);
+if(!isO(S.use))S.use={on:true,id:"",days:{}};
+if(typeof S.use.on!=="boolean")S.use.on=true;if(typeof S.use.id!=="string")S.use.id="";if(!isO(S.use.days))S.use.days={};
+function day(){const k=today();let d=S.use.days[k];if(!isO(d))d=S.use.days[k]={};
+  ["s","t","c","sa","ts","td"].forEach(f=>{if(!(+d[f]>=0))d[f]=0});["v","x","h","e","l"].forEach(f=>{if(!isO(d[f]))d[f]={}});
+  const ks=Object.keys(S.use.days).sort();if(ks.length>30)ks.slice(0,ks.length-30).forEach(x=>delete S.use.days[x]);return d}
+function inc(o,k,n){o[k]=(+o[k]||0)+(n||1)}
+let cur="home",t0=0,live=false,cards=0;
+function begin(){if(live)return;live=true;t0=Date.now();cards=0;if(!S.use.on)return;const d=day();d.s++;inc(d.h,String(Math.floor(new Date().getHours()/4)));save()}
+function end(){if(!live)return;live=false;if(!S.use.on)return;const d=day(),sec=Math.min(7200,Math.round((Date.now()-t0)/1000));
+  d.t+=sec;const m=sec/60;inc(d.l,m<1?"a":m<5?"b":m<15?"c":"d");inc(d.x,cur);if(cards>0)d.sa++;save()}
+function view(n){cur=n;if(!S.use.on)return;begin();inc(day().v,n);save()}
+function wrap(fn,n,after){const f=window[fn];if(typeof f!=="function")return;
+  window[fn]=function(){try{if(n)view(n);if(after)after.apply(null,arguments)}catch(e){}return f.apply(this,arguments)}}
+wrap("go",null,function(v){view(v==="text"?"text":v)});
+wrap("exOpen","exam");wrap("pyOpen","pinyin");wrap("aiOpen","ai");wrap("sayStart","mic");
+wrap("sheet",null,function(w){if(w==="set")view("set")});
+wrap("exStart",null,function(){day().ts++});wrap("qsStart",null,function(){day().ts++});
+wrap("exSubmit",null,function(){day().td++});wrap("qsEnd",null,function(){if(QS)day().td++});
+wrap("onCard",null,function(){if(S.use.on){cards++;day().c++}});
+addEventListener("error",e=>{try{if(!S.use.on)return;inc(day().e,String((e.error&&e.error.name)||"Error").replace(/[^A-Za-z]/g,"").slice(0,24)||"Error")}catch(x){}});
+addEventListener("unhandledrejection",()=>{try{if(S.use.on)inc(day().e,"Rejection")}catch(x){}});
+document.addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"?end():begin()});
+addEventListener("pagehide",end);
+begin();
+/* màn xem + điều khiển */
+function sum(f){const o={s:0,t:0,c:0,sa:0,ts:0,td:0,v:{},x:{},h:{},e:{},l:{},n:0};
+  for(const k in S.use.days){const d=S.use.days[k];if(!isO(d))continue;o.n++;["s","t","c","sa","ts","td"].forEach(a=>o[a]+=+d[a]||0);
+    ["v","x","h","e","l"].forEach(a=>{if(isO(d[a]))for(const z in d[a])inc(o[a],z,+d[a][z]||0)})}return o}
+function report(){if(!S.use.id){S.use.id="a"+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);save()}
+  return {loai:"bao-cao-an-danh",ver:1,id:S.use.id,app:APP_VER,days:JSON.parse(JSON.stringify(S.use.days))}}
+function paint(){const d=document.getElementById("useView");if(!d)return;const o=sum(),on=S.use.on;
+  const li=(m,names)=>Object.keys(m).sort((a,b)=>m[b]-m[a]).map(k=>(names&&names[k]||k)+": <b>"+m[k]+"</b>").join(" · ")||"chưa có";
+  const hn={0:"0-4h",1:"4-8h",2:"8-12h",3:"12-16h",4:"16-20h",5:"20-24h"},ln={a:"dưới 1 phút",b:"1-5 phút",c:"5-15 phút",d:"trên 15 phút"};
+  const ab=o.ts?Math.max(0,Math.round((o.ts-o.td)/o.ts*100)):0;
+  d.innerHTML='<div class="obin"><div class="row" style="margin-bottom:8px"><b style="font-size:17px">📊 Thống kê sử dụng của tôi</b><span class="sp"></span><button class="mini" id="useX" style="min-height:44px">Đóng</button></div>'+
+  '<p class="hint" style="margin-top:0">Chỉ là các con số đếm trong máy này (tối đa 30 ngày gần nhất). Không ghi nội dung câu trả lời, từ cụ thể hay tên bạn, và không gửi đi đâu.</p>'+
+  '<div class="card"><label class="row" style="min-height:44px;cursor:pointer"><input type="checkbox" id="useOn"'+(on?" checked":"")+' style="width:22px;height:22px"><span style="flex:1;margin-left:10px">Đếm số liệu sử dụng</span></label></div>'+
+  '<div class="card" style="line-height:1.7;font-size:14.5px">'+
+  '<div>Số lần mở app: <b>'+o.s+'</b> · tổng thời gian: <b>'+Math.round(o.t/60)+'</b> phút'+(o.s?' (trung bình <b>'+Math.round(o.t/60/o.s*10)/10+'</b> phút/lần)':'')+'</div>'+
+  '<div>Thẻ đã chấm: <b>'+o.c+'</b> · lần mở có làm thẻ: <b>'+o.sa+'</b></div>'+
+  '<div>Bài tập/thi bắt đầu: <b>'+o.ts+'</b> · bỏ giữa chừng: <b>'+ab+'%</b></div>'+
+  '<div style="margin-top:6px"><span class="hint">Mở từng phần:</span> '+li(o.v,SC)+'</div>'+
+  '<div><span class="hint">Màn rời app:</span> '+li(o.x,SC)+'</div>'+
+  '<div><span class="hint">Độ dài mỗi lần:</span> '+li(o.l,ln)+'</div>'+
+  '<div><span class="hint">Khung giờ:</span> '+li(o.h,hn)+'</div>'+
+  '<div><span class="hint">Lỗi bắt được:</span> '+li(o.e)+'</div></div>'+
+  '<div class="row"><button class="btn" id="useCopy" style="flex:1;min-height:46px">Sao chép báo cáo ẩn danh</button></div>'+
+  '<p class="hint">Báo cáo chỉ gồm số đếm và một mã ngẫu nhiên, không có thông tin định danh. Bạn tự quyết có dán cho người phát triển hay không.</p>'+
+  '<div class="row"><button class="mini" id="useDel" style="min-height:44px">Xoá số liệu</button></div><div class="score" id="useMsg"></div></div>'}
+function close(){const d=document.getElementById("useView");if(d)d.remove()}
+function open(){let d=document.getElementById("useView");if(!d){d=document.createElement("div");d.id="useView";d.className="ovl";d.setAttribute("role","dialog");d.setAttribute("aria-label","Thống kê sử dụng");document.body.appendChild(d)}paint();d.scrollTop=0}
+const ob=document.getElementById("useOpen");if(ob)ob.addEventListener("click",open);
+document.addEventListener("click",e=>{const d=document.getElementById("useView");if(!d||!d.contains(e.target))return;const id=(e.target.closest("[id]")||{}).id,m=()=>document.getElementById("useMsg");
+  if(id==="useX")close();
+  else if(id==="useDel"){if(confirm("Xoá toàn bộ số liệu sử dụng trong máy này?")){S.use.days={};save();paint();const x=m();if(x)x.textContent="Đã xoá."}}
+  else if(id==="useCopy"){const txt=JSON.stringify(report());const ok=()=>{const x=m();if(x)x.textContent="Đã sao chép. Dán vào cuộc trò chuyện nếu bạn muốn chia sẻ."};
+    const fb=()=>{const x=m();if(x)x.textContent="Không sao chép được tự động. Hãy chọn và chép thủ công.";const ta=document.createElement("textarea");ta.value=txt;ta.style.cssText="width:100%;height:120px;margin-top:8px";d.querySelector(".obin").appendChild(ta);ta.select()};
+    try{navigator.clipboard.writeText(txt).then(ok,fb)}catch(er){fb()}}});
+document.addEventListener("change",e=>{if(e.target&&e.target.id==="useOn"){S.use.on=e.target.checked;save();if(S.use.on&&live)begin()}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.getElementById("useView"))close()});
+window.USE={report,sum,open};
+})();
+</script>
 
 </body>
 </html>

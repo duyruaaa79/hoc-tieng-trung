@@ -33,7 +33,8 @@ header .in{max-width:var(--maxw);margin:0 auto;padding:11px 16px;display:flex;al
 .lesbtn{flex:1;min-width:0;background:none;border:none;color:inherit;text-align:left;cursor:pointer;padding:0}
 .lesbtn .t{font-family:ui-serif,Georgia,serif;font-size:20px;font-weight:600;line-height:1.2;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lesbtn .s{font-size:11.5px;color:var(--muted)}
+.lesbtn .s{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#btnTheme svg{width:18px;height:18px;display:block;margin:auto}
 .icon{background:var(--card);border:1px solid var(--line);color:var(--ink);width:38px;height:38px;
   border-radius:11px;font-size:15px;cursor:pointer;display:grid;place-items:center;flex:none}
 section.view{display:none;padding-top:18px}
@@ -178,6 +179,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .wordrow .wv{font-size:13px;color:var(--muted)}
 .wordrow.hide .wp,.wordrow.hide .wv{filter:blur(6px)}
 .pill{font-size:10.5px;padding:3px 8px;border-radius:999px;white-space:nowrap}
+@media(max-width:360px){.seg{display:grid;grid-template-columns:1fr 1fr}.seg button{white-space:normal}}
 @media(max-width:520px){#segMode{display:grid;grid-template-columns:1fr 1fr}#segMode button{white-space:normal}
   .wordrow{gap:7px;padding:10px 10px}.wordrow .wz{min-width:0;max-width:34%;font-size:19px}.wordrow .dots{display:none}.wordrow .pill{padding:3px 6px}}
 .p-new{background:var(--card2);color:var(--muted)}
@@ -238,11 +240,12 @@ details.acc>summary .cnt{margin-left:auto;font-size:11.5px;color:var(--muted);fo
 .pbar .ptxt{flex:1;min-width:0;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pbar .pbtn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer}
 .pbar .pbtn.sec{background:var(--card2);color:var(--muted);border:1px solid var(--line);font-weight:500;padding:9px 12px}
+#btnStop,#btnLoop{min-width:44px;min-height:44px}
 /* tabs */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
   padding:6px 8px calc(6px + env(safe-area-inset-bottom));z-index:30}
 nav.tabs .in{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-nav.tabs button{background:none;border:none;color:var(--muted);padding:7px 2px 6px;border-radius:10px;
+nav.tabs button{background:none;border:none;color:var(--muted);padding:7px 2px 6px;border-radius:10px;min-height:44px;justify-content:center;
   font-size:11.5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
 nav.tabs button .d{width:20px;height:3px;border-radius:2px;background:transparent}
 nav.tabs button[aria-selected="true"]{color:var(--accent);font-weight:600}
@@ -255,6 +258,8 @@ nav.tabs button[aria-selected="true"] .d{background:var(--accent)}
   will-change:transform;
   padding:0 16px calc(24px + env(safe-area-inset-bottom))}
 .sheet.on{transform:translateY(0)}
+@media(min-width:768px){.sheet{left:50%;right:auto;width:100%;max-width:640px;transform:translate(-50%,100%)}.sheet.on{transform:translate(-50%,0)}}
+body:has(.sheet.on) #aiFab{display:none}
 .sheet .sh{position:sticky;top:0;background:var(--bg);padding:16px 0 10px;display:flex;align-items:center;
   border-bottom:1px solid var(--line);margin-bottom:14px}
 .sheet .sh h3{margin:0}
@@ -278,10 +283,10 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
     <div class="t zh" id="hdT">—</div>
     <div class="s" id="hdS">Chạm để đổi bài ▾</div>
   </button>
-  <button class="who-btn" id="btnWho"><span id="whoAv">●</span><b id="whoName">Tôi</b></button>
-  <button class="icon" id="btnEn" title="Học tiếng Anh">EN</button>
-  <button class="icon" id="btnTheme">◐</button>
-  <button class="icon" id="btnSet">⚙</button>
+  <button class="who-btn" id="btnWho" aria-label="Người học"><span id="whoAv">●</span><b id="whoName">Tôi</b></button>
+  <button class="icon" id="btnEn" title="Học tiếng Anh" aria-label="Học tiếng Anh">EN</button>
+  <button class="icon" id="btnTheme" aria-label="Đổi giao diện sáng/tối" title="Sáng/tối"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  <button class="icon" id="btnSet" aria-label="Cài đặt" title="Cài đặt">⚙</button>
 </div></header>
 
 <div class="wrap">
@@ -305,7 +310,6 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
   <div class="sum" id="allSum"></div>
   <div id="lesList"></div>
   </div>
-  <footer><span id="verTxt"></span>Tiến độ lưu trong trình duyệt này. Muốn thêm bài mới, gửi ảnh bài đó cho Claude và nhờ bổ sung vào file.</footer>
 </section>
 
 <section class="view" id="v-text">
@@ -602,6 +606,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
     <b style="font-size:14px">Chưa có giọng tiếng Trung</b>
     <p class="hint">Vào Cài đặt điện thoại → Trợ năng / Text-to-speech → tải thêm giọng 中文 (普通话), rồi mở lại trang này.</p>
   </div>
+  <footer><span id="verTxt"></span>Tiến độ lưu trong trình duyệt này. Muốn thêm bài mới, gửi ảnh bài đó cho Claude và nhờ bổ sung vào file.</footer>
 </div>
 
 <div class="pop" id="pop"></div>
@@ -943,17 +948,34 @@ const $=id=>document.getElementById(id);
 const PKEY="hoctrung_users";
 let USERS={list:[{id:"u1",name:"Tôi"}],cur:"u1"};
 try{const r=localStorage.getItem(PKEY);if(r)USERS=Object.assign(USERS,JSON.parse(r))}catch(e){}
+if(!USERS||typeof USERS!=="object"||!Array.isArray(USERS.list)||!USERS.list.length||!USERS.list.every(u=>u&&typeof u==="object"&&u.id))USERS={list:[{id:"u1",name:"Tôi"}],cur:"u1"};
+if(!USERS.list.some(u=>u.id===USERS.cur))USERS.cur=USERS.list[0].id;
 function saveUsers(){try{localStorage.setItem(PKEY,JSON.stringify(USERS))}catch(e){}}
 function curUser(){return USERS.list.find(u=>u.id===USERS.cur)||USERS.list[0]}
 const KEY=USERS.cur==="u1"?"hoctrung_v3":"hoctrung_v3_"+USERS.cur;
 let S={srs:{},mark:[],extra:{},les:{},open:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,autoNext:true,src:"",pack:null,cloud:{url:"",code:"",at:0},mine:[],gh:{repo:"",path:"lessons.json",token:"",at:0}};
+const S_DEF=JSON.parse(JSON.stringify(S));
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+(function(){const isO=v=>!!v&&typeof v==="object"&&!Array.isArray(v),cp=v=>JSON.parse(JSON.stringify(v));
+  ["srs","extra","les","open","cloud","gh","mem","en"].forEach(k=>{
+    if(k in S_DEF){if(isO(S_DEF[k])&&!isO(S[k]))S[k]=cp(S_DEF[k])}
+    else if(S[k]!==undefined&&!isO(S[k]))delete S[k]});
+  ["mark","mine"].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[]});
+  if(S.pack!==null&&!isO(S.pack))S.pack=null})();
 if(!S.open||typeof S.open!=="object")S.open={};
 let saveT=null;
-function save(){clearTimeout(saveT);saveT=setTimeout(()=>{
-  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},500)}
-addEventListener("pagehide",()=>{clearTimeout(saveT);
-  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}});
+let saveWarned=false;
+function saveNow(){
+  try{localStorage.setItem(KEY,JSON.stringify(S));return}catch(e){}
+  try{if(S.pack&&S.pack.data){const o=Object.assign({},S,{pack:Object.assign({},S.pack,{data:null})});
+    localStorage.setItem(KEY,JSON.stringify(o));return}}catch(e){}
+  if(saveWarned)return;saveWarned=true;
+  const d=document.createElement("div");d.id="saveWarn";d.setAttribute("role","alert");
+  d.style.cssText="position:fixed;left:12px;right:12px;top:12px;z-index:200;background:#b3261e;color:#fff;padding:10px 14px;border-radius:12px;font-size:13.5px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.25)";
+  d.textContent="Bộ nhớ máy đầy — tiến độ chưa được lưu";d.addEventListener("click",()=>d.remove());
+  (document.body||document.documentElement).appendChild(d);setTimeout(()=>d.remove(),8000)}
+function save(){clearTimeout(saveT);saveT=setTimeout(saveNow,500)}
+addEventListener("pagehide",()=>{clearTimeout(saveT);saveNow()});
 let L=LESSONS.find(x=>x.id===S.cur)||LESSONS[0];
 function les(){return S.les[L.id]||(S.les[L.id]={listened:0,drill:{ok:0,total:0},last:null})}
 function touch(){les().last=Date.now();homeDirty=true;save();
@@ -973,7 +995,7 @@ function lookup(zh){
   if(ALLWORDS[zh])return ALLWORDS[zh];
   if(DICT[zh])return{zh:zh,py:DICT[zh][0],vi:DICT[zh][1]};
   const ps=[...zh].map(c=>DICT[c]||(ALLWORDS[c]?[ALLWORDS[c].py,ALLWORDS[c].vi]:["",""]));
-  return{zh:zh,py:ps.map(x=>x[0]).join(" "),vi:ps.map(x=>x[1]).filter(Boolean).join(" + ")};
+  return{zh:zh,py:ps.map(x=>String(x[0]||"").split(" / ")[0]).join(" "),vi:ps.map(x=>x[1]).filter(Boolean).join(" + ")};
 }
 let SEGIDX={},SEGCACHE={};
 function indexSeg(){SEGIDX={};SEGCACHE={};
@@ -1246,6 +1268,7 @@ function pickTask(){
   /* thứ tự mặt cho từ mới: mặt chữ trước, phiên âm sau khi đã gặp mặt chữ, viết lại khi một trong hai mặt đã vững (box≥2) */
   const gate=(zh,k)=>ks.length<2||k==="r"||(k==="p"?sk(zh,"r").seen>=1:(sk(zh,"r").box>=2||sk(zh,"p").box>=2));
   d.forEach((w,wi)=>ks.forEach(k=>{
+    if((k==="p"&&!String(w.py||"").trim())||(k==="m"&&!String(w.vi||"").trim()))return;
     const s=sk(w.zh,k);
     if(s.seen&&s.due<=Date.now())due.push([w,k,wi]);
     else if(!s.seen){if(gate(w.zh,k))fresh.push([w,k,wi])}
@@ -1345,6 +1368,7 @@ function checkWrite(){
   m.innerHTML=ok?"✓ Chính xác — "+escH(w.py):'✗ Đáp án: <span class="zh" style="font-size:20px">'+escH(w.zh)+"</span> ("+escH(w.py)+")";
   finish(ok&&!tTried)}
 function finish(ok,note){
+  if(!task||task.fin)return;task.fin=1;
   const w=task[0],k=task[1];
   tT++;if(ok)tR++;
   const ms=(tAns||Date.now())-tStart;
@@ -1353,6 +1377,7 @@ function finish(ok,note){
   if(note){const d=document.createElement("div");d.className="mk no";d.style.textAlign="center";
     d.textContent=note;$("study").appendChild(d)}
   sayW(w.zh);
+  $("study").querySelectorAll('.row>button[data-a="next"]').forEach(x=>x.parentElement.remove());
   const bar=document.createElement("div");bar.className="row";bar.style.marginTop="10px";
   bar.innerHTML='<button class="btn" data-a="next" style="flex:1">Thẻ tiếp theo ›</button>';
   $("study").appendChild(bar);
@@ -1625,7 +1650,7 @@ function renderHome(){
   $("sKnown").textContent=st.known+"/"+st.all;
   $("sDue").textContent=st.due;
   $("sAcc").textContent=d.drill.total?Math.round(d.drill.ok/d.drill.total*100)+"%":"—";
-  const pct=Math.round(st.known/st.all*100);
+  const pct=st.all?Math.round(st.known/st.all*100):0;
   $("pgName").textContent="Tiến độ "+L.sub.split("·")[0].trim();
   $("pgBar").style.width=pct+"%";$("pgTxt").textContent=pct+"%";
   $("lastTxt").textContent=d.last
@@ -1757,6 +1782,14 @@ function sheet(which){
 $("btnSet").addEventListener("click",()=>sheet("set"));
 $("btnLes").addEventListener("click",()=>{renderLessons($("lesPick"));sheet("les")});
 $("scrim").addEventListener("click",()=>sheet(null));
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Escape")return;
+  const on=id=>{const x=document.getElementById(id);return x&&x.classList.contains("on")};
+  if(on("aiSheet")&&typeof aiClose==="function"){aiClose();return}
+  if(on("enPop")&&typeof ePopClose==="function"){ePopClose();return}
+  if(on("enScrim")&&typeof enSheet==="function"){enSheet(null);return}
+  if(on("pop")){pop.classList.remove("on");return}
+  if(on("scrim"))sheet(null)});
 document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>sheet(null)));
 
 $("rngRate").value=S.rate;$("vRate").textContent=(+S.rate).toFixed(2)+"x";
@@ -1832,14 +1865,24 @@ $("whoDel").addEventListener("click",()=>{
 /* ---------- nguồn bài học tự cập nhật ---------- */
 function srcMsg(t,bad){const m=$("srcMsg");m.textContent=t;m.style.color=bad?"var(--accent)":"var(--jade)"}
 function validPack(o){
-  return o&&Array.isArray(o.lessons)&&o.lessons.length&&
-    o.lessons.every(l=>l&&l.id&&l.sub&&Array.isArray(l.parts)&&Array.isArray(l.words))}
+  const isO=v=>!!v&&typeof v==="object"&&!Array.isArray(v);
+  return !!(isO(o)&&Array.isArray(o.lessons)&&o.lessons.length&&
+    o.lessons.every(l=>isO(l)&&typeof l.id==="string"&&l.id&&l.sub&&
+      Array.isArray(l.parts)&&l.parts.every(pt=>isO(pt)&&Array.isArray(pt.lines))&&
+      Array.isArray(l.words)&&l.words.every(w=>isO(w)&&typeof w.zh==="string"))&&
+    (o.dict===undefined||o.dict===null||isO(o.dict)))}
 function applyPack(o,quiet){
   if(!validPack(o))throw new Error("sai định dạng");
-  BASE_LESSONS=o.lessons.concat(S.mine||[]);
-  if(o.dict)for(const k in o.dict)DICT[k]=o.dict[k];
-  LESSONS=BASE_LESSONS.concat(makeAlls());
-  indexWords();indexSeg();
+  const oB=BASE_LESSONS,oL=LESSONS,oD=Object.assign({},DICT),oW=ALLWORDS;
+  try{
+    BASE_LESSONS=o.lessons.concat(S.mine||[]);
+    LESSONS=BASE_LESSONS.concat(makeAlls());
+    if(o.dict)for(const k in o.dict)if(Array.isArray(o.dict[k]))DICT[k]=o.dict[k];
+    indexWords();
+  }catch(e){
+    BASE_LESSONS=oB;LESSONS=oL;for(const k in DICT)if(!(k in oD))delete DICT[k];Object.assign(DICT,oD);ALLWORDS=oW;
+    throw new Error("sai định dạng ("+e.message+")")}
+  indexSeg();
   L=LESSONS.find(x=>x.id===S.cur)||LESSONS[0];S.cur=L.id;
   builtText=false;builtDrill=false;idx=0;
   stopAll();hdr();buildRoles();renderWords();nextTask();homeDirty=true;renderHome();
@@ -1866,7 +1909,7 @@ async function packToCloud(){
     body:JSON.stringify({t:Date.now(),data:S.pack.data})})}
 function packSig(d){
   if(!d||!d.lessons)return "";
-  return d.lessons.length+":"+d.lessons.map(l=>l.id+"-"+(l.words?l.words.length:0)).join(",")+"|"+(d.dict?Object.keys(d.dict).length:0)}
+  return d.lessons.length+":"+d.lessons.map(l=>l.id+"-"+(l.words?l.words.length:0)).join(",")+"|"+(d.dict?Object.keys(d.dict).length:0)+"|"+(d.updated||"")+(d.version||"")}
 async function packFromCloud(){
   if(!cloudOn())return false;
   const u=cloudURL().replace(/\.json$/,"")+"_pack.json";
@@ -2268,7 +2311,7 @@ mineRender();
 whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
 
 /* ---------- tự phát hiện bản mới trên GitHub ---------- */
-const APP_VER="2026-10-09.7";
+const APP_VER="2026-10-09.8";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
 function updBar(v){
@@ -2344,6 +2387,7 @@ $("ptxt").textContent="Sẵn sàng — "+lines().length+" câu";
 .edots{display:flex;gap:3px;flex:none}
 .edots i{width:7px;height:7px;border-radius:50%;background:var(--card2);border:1px solid var(--line)}
 .edots i.ok{background:var(--jade);border-color:var(--jade)}
+.edots i.half{background:var(--jade-soft,transparent);border-color:var(--jade)}
 .edots i.due{background:var(--accent);border-color:var(--accent)}
 .ecard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 18px;text-align:center;margin-bottom:12px}
 .ecard .q{font-size:26px;font-weight:650;line-height:1.4;word-break:break-word}
@@ -2843,6 +2887,7 @@ function enList(){return EN_PACK.concat([EN_ALL])}
 S.en=Object.assign({cur:EN_PACK[0].id,srs:{},rate:.9,gap:1,rep:1,vi:1,say:1,wake:1,
   mark:[],extra:{},les:{},voice:0,open:0},S.en||{});
 if(!Array.isArray(S.en.mark))S.en.mark=[];
+["srs","extra","les"].forEach(k=>{const v=S.en[k];if(!v||typeof v!=="object"||Array.isArray(v))S.en[k]={}});
 let EL=enList().find(x=>x.id===S.en.cur)||EN_PACK[0];
 let eVoices=[],eTok=0,ePlaying=false,ePaused=false,eIdx=0,eMode="list",eDrill="quiz",eTxtMode="listen";
 let eWake=null;
@@ -2903,7 +2948,7 @@ function eStat(){const ws=eWords().map(w=>w[0]);
   return{all:ws.length,known:ws.filter(eKnown).length,due:ws.filter(eDue).length,nw:ws.filter(eNew).length}}
 function eDots(w){let h='<span class="edots">';
   EFACE.forEach(f=>{const s=(S.en.srs[w]||{})[f[0]]||{box:0};
-    h+='<i class="'+(eDueF(w,f[0])?"due":(s.box>=3?"ok":(s.box>0?"ok":"")))+'" title="'+f[1]+'"></i>'});
+    h+='<i class="'+(eDueF(w,f[0])?"due":(s.box>=3?"ok":(s.box>0?"half":"")))+'" title="'+f[1]+'"></i>'});
   return h+"</span>"}
 
 /* ---------- từ điển ---------- */
@@ -3087,6 +3132,13 @@ let eCur=null,eShown=false,eFace=0;
 function ePick(){
   const ws=eWords();
   if(!ws.length)return null;
+  const isMk=w=>S.en.mark.indexOf(w[0])>=0,rnd=a=>a[Math.floor(Math.random()*a.length)];
+  const dueP=[],newP=[];
+  ws.forEach(w=>EFACE.forEach((f,fi)=>{const s=(S.en.srs[w[0]]||{})[f[0]];
+    if(eDueF(w[0],f[0]))dueP.push([w,fi]);else if(!s||!s.seen)newP.push([w,fi])}));
+  const pk=a=>{const m=a.filter(x=>isMk(x[0]));const x=rnd(m.length?m:a);eFace=x[1];return x[0]};
+  if(dueP.length)return pk(dueP);
+  if(newP.length)return pk(newP);
   const mk=ws.filter(w=>S.en.mark.indexOf(w[0])>=0&&(eDue(w[0])||eNew(w[0])));
   const due=ws.filter(w=>eDue(w[0])),nw=ws.filter(w=>eNew(w[0]));
   const pool=mk.length?mk:(due.length?due:(nw.length?nw:ws));
@@ -3410,7 +3462,7 @@ body.hasplayer #aiFab{bottom:calc(176px + env(safe-area-inset-bottom));width:42p
 #aiIn{flex:1;min-width:0}
 </style>
 
-<button id="aiFab" title="Trợ lý AI">✦</button>
+<button id="aiFab" title="Trợ lý AI" aria-label="Trợ lý AI">✦</button>
 <div class="scrim" id="aiScrim"></div>
 <div class="sheet" id="aiSheet">
   <div class="grab"></div>

@@ -2237,7 +2237,7 @@ mineRender();
 whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
 
 /* ---------- tự phát hiện bản mới trên GitHub ---------- */
-const APP_VER="2026-10-09.2";
+const APP_VER="2026-10-09.3";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
 function updBar(v){
@@ -3417,8 +3417,8 @@ async function aiCall(system,msgs){
     return (j.content||[]).map(c=>c.text||"").join("").trim();
   }
   const url="https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(aiModel())+
-    ":generateContent?key="+encodeURIComponent(AI.key.trim());
-  const r=await fetch(url,{method:"POST",headers:{"content-type":"application/json"},
+    ":generateContent";
+  const r=await fetch(url,{method:"POST",headers:{"content-type":"application/json","x-goog-api-key":AI.key.trim()},
     body:JSON.stringify({systemInstruction:{parts:[{text:system}]},
       contents:msgs.map(m=>({role:m.role==="user"?"user":"model",parts:[{text:m.text}]})),
       generationConfig:{temperature:.6,maxOutputTokens:1200}})});

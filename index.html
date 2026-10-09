@@ -377,6 +377,8 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
   </div>
   <h2>Hôm nay nên làm</h2>
   <div id="todos"></div>
+  <button class="btn" id="dueAll" style="display:none;width:100%;margin-top:10px;min-height:46px"></button>
+  <div class="hint" id="syncTxt" style="display:none;margin:8px 2px 0"></div>
   <div class="row" style="margin-top:10px;gap:8px"><button class="btn sec" id="exEntry" style="flex:1">📝 Thi thử</button><button class="btn sec" id="pyEntry" style="flex:1">🔤 Nhập môn pinyin</button></div>
   <div id="homeLes" style="display:none">
   <div class="sum" id="allSum"></div>
@@ -548,6 +550,18 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
     <button class="mini" id="whoDel">Xoá người đang chọn</button>
   </div>
   <div class="score" id="whoMsg"></div>
+</div>
+
+<div class="sheet" id="sheetNew">
+  <div class="grab"></div>
+  <div class="sh"><h3>Có gì mới</h3><div class="sp"></div></div>
+  <div class="card" style="line-height:1.55;font-size:14.5px">
+    <p style="margin:0 0 8px"><b>Nút “Ôn tất cả từ đến hạn”</b> ngay ở trang chủ: một chạm là vào ôn các từ sắp quên, từ mọi bài.</p>
+    <p style="margin:0 0 8px"><b>Trạng thái đồng bộ</b> hiện dưới mục “Hôm nay nên làm” khi bạn đã bật đồng bộ.</p>
+    <p style="margin:0 0 8px"><b>Đã gỡ phần học tiếng Anh</b> để app gọn hơn. Tiến độ tiếng Trung không bị ảnh hưởng.</p>
+    <p style="margin:0">Đã sửa một ví dụ ngữ pháp ở HSK2 bài 10.</p>
+  </div>
+  <button class="btn" id="newOk" style="width:100%;margin-top:12px;min-height:46px">Đã hiểu</button>
 </div>
 
 <div class="sheet" id="sheet">
@@ -1764,6 +1778,23 @@ function lesStat(l){
   const ex=(S.extra[l.id]||[]).map(lookup),all=l.words.concat(ex);
   return{all:all.length,known:all.filter(isKnown).length,due:all.filter(isDue).length,
     nw:all.filter(isNew).length}}
+function dueAllPaint(n){
+  const b=$("dueAll");if(!b)return;
+  if(!(n>0)){b.style.display="none";return}
+  b.style.display="block";b.textContent="♻ Ôn tất cả từ đến hạn ("+n+" từ)"}
+function dueAllGo(){
+  const g=LESSONS.find(l=>l.id==="all")||LESSONS.find(l=>l.all);
+  if(g&&g.id!==L.id)switchLes(g.id);
+  go("vocab");deckSet("smart")}
+let syncSt="";
+function syncPaint(){
+  const e=$("syncTxt");if(!e)return;
+  if(!cloudOn()){e.style.display="none";return}
+  const at=S.cloud&&S.cloud.at?new Date(S.cloud.at).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}):"";
+  e.style.display="block";
+  if(syncSt==="busy"){e.textContent="⟳ Đang đồng bộ…";e.style.color="var(--muted)"}
+  else if(syncSt==="err"){e.textContent="⚠ Chưa đồng bộ được, tiến độ vẫn lưu trong máy";e.style.color="var(--accent)"}
+  else{e.textContent=at?"✓ Đã đồng bộ lúc "+at:"Đồng bộ đã bật";e.style.color="var(--jade)"}}
 function renderHome(){
   const st=lesStat(L),d=les();
   $("sKnown").textContent=st.known+"/"+st.all;
@@ -1809,6 +1840,7 @@ function renderHome(){
   $("allSum").textContent=(nb>1?nb+" bộ · ":"")+LESSONS.filter(l=>!l.all).length+" bài: "+tk+"/"+ta+" từ đã thuộc"+
     (tdue?" · "+tdue+" từ đến hạn ôn":"");
   renderLessons($("lesList"));
+  dueAllPaint(tdue);syncPaint();
 }
 function lesRow(l,n){
   const st=lesStat(l),pct=st.all?Math.round(st.known/st.all*100):0;
@@ -1901,7 +1933,8 @@ function sheet(which){
   $("scrim").classList.toggle("on",on);
   $("sheet").classList.toggle("on",which==="set");
   $("sheetLes").classList.toggle("on",which==="les");
-  $("sheetWho").classList.toggle("on",which==="who")}
+  $("sheetWho").classList.toggle("on",which==="who");
+  $("sheetNew").classList.toggle("on",which==="new")}
 $("btnSet").addEventListener("click",()=>sheet("set"));
 $("btnLes").addEventListener("click",()=>{renderLessons($("lesPick"));sheet("les")});
 $("scrim").addEventListener("click",()=>sheet(null));
@@ -2330,7 +2363,7 @@ let syncAgain=false;
 async function cloudSync(quiet,noPack){
   if(!cloudOn())return;
   if(syncing){syncAgain=true;return}
-  syncing=true;
+  syncing=true;syncSt="busy";syncPaint();
   try{
     let got=false;
     if(!noPack)try{got=await packFromCloud()}catch(e){}
@@ -2339,8 +2372,8 @@ async function cloudSync(quiet,noPack){
     await cloudPush();S.dirty=false;save();
     if(!quiet)cMsg("Đã đồng bộ"+(n?" · nhận thêm "+n+" mục":""));
     else cMsg("");
-    cStatus();
-  }catch(e){cMsg("Không đồng bộ được ("+e.message+"). Tiến độ vẫn lưu trong máy.",true)}
+    cStatus();syncSt="ok";syncPaint();
+  }catch(e){syncSt="err";syncPaint();cMsg("Không đồng bộ được ("+e.message+"). Tiến độ vẫn lưu trong máy.",true)}
   finally{syncing=false;if(syncAgain){syncAgain=false;setTimeout(()=>cloudSync(true,true),500)}}}
 /* touch → sau 4s kéo về, gộp rồi mới đẩy lên (không ghi đè tiến độ máy khác) */
 function cloudLater(){
@@ -3118,6 +3151,12 @@ paintSet();if(!S.onboard)obShow();
 const APP_VER="2026-10-09.13";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
+$("dueAll").addEventListener("click",dueAllGo);
+(function(){
+  const done=()=>{S.seenVer=APP_VER;save();sheet(null)};
+  $("newOk").addEventListener("click",done);
+  if(!S.onboard){S.seenVer=APP_VER;save()}
+  else if(S.seenVer!==APP_VER)setTimeout(()=>sheet("new"),700)})();
 function updBar(v){
   if(document.getElementById("updBar"))return;
   const b=document.createElement("div");b.id="updBar";

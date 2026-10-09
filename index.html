@@ -35,7 +35,7 @@ header .in{max-width:var(--maxw);margin:0 auto;padding:11px 16px;display:flex;al
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lesbtn .s{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #btnTheme svg{width:18px;height:18px;display:block;margin:auto}
-.icon{background:var(--card);border:1px solid var(--line);color:var(--ink);width:38px;height:38px;
+.icon{background:var(--card);border:1px solid var(--line);color:var(--ink);width:44px;height:44px;
   border-radius:11px;font-size:15px;cursor:pointer;display:grid;place-items:center;flex:none}
 section.view{display:none;padding-top:18px}
 section.view.on{display:block}
@@ -306,6 +306,7 @@ details.acc>summary .cnt{margin-left:auto;font-size:11.5px;color:var(--muted);fo
 #btnStop,#btnLoop{min-width:44px;min-height:44px}
 :root[data-theme="dark"] .btn:not(.sec):not(.jade),:root[data-theme="dark"] .pbar .pbtn:not(.sec){color:#1a0d0a}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.sec):not(.jade),:root:not([data-theme="light"]) .pbar .pbtn:not(.sec){color:#1a0d0a}}
+.sheet .mini,.ovl .mini{min-height:44px;min-width:44px}
 .ovl .mini,.ovl .btn,#qsStop,.saybtn,.who .mini,.aibtn,#pyTabs button,.sayrow .mini{min-height:40px;min-width:40px}
 .prog button{min-width:32px;height:36px}
 @media (max-width:360px){.prog{overflow-x:auto;-webkit-overflow-scrolling:touch}.prog button{flex:0 0 32px}}
@@ -556,6 +557,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
   <div class="grab"></div>
   <div class="sh"><h3>Có gì mới</h3><div class="sp"></div></div>
   <div class="card" style="line-height:1.55;font-size:14.5px">
+    <p style="margin:0 0 8px"><b>Nút bấm to hơn</b> (cài đặt, bảng chọn) để chạm trên điện thoại dễ hơn.</p>
     <p style="margin:0 0 8px"><b>Thống kê sử dụng của tôi</b> (Cài đặt): xem bạn học bao lâu, hay dùng phần nào. Số liệu chỉ nằm trong máy, không gửi đi đâu, tắt hoặc xoá được bất cứ lúc nào.</p>
     <p style="margin:0 0 8px"><b>Nút “Ôn tất cả từ đến hạn”</b> ngay ở trang chủ: một chạm là vào ôn các từ sắp quên, từ mọi bài.</p>
     <p style="margin:0 0 8px"><b>Trạng thái đồng bộ</b> hiện dưới mục “Hôm nay nên làm” khi bạn đã bật đồng bộ.</p>
@@ -3158,7 +3160,7 @@ whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();next
 paintSet();if(!S.onboard)obShow();
 
 /* ---------- tự phát hiện bản mới trên GitHub ---------- */
-const APP_VER="2026-10-10.1";
+const APP_VER="2026-10-10.2";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
 $("dueAll").addEventListener("click",dueAllGo);

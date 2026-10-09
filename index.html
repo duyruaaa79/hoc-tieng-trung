@@ -74,8 +74,12 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .bar i{display:block;height:100%;background:var(--jade);border-radius:5px}
 .daycard .bar{margin:8px 0 12px}
 .qsbtn{width:100%;font-size:16.5px;padding:13px 16px}
-.qsbar{display:flex;align-items:center;gap:10px;background:var(--warn-soft);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-bottom:10px;font-size:14px}
-.qsbar span{white-space:nowrap;font-variant-numeric:tabular-nums}
+.qsbar{display:flex;align-items:center;gap:6px;min-width:0;background:var(--warn-soft);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-bottom:10px;font-size:14px}
+.qsbar span{white-space:nowrap;font-variant-numeric:tabular-nums;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.qsbar .sp{flex:1 1 0}
+.qsbar #qsStop{flex:none;padding:6px 9px}
+.qsbar b{white-space:nowrap;flex:none}
+.qsbar .qsinfo{white-space:normal;font-size:13px;line-height:1.25;flex:0 1 auto}
 .qsbar b{font-variant-numeric:tabular-nums;font-size:16px}
 .qsum .qsh,.qsh{font-size:17px;font-weight:700}
 .qwr{display:flex;flex-wrap:wrap;gap:6px}.qwr .pill{cursor:pointer}
@@ -93,10 +97,13 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .tpct{font-size:13px;color:var(--muted);margin-top:2px}
 .sug{outline:2.5px solid var(--warn);outline-offset:2px}
 .eqans{margin-top:10px}
-.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;transition:.3s;z-index:300;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.toast{position:fixed;left:50%;bottom:calc(78px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;transition:.3s;z-index:300;background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:12px;font-size:13px;line-height:1.4;width:max-content;max-width:min(92vw,420px);text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none}
+body.hasplayer .toast{bottom:calc(190px + env(safe-area-inset-bottom))}
+body:has(> .ovl) .toast,body:has(#scrim.on) .toast{display:none}
+body:has(#obView) > header,body:has(#obView) > .wrap,body:has(#obView) > .tabs,body:has(#obView) > .player{visibility:hidden}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 /* đợt B */
-.tn1{color:#cf2e2e}.tn2{color:#d9741c}.tn3{color:#23873b}.tn4{color:#2f5fc4}.tn0{color:var(--muted)}
+.tn1{color:#cf2e2e}.tn2{color:#b35a00}.tn3{color:#1d7232}.tn4{color:#2f5fc4}.tn0{color:var(--muted)}
 :root[data-theme="dark"] .tn1{color:#ff7d74}:root[data-theme="dark"] .tn2{color:#ffad5c}:root[data-theme="dark"] .tn3{color:#6fd68a}:root[data-theme="dark"] .tn4{color:#86b2ff}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tn1{color:#ff7d74}:root:not([data-theme="light"]) .tn2{color:#ffad5c}:root:not([data-theme="light"]) .tn3{color:#6fd68a}:root:not([data-theme="light"]) .tn4{color:#86b2ff}}
 .tonekey{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:13px;margin-top:8px;font-weight:600}
@@ -123,7 +130,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .qopts.tf{grid-template-columns:1fr 1fr}.tgopts{grid-template-columns:1fr 1fr}
 .exstar{font-size:18px;margin-top:8px}.exans{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.6}.exans:empty{display:none}
 .exbank{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.exbank span{border:1px solid var(--line);border-radius:8px;padding:3px 9px;background:var(--card2);font-size:16px}
-.exchart{width:100%;height:auto;display:block;margin:4px 0}
+.exchart{width:100%;max-width:520px;height:auto;max-height:220px;display:block;margin:4px auto}
 .pyex{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line);flex-wrap:wrap}
 .pyz{font-size:22px}.pyp{font-size:16px;font-weight:600}.pyv{flex:1;font-size:13px;color:var(--muted);min-width:120px}
 .todo{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);
@@ -297,6 +304,12 @@ details.acc>summary .cnt{margin-left:auto;font-size:11.5px;color:var(--muted);fo
 .pbar .pbtn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer}
 .pbar .pbtn.sec{background:var(--card2);color:var(--muted);border:1px solid var(--line);font-weight:500;padding:9px 12px}
 #btnStop,#btnLoop{min-width:44px;min-height:44px}
+:root[data-theme="dark"] .btn:not(.sec):not(.jade),:root[data-theme="dark"] .pbar .pbtn:not(.sec){color:#1a0d0a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.sec):not(.jade),:root:not([data-theme="light"]) .pbar .pbtn:not(.sec){color:#1a0d0a}}
+.ovl .mini,.ovl .btn,#qsStop,.saybtn,.who .mini,.aibtn,#pyTabs button,.sayrow .mini{min-height:40px;min-width:40px}
+.prog button{min-width:32px;height:36px}
+@media (max-width:360px){.prog{overflow-x:auto;-webkit-overflow-scrolling:touch}.prog button{flex:0 0 32px}}
+.newtag{display:inline-block;background:var(--jade-soft);color:var(--jade);border-radius:8px;padding:3px 9px;font-size:13px;font-weight:600}
 /* tabs */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
   padding:6px 8px calc(6px + env(safe-area-inset-bottom));z-index:30}
@@ -685,7 +698,7 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
 
   <div id="voiceWarn" class="card" style="display:none;border-color:var(--warn)">
     <b style="font-size:14px">Chưa có giọng tiếng Trung</b>
-    <p class="hint">Vào Cài đặt điện thoại → Trợ năng / Text-to-speech → tải thêm giọng 中文 (普通话), rồi mở lại trang này.</p>
+    <p class="hint">Máy chưa có giọng đọc tiếng Trung nên phần nghe sẽ im lặng. Cách thêm:<br>• <b>Android</b>: Cài đặt → Hệ thống/Quản lý chung → Ngôn ngữ → Chuyển văn bản thành giọng nói → Công cụ của Google → Cài đặt dữ liệu giọng nói → tải 中文 (普通话).<br>• <b>iPhone/iPad</b>: Cài đặt → Trợ năng → Nội dung được đọc → Giọng nói → Tiếng Trung (Trung Quốc đại lục) → tải một giọng.<br>• <b>Máy tính</b>: thêm gói ngôn ngữ Trung (Giản thể) có giọng nói trong Cài đặt hệ điều hành, hoặc dùng Chrome/Edge.<br>Xong thì mở lại trang này.</p>
   </div>
   <footer><span id="verTxt"></span>Tiến độ lưu trong trình duyệt này. Muốn thêm bài mới, gửi ảnh bài đó cho Claude và nhờ bổ sung vào file.</footer>
 </div>
@@ -1038,6 +1051,14 @@ function curUser(){return USERS.list.find(u=>u.id===USERS.cur)||USERS.list[0]}
 const KEY=USERS.cur==="u1"?"hoctrung_v3":"hoctrung_v3_"+USERS.cur;
 let S={srs:{},mark:[],extra:{},les:{},open:{},cur:LESSONS[0].id,theme:null,rate:.8,gap:1.5,rep:1,role:"",wake:true,autoSay:true,autoNext:true,src:"",pack:null,cloud:{url:"",code:"",at:0},mine:[],gh:{repo:"",path:"lessons.json",token:"",at:0},markDel:{},mineDel:{},errDel:{},dirty:false,onboard:0,level:"",goal:20,daily:{date:"",n:0},streak:{cur:0,best:0,last:""},errs:[],exams:[],say:{},toneColor:false,sayScore:false,pyDone:0};
 const S_DEF=JSON.parse(JSON.stringify(S));
+/* mã thiết bị: sinh 1 lần, lưu riêng, không đồng bộ — đếm thẻ/ngày theo từng máy */
+const DEV=(function(){let d="";try{d=localStorage.getItem("hoctrung_dev")||""}catch(e){}
+  if(!d){d="d"+Date.now().toString(36)+Math.random().toString(36).slice(2,8);try{localStorage.setItem("hoctrung_dev",d)}catch(e){}}return d})();
+function dailyBy(x){const o={};if(!x||typeof x!=="object")return o;
+  if(x.by&&typeof x.by==="object"&&!Array.isArray(x.by)){for(const k in x.by){const v=+x.by[k];if(isFinite(v)&&v>0)o[k]=v}}
+  else if(+x.n>0)o[DEV]=+x.n;return o}
+function dailyFix(d){d.by=dailyBy(d);let t=0;for(const k in d.by)t+=d.by[k];d.n=t;return d}
+function dayTotal(){return dailyFix(S.daily).n}
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 (function(){const isO=v=>!!v&&typeof v==="object"&&!Array.isArray(v),cp=v=>JSON.parse(JSON.stringify(v));
   ["srs","extra","les","open","cloud","gh","mem","en","markDel","mineDel","errDel","daily","streak","say"].forEach(k=>{
@@ -1048,7 +1069,7 @@ try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catc
   S.toneColor=!!S.toneColor;S.sayScore=!!S.sayScore;
   S.errs=S.errs.filter(x=>x&&typeof x==="object"&&typeof x.key==="string");
   if(![10,20,30].includes(+S.goal))S.goal=20;S.goal=+S.goal;if(typeof S.level!=="string")S.level="";
-  if(typeof S.daily.n!=="number")S.daily.n=0;if(typeof S.daily.date!=="string")S.daily.date="";
+  if(typeof S.daily.date!=="string")S.daily.date="";dailyFix(S.daily);
   ["cur","best"].forEach(k=>{if(typeof S.streak[k]!=="number")S.streak[k]=0});if(typeof S.streak.last!=="string")S.streak.last="";
   if(S.pack!==null&&!isO(S.pack))S.pack=null})();
 if(!S.open||typeof S.open!=="object")S.open={};
@@ -1147,11 +1168,11 @@ function srs(zh){const a=SK.map(k=>sk(zh,k));
   return{box:Math.min.apply(null,a.map(x=>x.box)),seen:a.reduce((n,x)=>n+x.seen,0)}}
 const isDue=w=>SK.some(k=>{const s=sk(w.zh,k);return s.seen>0&&s.due<=Date.now()});
 const isNew=w=>SK.every(k=>sk(w.zh,k).seen===0);
-const isKnown=w=>SK.every(k=>sk(w.zh,k).box>=3);
+const isKnown=w=>{const a=SK.map(k=>sk(w.zh,k)).filter(s=>s.seen>0);return a.length>0&&sk(w.zh,"r").box>=3&&a.every(s=>s.box>=3)};
 function status(w){
   if(isNew(w))return["p-new","chưa học"];
   if(isDue(w))return["p-due","đến hạn ôn"];
-  if(isKnown(w))return["p-ok","thuộc cả 3"];
+  if(isKnown(w))return["p-ok","đã thuộc"];
   return["p-learn",SK.filter(k=>sk(w.zh,k).box>=3).length+"/3 mặt"]}
 
 /* ---------- âm thanh ---------- */
@@ -1414,7 +1435,12 @@ function nextTask(){
   const w=task[0],k=task[1];
   let html='<div class="taskbar"><span class="tlabel '+k+'">'+SKN[k]+'</span>'+dotsHTML(w.zh)+
     '<span class="sp"></span><button class="mini" data-a="mark">'+(S.mark.includes(w.zh)?"★ khó":"☆ khó")+'</button></div>';
-  if(k==="r")html+='<div class="tq">Chữ này đọc thế nào, nghĩa là gì?</div><div class="big zh">'+escH(w.zh)+'</div>'+
+  const fresh=k==="r"&&sk(w.zh,"r").seen===0;
+  if(fresh)html+='<div class="tq"><span class="newtag">Từ mới — đọc theo</span></div><div class="big zh">'+escH(w.zh)+'</div>'+
+      '<div class="rev" id="revBox"><div class="rp">'+pyHTML(w.py)+'</div><div class="rv">'+escH(w.vi)+'</div></div>'+
+      '<div class="row" style="margin-top:12px"><button class="mini" data-a="say">▶ Nghe</button>'+
+      '<span class="sp"></span><button class="btn jade" data-a="seen">Đã xem ›</button></div>';
+  else if(k==="r")html+='<div class="tq">Chữ này đọc thế nào, nghĩa là gì?</div><div class="big zh">'+escH(w.zh)+'</div>'+
       '<div class="rev" id="revBox"></div>'+
       '<div class="row" style="margin-top:12px"><button class="mini" data-a="say">▶ Nghe</button>'+
       '<span class="sp"></span><button class="btn" data-a="reveal">Xem đáp án</button></div>';
@@ -1435,7 +1461,7 @@ function nextTask(){
     (st.seen?"đã ôn "+st.seen+" lần, sai "+st.miss+", mức "+st.box+"/5"+
       " · độ khó "+diff(w.zh,k)+"/100"+(st.rt?" · bạn thường trả lời trong "+(st.rt/1000).toFixed(1)+"s":""):"chưa ôn lần nào")+
     (tT?" · phiên này đúng "+tR+"/"+tT:"");
-  if(k==="p")setTimeout(()=>sayW(w.zh),300)}
+  if(k==="p"||fresh)setTimeout(()=>sayW(w.zh),300)}
 function pySyl(p){return (String(p).toLowerCase().match(/[aeiouüvāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]+/g)||[]).length}
 function pyTones(p){const T=["āáǎàa","ēéěèe","īíǐìi","ōóǒòo","ūúǔùu","ǖǘǚǜü"],out=new Set(),a=[...p];
   a.forEach((c,i)=>T.forEach(s=>{if(s.slice(0,4).includes(c))[...s].forEach(r=>{if(r!==c){const b=a.slice();b[i]=r;out.add(b.join(""))}})}));
@@ -1488,6 +1514,8 @@ $("study").addEventListener("click",e=>{
   const w=task[0],a=b.dataset.a;
   if(a==="next"){nextTask();return}
   if(a==="say"){sayW(w.zh);return}
+  if(a==="seen"){if(task.fin)return;task.fin=1;const s=sk(w.zh,"r");if(!s.seen){s.seen=1;s.due=Date.now()+6e4}
+    updateRow(w.zh);if(typeof onCard==="function")onCard(w.zh,"r",true);nextTask();return}
   if(a==="mark"){markTog(w.zh);
     touch();b.textContent=S.mark.includes(w.zh)?"★ khó":"☆ khó";renderWords();return}
   if(a==="reveal"){tAns=Date.now();sayW(w.zh);
@@ -1748,15 +1776,15 @@ function renderHome(){
   $("pgBar").style.width=pct+"%";$("pgTxt").textContent=pct+"%";
   $("lastTxt").textContent=d.last
     ?"Lần học gần nhất: "+new Date(d.last).toLocaleString("vi-VN",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"})
-    :"Chưa học bài này lần nào.";
-  const T=[];
+    :(st.nw<st.all?"Đã học "+(st.all-st.nw)+"/"+st.all+" từ của bài này.":"Chưa học bài này lần nào.");
+  const T=[];const begun=st.nw<st.all;
   if(typeof paintDay==="function")paintDay();
   if(S.errs.length)T.push(["red","⟲","Ôn lỗi hôm nay ("+S.errs.length+")","Làm lại câu/từ đã sai — đúng 2 lần liên tiếp là xong",()=>errOpen()]);
   if(!S.pyDone&&(S.level==="1"||/HSK\s*1(?![0-9])/i.test(L.book||"")))T.unshift(["jade","🔤","Nhập môn pinyin & thanh điệu","Học cách đọc phiên âm, luyện nghe 4 thanh",()=>pyOpen()]);
   {const ee=$("exEntry");if(ee)ee.style.display=exBooks().length?"":"none"}
   if(st.due)T.push(["red","♻","Ôn "+st.due+" từ đã đến hạn","Nhớ lâu nhất là ôn đúng lúc sắp quên",()=>{go("vocab");deckSet("smart")}]);
   if(st.nw)T.push(["warn","✦","Học "+st.nw+" từ chưa gặp","Lật thẻ, tự đoán nghĩa rồi chấm",()=>{go("vocab");deckSet("smart")}]);
-  if(!d.listened)T.push(["jade","♪","Nghe bài khoá lần đầu",lines().length+" câu",()=>{go("text");start(0)}]);
+  if(!d.listened&&!begun)T.push(["jade","♪","Nghe bài khoá lần đầu",lines().length+" câu",()=>{go("text");start(0)}]);
   else T.push(["jade","♪","Nghe lại bài khoá","Thử chế độ Chép chính tả hoặc Đọc theo",()=>go("text")]);
   if(d.drill.total<10)T.push(["red","✍","Làm bài tập của bài này","Điền từ, sắp xếp câu, đọc hiểu",()=>go("drill")]);
   else T.push(["warn","✍","Luyện dịch câu","Việt sang Trung, tự chấm",()=>go("drill")]);
@@ -1886,7 +1914,10 @@ document.addEventListener("keydown",e=>{
   if(on("enPop")&&typeof ePopClose==="function"){ePopClose();return}
   if(on("enScrim")&&typeof enSheet==="function"){enSheet(null);return}
   if(on("pop")){pop.classList.remove("on");return}
-  if(on("scrim"))sheet(null)});
+  if(on("scrim")){sheet(null);return}
+  if(document.getElementById("exView")&&typeof exClose==="function"){exClose();return}
+  if(document.getElementById("errView")&&typeof errClose==="function"){errClose();return}
+  {const pv=document.getElementById("pyView");if(pv){stopAll();pv.remove();homeDirty=true;renderHome();return}}});
 document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>sheet(null)));
 
 $("rngRate").value=S.rate;$("vRate").textContent=(+S.rate).toFixed(2)+"x";
@@ -2344,6 +2375,12 @@ $("cOff").addEventListener("click",()=>{S.cloud={url:"",code:"",at:0};save();cSt
   $("cUrl").value="";$("cCode").value="";cMsg("Đã tắt. Tiến độ vẫn lưu trên máy này.")});
 /* đóng app: không PUT mù lên kho (sẽ ghi đè máy khác) — chỉ lưu máy + đánh dấu dirty, lần mở sau cloudSync */
 addEventListener("pagehide",()=>{if(cloudOn()&&(pushT||S.dirty)){S.dirty=true;clearTimeout(pushT);pushT=null;try{saveNow()}catch(e){}}});
+/* quay lại app / có mạng lại → đồng bộ (tối đa 1 lần/30s) */
+let autoSyncAt=0;
+function autoSync(){if(!cloudOn()||Date.now()-autoSyncAt<3e4)return;autoSyncAt=Date.now();
+  Promise.resolve(cloudSync(true,true)).then(()=>{homeDirty=true;if($("v-home")&&$("v-home").classList.contains("on"))renderHome();else if(typeof paintDay==="function")paintDay()}).catch(()=>{})}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")autoSync()});
+addEventListener("online",autoSync);
 
 /* ---------- đồng bộ tiến độ ---------- */
 function syData(){
@@ -2415,22 +2452,26 @@ $("syApply").addEventListener("click",()=>{
 /* ---------- ĐỢT A: chuỗi ngày, mục tiêu, màn chào, học nhanh, ôn lỗi, chấm dịch ---------- */
 function today(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function dayGap(a,b){if(!a||!b)return 99;const p=s=>{const x=s.split("-");return Date.UTC(+x[0],+x[1]-1,+x[2])};return Math.round((p(b)-p(a))/864e5)}
-function toast(msg,ms){const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=msg;
-  document.body.appendChild(t);setTimeout(()=>t.classList.add("on"),10);setTimeout(()=>{t.classList.remove("on");setTimeout(()=>t.remove(),400)},ms||2800)}
-function dayRoll(){const d=today();if(S.daily.date!==d){S.daily={date:d,n:0}}return S.daily}
+function ovlOpen(){return !!document.querySelector("body > .ovl")||!!(document.getElementById("scrim")&&document.getElementById("scrim").classList.contains("on"))}
+function toast(msg,ms){document.querySelectorAll("body > .toast").forEach(x=>x.remove());
+  const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=msg;
+  document.body.appendChild(t);setTimeout(()=>t.classList.add("on"),10);setTimeout(()=>{t.classList.remove("on");setTimeout(()=>t.remove(),400)},Math.min(ms||4000,4000))}
+function dayRoll(){const d=today();if(S.daily.date!==d){S.daily={date:d,by:{},n:0}}else if(!S.daily.by)dailyFix(S.daily);return S.daily}
+function checkStreak(){const d=dayRoll(),n=dayTotal();
+  if(n>=S.goal&&S.streak.last!==d.date&&!(S.streak.last>d.date)){
+    const g=dayGap(S.streak.last,d.date);
+    S.streak.cur=g===1?S.streak.cur+1:1;S.streak.last=d.date;S.streak.best=Math.max(S.streak.best,S.streak.cur);
+    toast("🎉 Đạt mục tiêu hôm nay! Chuỗi "+S.streak.cur+" ngày 🔥");homeDirty=true;save();return true}
+  return false}
 function streakNow(){const g=dayGap(S.streak.last,today());return g<=1?S.streak.cur:0}
 /* mỗi thẻ tiếng Trung chấm xong */
 function onCard(zh,k,ok){
-  const d=dayRoll();d.n++;
-  if(d.n===S.goal&&S.streak.last!==d.date){
-    const g=dayGap(S.streak.last,d.date);
-    S.streak.cur=g===1?S.streak.cur+1:1;S.streak.last=d.date;S.streak.best=Math.max(S.streak.best,S.streak.cur);
-    toast("🎉 Đạt mục tiêu hôm nay! Chuỗi "+S.streak.cur+" ngày 🔥")}
+  const d=dayRoll();d.by[DEV]=(+d.by[DEV]||0)+1;dayTotal();checkStreak();
   if(QS){QS.n++;if(ok)QS.ok++;else if(!QS.wrong.includes(zh))QS.wrong.push(zh);qsPaint()}
   homeDirty=true;save()}
 function paintDay(){
   if(!$("dayTxt"))return;dayRoll();
-  const n=S.daily.n,g=S.goal,c=streakNow();
+  const n=dayTotal(),g=S.goal,c=streakNow();
   $("dayTxt").textContent="🔥 chuỗi "+c+" ngày · hôm nay "+n+"/"+g+" thẻ"+(n>=g?" ✓":"");
   $("dayBar").style.width=Math.min(100,Math.round(n/g*100))+"%"}
 
@@ -2462,9 +2503,10 @@ function mergeExtra(o){
       else{S.errs.push(x);have[id]=x;n++}});}
   const b=S.errs.length;S.errs=S.errs.filter(x=>!(S.errDel[errId(x)]>=(x.ts||0)));n+=b-S.errs.length;
   if(S.errs.length>200){S.errs.sort((a,c)=>c.ts-a.ts);S.errs.length=200}
-  if(o.daily&&typeof o.daily.date==="string"){
-    if(o.daily.date===S.daily.date)S.daily.n=Math.max(S.daily.n,+o.daily.n||0);
-    else if(o.daily.date>S.daily.date)S.daily={date:o.daily.date,n:+o.daily.n||0}}
+  if(o.daily&&typeof o.daily.date==="string"){const ob=dailyBy(o.daily);dailyFix(S.daily);
+    if(o.daily.date===S.daily.date){for(const k in ob)S.daily.by[k]=Math.max(+S.daily.by[k]||0,ob[k])}
+    else if(o.daily.date>S.daily.date)S.daily={date:o.daily.date,by:ob};
+    dailyFix(S.daily)}
   if(o.streak&&typeof o.streak==="object"){const r=o.streak;
     S.streak.best=Math.max(S.streak.best,+r.best||0);
     if((r.last||"")>S.streak.last){S.streak.cur=+r.cur||0;S.streak.last=r.last}
@@ -2475,7 +2517,9 @@ function mergeExtra(o){
     o.exams.forEach(x=>{if(x&&typeof x.date==="string"&&typeof x.book==="string"&&!h[ek(x)]){S.exams.push(x);h[ek(x)]=1;n++}});
     S.exams.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);if(S.exams.length>30)S.exams=S.exams.slice(-30)}
   if(o.say&&typeof o.say==="object"&&!Array.isArray(o.say))for(const z in o.say){const v=+o.say[z];if(isFinite(v)&&!(S.say[z]>=v))S.say[z]=v}
+  {const ks=Object.keys(S.say);if(ks.length>600)ks.slice(0,ks.length-600).forEach(k=>delete S.say[k])}
   if(o.pyDone&&!S.pyDone)S.pyDone=o.pyDone;
+  try{checkStreak()}catch(e){}
   return n}
 
 /* ---------- so khớp LCS (chấm dịch tô màu) ---------- */
@@ -2537,7 +2581,7 @@ function obShow(){
 function paintSet(){
   if($("segGoal"))[...$("segGoal").children].forEach(x=>x.setAttribute("aria-pressed",+x.dataset.g===S.goal));
   if($("selLevel"))$("selLevel").value=S.level||levelOf()}
-$("segGoal").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.goal=+b.dataset.g;paintSet();save();homeDirty=true;renderHome()});
+$("segGoal").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.goal=+b.dataset.g;paintSet();checkStreak();save();homeDirty=true;renderHome()});
 $("selLevel").addEventListener("change",e=>{S.level=e.target.value;save();
   const b=firstOf(+S.level);if(b&&confirm("Chuyển sang "+shortBook(b.book)+" · "+b.sub+"?"))switchLes(b.id)});
 
@@ -2557,10 +2601,12 @@ function qsStart(){
 function qsPaint(){
   if(!QS)return;let b=$("qsBar");
   if(!b){b=document.createElement("div");b.id="qsBar";b.className="qsbar";$("study").parentElement.insertBefore(b,$("study"))}
-  const left=Math.max(0,QS.end-Date.now()),m=Math.floor(left/6e4),s=Math.floor(left%6e4/1000);
-  b.innerHTML='<b>⏱ '+m+':'+String(s).padStart(2,"0")+'</b><span>Thẻ '+(QS.n+(task&&!task.fin?1:0))+'/…</span><span class="sp"></span><button class="mini" id="qsStop">Kết thúc</button>'}
+  qsRows(false);
+  const left=Math.max(0,QS.end-Date.now()),m=Math.floor(left/6e4),s=Math.floor(left%6e4/1000),rem=S.goal-dayTotal();
+  b.innerHTML='<b>⏱ '+m+':'+String(s).padStart(2,"0")+'</b><span class="qsinfo">· '+(rem>0?'còn '+rem+' thẻ tới mục tiêu':'Thẻ '+(QS.n+(task&&!task.fin?1:0)))+'</span><span class="sp"></span><button class="mini" id="qsStop">Kết thúc</button>'}
+function qsRows(show){["segDeck","segSkill"].forEach(id=>{const e=$(id);if(e&&e.parentElement)e.parentElement.style.display=show?"":"none"})}
 function qsGate(){if(QS&&Date.now()>=QS.end){qsEnd();return true}return false}
-function qsStop(){clearInterval(qsTick);QS=null;const b=$("qsBar");if(b)b.remove()}
+function qsStop(){clearInterval(qsTick);QS=null;const b=$("qsBar");if(b)b.remove();qsRows(true)}
 function qsEnd(){
   if(!QS)return;const q=QS;qsStop();clearTimeout(waitNext);task=null;
   const pct=q.n?Math.round(q.ok/q.n*100):0;
@@ -2568,7 +2614,7 @@ function qsEnd(){
     '<div class="stats" style="margin:10px 0"><div class="stat"><b>'+q.n+'</b><span>thẻ</span></div>'+
     '<div class="stat"><b>'+(q.n?pct+"%":"—")+'</b><span>đúng</span></div>'+
     '<div class="stat"><b>'+streakNow()+'</b><span>ngày chuỗi 🔥</span></div></div>'+
-    '<p class="hint">Hôm nay '+S.daily.n+'/'+S.goal+' thẻ.</p>'+
+    '<p class="hint">Hôm nay '+dayTotal()+'/'+S.goal+' thẻ.</p>'+
     (q.wrong.length?'<div class="hint" style="margin-bottom:6px">Từ cần ôn lại:</div><div class="qwr">'+
       q.wrong.map(z=>{const w=lookup(z)||{};return '<span class="pill" data-say="'+escH(z)+'"><span class="zh">'+escH(z)+'</span> '+escH(w.vi||"")+'</span>'}).join("")+'</div>'
       :'<p class="hint">Không sai từ nào 👏</p>')+
@@ -2667,9 +2713,11 @@ const pick1=a=>a[Math.floor(Math.random()*a.length)];
 /* ---- giọng zh: báo một lần ---- */
 let zhWarned=false;try{zhWarned=sessionStorage.getItem("zhWarned")==="1"}catch(e){}const zhT0=Date.now();
 function zhVoiceWarn(){
-  if(zhWarned||voices.length)return;let all=[];try{all=synth.getVoices()||[]}catch(e){}
+  if(zhWarned||window.__zhWarned||voices.length)return;let all=[];try{all=synth.getVoices()||[]}catch(e){}
   if(!all.length&&Date.now()-zhT0<3000)return;
-  zhWarned=true;try{sessionStorage.setItem("zhWarned","1")}catch(e){}toast("Máy chưa có giọng đọc tiếng Trung — vào Cài đặt điện thoại → Ngôn ngữ/Chuyển văn bản thành giọng nói để tải giọng Trung (Quan thoại)",7000)}
+  if(all.some(v=>v.lang&&v.lang.toLowerCase().startsWith("zh"))){zhWarned=true;return}
+  if(ovlOpen())return;
+  zhWarned=true;window.__zhWarned=1;try{sessionStorage.setItem("zhWarned","1")}catch(e){}toast("Chưa có giọng đọc tiếng Trung · xem ⚙",4000)}
 
 /* ---- tách âm tiết pinyin & tô màu thanh điệu ---- */
 const PYV="aeiouüvāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜAEIOUÜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙǕǗǙǛ";
@@ -2687,12 +2735,16 @@ function pyHTML(py,force){if(!S.toneColor&&!force)return escH(py);
 
 /* ---- sắp xếp câu: câu hoàn chỉnh, chấp nhận đảo cụm thời gian ---- */
 const TIMEW=["今天","明天","昨天","现在","晚上","上午","下午","早上","中午","每天","周末","今年","明年","去年","后天","前天","以前","以后","刚才","最近","今晚","平时","有时候","马上","以前","这个星期","上个星期","下个星期","这周","上周","下周","那天","那时候","这时候","晚上","早晨","傍晚","夜里","一会儿"];
-function isTimeTok(t){return TIMEW.includes(t)||(/[点年月号]|星期|周/.test(t)&&!/点儿|点菜|一点|有点|点心|周围|号码|点头/.test(t))}
+const TIMERE=/^([0-9一二三四五六七八九十两几]+(点半?|分|号|月|年|岁)?|星期.|周[一二三四五六日末]|上周|下周|这周)$/;
+const SCR_PRON=["我","你","他","她","我们","你们","他们","她们","大家","您"];
+function isTimeTok(t){return TIMEW.includes(t)||TIMERE.test(t)}
 function scrAlts(toks){
   const alts=[toks.join("")];let i=0;while(i<toks.length&&isTimeTok(toks[i]))i++;
-  if(i>0&&i<toks.length-1)alts.push([toks[i]].concat(toks.slice(0,i),toks.slice(i+1)).join(""));
-  else if(i===0&&toks.length>2){let j=1;while(j<toks.length&&isTimeTok(toks[j]))j++;
-    if(j>1&&j<toks.length)alts.push(toks.slice(1,j).concat([toks[0]],toks.slice(j)).join(""))}
+  /* cụm thời gian phải trọn vẹn: không kết thúc bằng số trơn, không bị nối tiếp bởi 点/分/的/时候… */
+  const full=(a,b)=>{const last=toks[b-1],nx=toks[b]||"";return b>a&&!/^[0-9一二三四五六七八九十两几]+$/.test(last)&&!/^(点|半|分|号|月|年|岁|的|时候|以后|以前|左右)/.test(nx)};
+  if(i>0&&i<toks.length-1&&full(0,i)&&SCR_PRON.includes(toks[i]))alts.push([toks[i]].concat(toks.slice(0,i),toks.slice(i+1)).join(""));
+  else if(i===0&&toks.length>2&&SCR_PRON.includes(toks[0])){let j=1;while(j<toks.length&&isTimeTok(toks[j]))j++;
+    if(j>1&&j<toks.length&&full(1,j))alts.push(toks.slice(1,j).concat([toks[0]],toks.slice(j)).join(""))}
   return alts}
 function genScrFrom(lns){
   const out=[],seen={},PUN=/[，。！？、“”：；…"‘’《》—\s]/g;
@@ -2704,12 +2756,17 @@ function genScrFrom(lns){
   return out}
 
 /* ---- viết chữ theo pinyin ---- */
-function genPywFrom(lns,ws,n){
+/* vị trí xuất hiện duy nhất, nguyên vẹn của từ w trong câu (không nằm trong từ dài hơn của ws); -1 nếu không hợp lệ */
+function exHole(sent,w,ws){const i=sent.indexOf(w);if(i<0||sent.indexOf(w,i+1)>=0)return -1;
+  for(const v of ws){const z=v&&v.zh;if(!z||z.length<=w.length||!z.includes(w))continue;
+    let j=sent.indexOf(z);while(j>=0){if(j<=i&&i+w.length<=j+z.length)return -1;j=sent.indexOf(z,j+1)}}
+  return i}
+function genPywFrom(lns,ws,n,strict){
   const out=[],used={};
-  shuf(ws.filter(w=>w&&w.zh&&w.py&&/^[一-鿿]+$/.test(w.zh))).forEach(w=>{
+  shuf(ws.filter(w=>w&&w.zh&&w.py&&/^[一-鿿]+$/.test(w.zh)&&(!strict||w.zh.length>=2))).forEach(w=>{
     if(out.length>=n||used[w.zh])return;
-    const c=lns.filter(l=>l&&l.zh&&l.zh.includes(w.zh)&&l.zh.length<=40);if(!c.length)return;
-    const l=pick1(c),i=l.zh.indexOf(w.zh);used[w.zh]=1;
+    const c=lns.filter(l=>l&&l.zh&&l.zh.includes(w.zh)&&l.zh.length<=40&&(!strict||exHole(l.zh,w.zh,ws)>=0));if(!c.length)return;
+    const l=pick1(c),i=strict?exHole(l.zh,w.zh,ws):l.zh.indexOf(w.zh);used[w.zh]=1;
     out.push({a:w.zh,py:w.py,vi:w.vi||"",pre:l.zh.slice(0,i),post:l.zh.slice(i+w.zh.length),full:l.zh,lvi:l.vi||""})});
   return out}
 function pywItemHTML(p,i,cls){
@@ -2835,7 +2892,7 @@ function shadowHear(l,i,g,t){return new Promise(res=>{
     sayBest(sayKey("zh",l.zh),bp);fin()};
   r.onerror=()=>{};r.onend=()=>setTimeout(fin,250);
   tm=setTimeout(fin,Math.max(g+1500,3500));try{r.start()}catch(e){nap(g,t).then(fin);return}
-  (function chk(){if(done)return;if(t!==token)return fin();setTimeout(chk,150)})()})}
+  (function chk(){if(done)return;if(t!==token||paused||!playing)return fin();setTimeout(chk,150)})()})}
 
 /* ---- nhập môn pinyin ---- */
 const TONESETS=["妈mā 麻má 马mǎ 骂mà","汤tāng 糖táng 躺tǎng 烫tàng","八bā 拔bá 把bǎ 爸bà","衣yī 姨yí 椅yǐ 意yì","书shū 熟shú 鼠shǔ 树shù",
@@ -2863,7 +2920,7 @@ function pyTab(t){
   [...$("pyTabs").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.pt===t));
   const b=$("pyBody"),P=PY_INTRO;
   if(t==="game"){tgNext();return}
-  let h='<div class="card"><div class="row"><span class="lab">Tô màu pinyin theo thanh</span><div class="seg" id="pyToneSeg"><button data-tc="1" aria-pressed="'+!!S.toneColor+'">Bật</button><button data-tc="0" aria-pressed="'+!S.toneColor+'">Tắt</button></div></div>'+
+  let h='<div class="card"><div class="row"><span class="lab">Tô màu pinyin theo thanh <span class="hint" style="display:block;margin:0;font-weight:400">(áp dụng cho các trang khác — trang này luôn tô màu)</span></span><div class="seg" id="pyToneSeg"><button data-tc="1" aria-pressed="'+!!S.toneColor+'">Bật</button><button data-tc="0" aria-pressed="'+!S.toneColor+'">Tắt</button></div></div>'+
     '<div class="tonekey"><span class="tn1">ā thanh 1</span><span class="tn2">á thanh 2</span><span class="tn3">ǎ thanh 3</span><span class="tn4">à thanh 4</span><span class="tn0">a thanh nhẹ</span></div></div>';
   if(!P||!Array.isArray(P.sections))h+='<p class="hint">Chưa tải xong tài liệu nhập môn — kiểm tra mạng rồi mở lại.</p>';
   else{h+='<h2 style="margin-top:14px">'+escH(P.title||"Nhập môn pinyin")+'</h2>'+(P.note?'<p class="hint">'+escH(P.note)+'</p>':'');
@@ -2875,6 +2932,8 @@ function pyTab(t){
       h+='</div></details>'})}
   b.innerHTML=h}
 function tgNext(){
+  if(!voices.length){TG.cur=null;$("pyBody").innerHTML='<div class="card" style="border-color:var(--warn)"><b>Cần giọng đọc tiếng Trung để chơi</b>'+
+    '<p class="hint">Máy này chưa có giọng đọc tiếng Trung nên không phát được âm để chấm. Hãy tải giọng 中文 (普通话) theo hướng dẫn trong ⚙ Cài đặt (mục “Chưa có giọng tiếng Trung”), rồi mở lại trang. Trong lúc chờ, bạn vẫn xem được tab Bài học.</p></div>';return}
   const set=pick1(TONESETS),k=Math.floor(Math.random()*4);TG.cur={set:set,k:k,done:false};
   $("pyBody").innerHTML='<div class="card"><p class="hint" style="margin-top:0">Máy đọc một chữ — chọn đúng thanh điệu bạn nghe được.</p>'+
     '<div class="row"><button class="btn" data-tg="say">▶ Nghe lại</button><button class="mini" data-tg="slow">▶ Chậm</button><span class="sp"></span><span class="score" style="margin:0" id="tgSc">Đúng '+TG.ok+'/'+TG.n+'</span></div>'+
@@ -2909,23 +2968,30 @@ function exGen(book){
   const ws=[];const seen={};ls.forEach(l=>l.words.forEach(w=>{if(w&&w.zh&&!seen[w.zh]){seen[w.zh]=1;ws.push(w)}}));
   const it=[],used={};
   const take=(n,f)=>{const r=[];for(const x of shuf(lns)){if(r.length>=n)break;if(!used[x.zh]&&f(x)){used[x.zh]=1;r.push(x)}}return r};
-  take(10,x=>x.zh.length<=26).forEach(x=>{const others=shuf(lns.filter(y=>y.vi!==x.vi)).slice(0,2).map(y=>y.vi);
+  const hanN=z=>(String(z).match(/[一-鿿]/g)||[]).length,lsn=x=>x.zh.length<=26&&x.who&&String(x.who).trim()&&hanN(x.zh)>=6;
+  const lnW=new Map(),whoS={};ls.forEach(l=>l.parts.forEach(p=>p.lines.forEach(x=>{lnW.set(x,l.words||[]);if(x&&x.who)whoS[String(x.who).trim()]=1})));
+  const kindOf=w=>/^[0-9一二三四五六七八九十两几百千万零]+$/.test(w.zh)||isTimeTok(w.zh)?"n":(whoS[w.zh]||/tên (người|riêng)|\(tên|họ /i.test(w.vi||""))?"p":"o";
+  take(10,lsn).forEach(x=>{const others=shuf(lns.filter(y=>y.vi!==x.vi)).slice(0,2).map(y=>y.vi);
     const o=shuf([x.vi].concat(others));it.push({k:"l1",zh:x.zh,o:o,a:o.indexOf(x.vi),vi:x.vi})});
-  take(5,x=>x.zh.length<=26).forEach(x=>{let star=x.zh,tf=1;
-    if(Math.random()<.5){const inl=ws.filter(w=>w.zh.length>=2&&x.zh.includes(w.zh));
-      if(inl.length){const w=pick1(inl),alt=shuf(ws.filter(v=>v.zh.length===w.zh.length&&v.zh!==w.zh&&!x.zh.includes(v.zh)))[0];
-        if(alt){star=x.zh.replace(w.zh,alt.zh);tf=0}}}
+  take(5,lsn).forEach(x=>{let star=x.zh,tf=1;
+    if(Math.random()<.5){const lw=(lnW.get(x)||ws).filter(w=>w&&w.zh&&/^[一-鿿0-9]+$/.test(w.zh));
+      const tk=segment(x.zh.replace(/[，。！？、“”：；…"‘’《》—\s]/g,""));
+      for(const w of shuf(lw.filter(w=>tk.includes(w.zh)&&exHole(x.zh,w.zh,ws.concat(lw))>=0&&(w.zh.length>=2||kindOf(w)!=="o")))){const kd=kindOf(w);
+        const cand=lw.filter(v=>v.zh.length===w.zh.length&&v.zh!==w.zh&&!x.zh.includes(v.zh));
+        const same=cand.filter(v=>kindOf(v)===kd),alt=shuf(same.length?same:(kd==="o"?cand.filter(v=>kindOf(v)==="o"):[]))[0];
+        if(alt){const i=exHole(x.zh,w.zh,lw);star=x.zh.slice(0,i)+alt.zh+x.zh.slice(i+w.zh.length);tf=0;break}}}
     it.push({k:"l2",zh:x.zh,star:star,a:tf,vi:x.vi})});
   const gqs=shuf(ls.flatMap(l=>(l.gq||[]).filter(q=>q&&Array.isArray(q.o)&&typeof q.a==="number").map(q=>({q:q.q,o:q.o,a:q.a,why:q.why||"",g:1}))));
   const qz=shuf(ls.flatMap(l=>(l.quiz||[]).filter(q=>q&&Array.isArray(q.o)&&typeof q.a==="number").map(q=>({q:q.q,o:q.o,a:q.a,src:l.sub}))));
   const nG=Math.min(gqs.length,qz.length>=5?5:10-Math.min(10,qz.length));
-  gqs.slice(0,nG).concat(qz.slice(0,10-Math.min(nG,10))).slice(0,10).forEach(q=>it.push(Object.assign({k:"r1"},q)));
-  const fw=[];shuf(ws.filter(w=>w.zh.length>=1&&/^[一-鿿]+$/.test(w.zh))).forEach(w=>{if(fw.length>=5)return;
-    const c=lns.filter(l=>l.zh.includes(w.zh)&&!used[l.zh]&&!fw.some(f=>f.a.includes(w.zh)||w.zh.includes(f.a)));if(!c.length)return;
-    const l=pick1(c);used[l.zh]=1;fw.push({k:"r2",a:w.zh,s:l.zh.replace(w.zh,"___"),full:l.zh,vi:l.vi})});
+  gqs.slice(0,nG).concat(qz.slice(0,10-Math.min(nG,10))).slice(0,10).forEach(q=>{
+    const ord=shuf(q.o.map((_,k)=>k));it.push(Object.assign({k:"r1"},q,{o:ord.map(k=>q.o[k]),a:ord.indexOf(q.a)}))});
+  const fw=[];shuf(ws.filter(w=>w.zh.length>=2&&/^[一-鿿]+$/.test(w.zh))).forEach(w=>{if(fw.length>=5)return;
+    const c=lns.filter(l=>!used[l.zh]&&exHole(l.zh,w.zh,ws)>=0&&!fw.some(f=>f.a.includes(w.zh)||w.zh.includes(f.a)));if(!c.length)return;
+    const l=pick1(c),i=exHole(l.zh,w.zh,ws);used[l.zh]=1;fw.push({k:"r2",a:w.zh,s:l.zh.slice(0,i)+"___"+l.zh.slice(i+w.zh.length),full:l.zh,vi:l.vi})});
   const bank=shuf(fw.map(f=>f.a));fw.forEach(f=>{f.bank=bank;it.push(f)});
-  shuf(genScrFrom(lns)).slice(0,5).forEach(s=>it.push({k:"w1",t:s.t,a:s.a,mix:shuf(s.t)}));
-  genPywFrom(lns.filter(l=>!used[l.zh]),ws,5).forEach(p=>it.push(Object.assign({k:"w2"},p)));
+  shuf(genScrFrom(lns).filter(s=>s.t.length>=4&&s.t.length<=6)).slice(0,5).forEach(s=>it.push({k:"w1",t:s.t,a:s.a,mix:shuf(s.t)}));
+  genPywFrom(lns.filter(l=>!used[l.zh]),ws,5,true).forEach(p=>it.push(Object.assign({k:"w2"},p)));
   return it}
 function exOpen(){
   let d=$("exView");
@@ -2992,10 +3058,10 @@ function exSubmit(){
     el.classList.add(ok?"exok":"exno");el.querySelector(".exans").innerHTML=(ok?'<b class="c-ok">✓ Đúng</b> ':'<b class="c-bad">✗ Sai</b> ')+ans;
     if(!ok){try{
       if(x.k==="r1")errAdd(x.g?"gq":"quiz",x.q,{o:x.o,a:x.a,why:x.why||""});
-      else if(x.k==="r2"&&v)errWord("fill",x.a,{s:x.s});
-      else if(x.k==="w1"&&v)errAdd("scr",x.a);
-      else if(x.k==="w2"&&norm(v))errWord("pyw",x.a,{s:x.pre+"___"+x.post});
-      else if((x.k==="l1"||x.k==="l2")&&v!==undefined)errAdd("trans",x.zh)}catch(e){}}});
+      else if(x.k==="r2")errWord("fill",x.a,{s:x.s});
+      else if(x.k==="w1")errAdd("scr",x.a);
+      else if(x.k==="w2")errWord("pyw",x.a,{s:x.pre+"___"+x.post});
+      else if(x.k==="l1"||x.k==="l2")errAdd("trans",x.zh)}catch(e){}}});
   const pt=a=>a[1]?Math.round(a[0]/a[1]*100):0;
   const r={book:EX.book,date:new Date().toISOString(),l:pt(sc.l),r:pt(sc.r),w:pt(sc.w)};r.total=r.l+r.r+r.w;
   S.exams.push(r);if(S.exams.length>30)S.exams=S.exams.slice(-30);save();if(typeof cloudLater==="function")cloudLater();
@@ -3009,9 +3075,9 @@ function exSubmit(){
   $("exView").scrollTop=0;homeDirty=true}
 function exChart(book){
   const a=S.exams.filter(x=>x.book===book).slice(-12);if(!a.length)return '<p class="hint" style="margin:0">Chưa có lần thi nào.</p>';
-  const W=320,H=160,pl=30,pr=8,pt=12,pb=26,cw=(W-pl-pr)/Math.max(a.length,4),y=v=>pt+(H-pt-pb)*(1-v/300);
+  const W=320,H=150,pl=32,pr=8,pt=14,pb=24,cw=(W-pl-pr)/Math.max(a.length,4),y=v=>pt+(H-pt-pb)*(1-v/300);
   let s='<svg class="exchart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Điểm các lần thi thử '+escH(shortBook(book))+'">';
-  [0,100,200,300].forEach(v=>{s+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="var(--line)" stroke-width="1"/><text x="'+(pl-5)+'" y="'+(y(v)+4)+'" text-anchor="end" font-size="10" fill="var(--muted)">'+v+'</text>'});
+  [0,100,200,300].forEach(v=>{s+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="var(--line)" stroke-width="1"/><text x="'+(pl-5)+'" y="'+(y(v)+4)+'" text-anchor="end" font-size="11" fill="var(--muted)">'+v+'</text>'});
   a.forEach((x,i)=>{const bx=pl+i*cw+cw*.2,bw=cw*.6,ok=x.total>=180;
     s+='<rect x="'+bx.toFixed(1)+'" y="'+y(x.total).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(y(0)-y(x.total)).toFixed(1)+'" rx="3" fill="'+(ok?"var(--jade)":"var(--accent)")+'"><title>'+x.total+' điểm (Nghe '+x.l+', Đọc '+x.r+', Viết '+x.w+')</title></rect>'+
       '<text x="'+(bx+bw/2).toFixed(1)+'" y="'+(y(x.total)-3).toFixed(1)+'" text-anchor="middle" font-size="10" fill="var(--ink)">'+x.total+'</text>';
@@ -3053,7 +3119,7 @@ whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();next
 paintSet();if(!S.onboard)obShow();
 
 /* ---------- tự phát hiện bản mới trên GitHub ---------- */
-const APP_VER="2026-10-09.11";
+const APP_VER="2026-10-09.12";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
 function updBar(v){

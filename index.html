@@ -348,6 +348,8 @@ footer{color:var(--muted);font-size:12.5px;line-height:1.8;padding:18px 0 4px}
   </div>
   <div class="card" id="study"></div>
   <p class="hint" id="flInfo"></p>
+  <button class="btn sec" id="btnMem" style="width:100%;margin-top:4px">📊 Phân tích khả năng nhớ của tôi</button>
+  <div class="card" id="memBox" style="display:none;margin-top:10px"></div>
   <h2>Danh sách từ <span id="wcount" style="text-transform:none;letter-spacing:0"></span></h2>
   <input type="text" id="wsearch" placeholder="Tìm chữ Hán, pinyin hoặc nghĩa…">
   <div class="filt" id="wfilt">
@@ -993,9 +995,35 @@ const SK=["r","p","m"],SKN={r:"Mặt chữ",p:"Phiên âm",m:"Viết lại"};
   if(o&&typeof o.box==="number")S.srs[z]={r:{box:o.box,due:o.due,seen:o.seen,miss:o.miss||0},
     p:{box:o.box,due:o.due,seen:o.seen,miss:0},m:{box:0,due:0,seen:0,miss:0}}}})();
 function sk(zh,k){const s=S.srs[zh]||(S.srs[zh]={});return s[k]||(s[k]={box:0,due:0,seen:0,miss:0})}
-function gradeSk(zh,k,ok){const s=sk(zh,k);
-  if(ok)s.box=Math.min(5,s.box+1);else{s.box=0;s.miss++}
-  s.seen++;s.due=Date.now()+BOX[s.box];touch()}
+/* ---- phân tích trí nhớ: tốc độ, số lần sai, độ dễ riêng cho từng từ ---- */
+if(!S.mem||typeof S.mem!=="object")S.mem={};
+let cardN=0;(function(){for(const z in S.srs)for(const k in S.srs[z]){const s=S.srs[z][k];if(s&&s.n>cardN)cardN=s.n}})();
+function memBase(k){return S.mem[k]||(S.mem[k]={avg:k==="m"?9000:k==="p"?4000:5000,n:0,ok:0,tot:0})}
+function speedOf(k,ms){if(!ms||ms<300)return 1;const r=ms/memBase(k).avg;return r}
+function gradeSk(zh,k,ok,ms){const s=sk(zh,k),now=Date.now();
+  if(typeof s.ease!=="number")s.ease=2.3;
+  const valid=ms&&ms>300&&ms<60000;
+  const r=valid?speedOf(k,ms):1;
+  if(valid){s.rt=s.rt?Math.round(s.rt*.6+ms*.4):ms;
+    const b=memBase(k);b.avg=Math.round(b.n<5?(b.avg*b.n+ms)/(b.n+1):b.avg*.9+ms*.1);b.n++}
+  const bm=memBase(k);bm.tot++;if(ok)bm.ok++;
+  s.hist=((s.hist||"")+(ok?"1":"0")).slice(-10);
+  let f=1;
+  if(!ok){s.box=0;s.miss++;s.ease=Math.max(1.3,s.ease-.2)}
+  else if(r<.7){s.box=Math.min(5,s.box+(s.box>=2&&/111$/.test(s.hist)?2:1));s.ease=Math.min(3,s.ease+.1);f=1.25}
+  else if(r>1.6){if(s.box<2)s.box++;s.ease=Math.max(1.3,s.ease-.1);f=.6}
+  else s.box=Math.min(5,s.box+1);
+  s.seen++;s.last=now;s.n=++cardN;
+  s.due=now+(ok?Math.round(BOX[s.box]*(s.ease/2.3)*f):BOX[0]);
+  touch()}
+/* độ khó 0–100 của một mặt của một từ */
+function diff(zh,k){const s=sk(zh,k);if(!s.seen)return null;
+  const miss=(s.miss+.5)/(s.seen+1);
+  const h5=(s.hist||"").slice(-5),rf=h5?h5.split("").filter(c=>c==="0").length/h5.length:0;
+  const sl=s.rt?Math.min(2,Math.max(0,s.rt/memBase(k).avg-1))/2:0;
+  const ez=((3-(typeof s.ease==="number"?s.ease:2.3))/1.7);
+  return Math.round(Math.min(100,40*miss+25*rf+20*sl+15*ez))}
+function wordDiff(zh){const a=SK.map(k=>diff(zh,k)).filter(x=>x!==null);return a.length?Math.max.apply(null,a):null}
 function gradeWord(zh,ok){gradeSk(zh,"p",ok)}
 function srs(zh){const a=SK.map(k=>sk(zh,k));
   return{box:Math.min.apply(null,a.map(x=>x.box)),seen:a.reduce((n,x)=>n+x.seen,0)}}
@@ -1199,7 +1227,7 @@ function deckList(){
   const all=vocab();
   if(deck==="mark")return all.filter(w=>S.mark.includes(w.zh));
   return all}
-function deckName(){return deck==="smart"?"Ưu tiên: từ đến hạn trước, rồi học tiếp từ mới theo thứ tự":
+function deckName(){return deck==="smart"?"Ưu tiên thông minh: từ khó và quá hạn lên trước":
   deck==="mark"?"Chỉ các từ đánh dấu khó":"Hỏi ngẫu nhiên trong toàn bộ từ của bài"}
 let lastKey="";
 function pickTask(){
@@ -1216,18 +1244,34 @@ function pickTask(){
     return f[Math.floor(Math.random()*f.length)]};
   let t=null;
   if(deck==="all")t=take(due.concat(fresh,rest));
-  else if(due.length)t=take(due);
-  else if(fresh.length){fresh.sort((a,b)=>a[2]-b[2]||SK.indexOf(a[1])-SK.indexOf(b[1]));
-    t=(fresh.length>1&&no(fresh[0]))?fresh[1]:fresh[0]}
-  else if(rest.length)t=take(rest);
+  else{
+    /* chấm điểm ưu tiên: từ khó + quá hạn lâu lên trước; từ mới xen vào khi việc ôn đã nhẹ */
+    const now=Date.now(),hard=due.filter(x=>(diff(x[0].zh,x[1])||0)>=50).length;
+    const sc=[];
+    due.forEach(x=>{const s=sk(x[0].zh,x[1]),dd=diff(x[0].zh,x[1])||0;
+      const od=Math.min(3,(now-s.due)/Math.max(6e4,BOX[s.box]));
+      sc.push([x,90+dd+od*15])});
+    fresh.forEach(x=>sc.push([x,(hard>=4?40:75)-x[2]*.3-SK.indexOf(x[1])*.1]));
+    if(!due.length&&!fresh.length)rest.forEach(x=>{const s=sk(x[0].zh,x[1]);
+      sc.push([x,(diff(x[0].zh,x[1])||0)-(s.due-now)/36e5])});
+    else rest.forEach(x=>{const dd=diff(x[0].zh,x[1])||0,s=sk(x[0].zh,x[1]),
+        gap=cardN-Math.max.apply(null,SK.map(q=>sk(x[0].zh,q).n||0)),run=((s.hist||"").match(/0+$/)||[""])[0].length;
+      if(run&&gap>=3+run)sc.push([x,95+dd]);
+      else if(dd>=60&&(gap>=8||now-(s.last||0)>5*6e4))sc.push([x,dd-10])});
+    sc.forEach(p=>{p[1]+=Math.random()*8;if(no(p[0]))p[1]-=1000;
+      if(lastKey&&p[0][0].zh===lastKey.slice(0,-1)&&sc.length>3)p[1]-=30});
+    sc.sort((a,b)=>b[1]-a[1]);
+    t=sc.length?sc[0][0]:null;
+  }
   if(t)lastKey=t[0].zh+t[1];
   return t}
 function dotsHTML(zh){
   return '<span class="dots">'+SK.map(k=>{const s=sk(zh,k);
     return '<i class="'+(s.box>=3?"full":s.seen?"half":"")+'" title="'+SKN[k]+'"></i>'}).join("")+'</span>'}
 let waitNext=null;
+let tStart=0,tAns=0;
 function nextTask(){
-  clearTimeout(waitNext);waitNext=null;tTried=false;
+  clearTimeout(waitNext);waitNext=null;tTried=false;tStart=Date.now();tAns=0;
   task=pickTask();
   const box=$("study");
   if(!task){box.innerHTML='<p class="hint" style="margin:0">Chưa có từ nào được đánh dấu khó. Bấm ☆ ở thẻ đang học hoặc trong danh sách từ bên dưới.</p>';
@@ -1253,7 +1297,8 @@ function nextTask(){
   if(k==="m")$("tIn").addEventListener("keydown",e=>{if(e.key==="Enter")checkWrite()});
   const st=sk(w.zh,k);
   $("flInfo").textContent=deckName()+" · "+SKN[k].toLowerCase()+" của từ này: "+
-    (st.seen?"đã ôn "+st.seen+" lần, mức "+st.box+"/5":"chưa ôn lần nào")+
+    (st.seen?"đã ôn "+st.seen+" lần, sai "+st.miss+", mức "+st.box+"/5"+
+      " · độ khó "+diff(w.zh,k)+"/100"+(st.rt?" · bạn thường trả lời trong "+(st.rt/1000).toFixed(1)+"s":""):"chưa ôn lần nào")+
     (tT?" · phiên này đúng "+tR+"/"+tT:"");
   if(k==="p")setTimeout(()=>sayW(w.zh),300)}
 function buildPy(w){
@@ -1279,7 +1324,9 @@ function checkWrite(){
 function finish(ok,note){
   const w=task[0],k=task[1];
   tT++;if(ok)tR++;
-  gradeSk(w.zh,k,ok);updateRow(w.zh);
+  const ms=(tAns||Date.now())-tStart;
+  gradeSk(w.zh,k,ok,document.hidden?0:ms);updateRow(w.zh);
+  if($("memBox")&&$("memBox").style.display!=="none")renderMem();
   if(note){const d=document.createElement("div");d.className="mk no";d.style.textAlign="center";
     d.textContent=note;$("study").appendChild(d)}
   sayW(w.zh);
@@ -1295,7 +1342,7 @@ $("study").addEventListener("click",e=>{
   if(a==="say"){sayW(w.zh);return}
   if(a==="mark"){const i=S.mark.indexOf(w.zh);if(i>=0)S.mark.splice(i,1);else S.mark.push(w.zh);
     touch();b.textContent=S.mark.includes(w.zh)?"★ khó":"☆ khó";renderWords();return}
-  if(a==="reveal"){sayW(w.zh);
+  if(a==="reveal"){tAns=Date.now();sayW(w.zh);
     $("revBox").innerHTML='<div class="rp">'+w.py+'</div><div class="rv">'+w.vi+'</div>';
     b.parentElement.innerHTML='<button class="btn sec" data-a="no" style="flex:1">Chưa nhớ</button>'+
       '<button class="btn jade" data-a="yes" style="flex:1">Nhớ rồi</button>';return}
@@ -1308,6 +1355,41 @@ $("segDeck").addEventListener("click",e=>{const b=e.target.closest("button");if(
   [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));deck=b.dataset.d;nextTask()});
 $("segSkill").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
   [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));skMode=b.dataset.k;nextTask()});
+function renderMem(){
+  const box=$("memBox"),ws=vocab();
+  const fa=SK.map(k=>{let seen=0,miss=0,rt=0,rn=0;
+    ws.forEach(w=>{const s=sk(w.zh,k);seen+=s.seen;miss+=s.miss;if(s.rt){rt+=s.rt;rn++}});
+    return{k,seen,acc:seen?Math.round((seen-miss)/seen*100):null,rt:rn?rt/rn/1000:null}});
+  const tried=fa.filter(f=>f.seen>=3);
+  if(!tried.length){box.innerHTML='<p class="hint" style="margin:0">Chưa đủ dữ liệu. Học thêm khoảng 10 thẻ, app sẽ bắt đầu nhận ra từ nào bạn hay quên, mặt nào bạn chậm.</p>';return}
+  const weak=tried.slice().sort((a,b)=>(a.acc-b.acc)||((b.rt||0)-(a.rt||0)))[0];
+  const slow=tried.filter(f=>f.rt).sort((a,b)=>b.rt/memBase(b.k).avg-a.rt/memBase(a.k).avg)[0];
+  const hard=[];ws.forEach(w=>{SK.forEach(k=>{const d=diff(w.zh,k);if(d!==null&&d>=35)hard.push([w,k,d])})});
+  hard.sort((a,b)=>b[2]-a[2]);
+  let H='<b style="font-size:14.5px">Mỗi mặt của bạn ở bài này</b><div style="margin:8px 0 12px">';
+  fa.forEach(f=>{H+='<div class="row" style="gap:8px;margin:5px 0"><span style="width:76px;font-size:13px">'+SKN[f.k]+'</span>'+
+    '<div class="bar" style="flex:1;margin:0"><i style="width:'+(f.acc||0)+'%"></i></div>'+
+    '<span class="hint" style="margin:0;width:118px;text-align:right">'+(f.seen?f.acc+'% đúng'+(f.rt?' · '+f.rt.toFixed(1)+'s':''):'chưa học')+'</span></div>'});
+  H+='</div>';
+  const tip=[];
+  if(weak&&weak.acc<85)tip.push('Mặt yếu nhất là <b>'+SKN[weak.k].toLowerCase()+'</b> ('+weak.acc+'% đúng) — bộ thẻ đang hỏi mặt này nhiều hơn.');
+  if(slow&&slow.rt&&slow.rt/memBase(slow.k).avg>1.2)tip.push('Bạn trả lời <b>'+SKN[slow.k].toLowerCase()+'</b> chậm hơn thường lệ — những từ nghĩ lâu sẽ được nhắc lại sớm hơn dù trả lời đúng.');
+  if(!tip.length)tip.push('Bạn đang nhớ đều cả ba mặt. Từ trả lời nhanh và đúng liên tiếp sẽ được giãn lịch ôn dài hơn.');
+  H+='<p class="hint" style="margin:0 0 12px">'+tip.join("<br>")+'</p>';
+  if(hard.length){H+='<b style="font-size:14.5px">Từ bạn hay quên nhất</b>';
+    hard.slice(0,8).forEach(([w,k,d])=>{const s=sk(w.zh,k),why=[];
+      if(s.miss)why.push('sai '+s.miss+'/'+s.seen);
+      if(s.rt&&s.rt>memBase(k).avg*1.3)why.push('nghĩ lâu '+(s.rt/1000).toFixed(1)+'s');
+      if(/00/.test((s.hist||"").slice(-3)))why.push('vừa sai liên tiếp');
+      H+='<div class="row" style="gap:8px;margin:7px 0"><span class="zh" style="font-size:19px;min-width:54px">'+w.zh+'</span>'+
+        '<span style="flex:1;font-size:12.5px;color:var(--muted)">'+SKN[k]+' · '+(why.join(", ")||"chưa ổn định")+'</span>'+
+        '<b style="font-size:13px;color:'+(d>=60?'var(--accent)':'var(--warn)')+'">'+d+'</b></div>'});
+    H+='<p class="hint" style="margin:6px 0 0">Điểm độ khó tính từ tỉ lệ sai, các lần sai gần đây và thời gian bạn nghĩ. Từ trên 60 điểm được chen lên ôn lại kể cả khi chưa đến hạn.</p>'}
+  else H+='<p class="hint" style="margin:0">Chưa có từ nào bị đánh giá là khó. Tốt lắm!</p>';
+  box.innerHTML=H}
+$("btnMem").addEventListener("click",()=>{const b=$("memBox"),on=b.style.display==="none";
+  b.style.display=on?"block":"none";$("btnMem").textContent=on?"Ẩn phân tích":"📊 Phân tích khả năng nhớ của tôi";
+  if(on)renderMem()});
 function newCard(){nextTask()}
 function newType(){nextTask()}
 function deckSet(d){deck=d;
@@ -2155,7 +2237,7 @@ mineRender();
 whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
 
 /* ---------- tự phát hiện bản mới trên GitHub ---------- */
-const APP_VER="2026-10-08.5";
+const APP_VER="2026-10-09.1";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
 function updBar(v){

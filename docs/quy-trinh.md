@@ -13,7 +13,7 @@ Tài liệu sống. Phiên đêm đọc file này TRƯỚC khi làm, và cập n
 8. Chi phí là một chỉ số: ít lệnh gọi, ít đọc file, mô hình rẻ cho việc dễ, Claude chỉ cho việc cần phán đoán.
 
 ## Danh sách kiểm tra cố định (chạy mỗi lần trước khi push)
-- node --check các khối script; jsdom nạp trang 0 lỗi; lessons.json hợp lệ, 48 bài.
+- Chạy `NODE_PATH=<scratchpad>/node_modules node tests/smoke.js` (jsdom 0 lỗi, 48 bài, không gọi mạng mới, cú pháp script).
 - Bản lưu cũ vẫn đọc được (trường mới có mặc định).
 - Không có khoá API, không dữ liệu người học đi ra ngoài.
 - APP_VER tăng; "Có gì mới" có dòng mới nếu thay đổi người học thấy được.

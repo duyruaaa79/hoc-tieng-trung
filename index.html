@@ -2237,7 +2237,7 @@ mineRender();
 whoPaint();pkStatus();cStatus();ghStatus();hdr();buildRoles();renderWords();nextTask();renderHome();btns();
 
 /* ---------- tự phát hiện bản mới trên GitHub ---------- */
-const APP_VER="2026-10-09.3";
+const APP_VER="2026-10-09.4";
 (function(){const e=document.getElementById("verTxt");
   if(e)e.textContent="Bản "+APP_VER+" · ";})();
 function updBar(v){
@@ -3402,7 +3402,7 @@ try{const r=localStorage.getItem(AIKEY);if(r)AI=Object.assign(AI,JSON.parse(r))}
 const AIDEF={gemini:"gemini-flash-latest",claude:"claude-haiku-4-5"};
 function aiSave(){try{localStorage.setItem(AIKEY,JSON.stringify(AI))}catch(e){}}
 function aiOn(){return !!AI.key}
-function aiModel(){return (AI.model||"").trim()||AIDEF[AI.prov]}
+function aiModel(){return (AI.model||"").trim()||(AI.prov==="gemini"&&AI.ok)||AIDEF[AI.prov]}
 
 async function aiCall(system,msgs){
   if(!aiOn())throw new Error("NOKEY");
@@ -3416,16 +3416,25 @@ async function aiCall(system,msgs){
     if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));
     return (j.content||[]).map(c=>c.text||"").join("").trim();
   }
-  const url="https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(aiModel())+
-    ":generateContent";
-  const r=await fetch(url,{method:"POST",headers:{"content-type":"application/json","x-goog-api-key":AI.key.trim()},
-    body:JSON.stringify({systemInstruction:{parts:[{text:system}]},
+  /* thử lần lượt các mô hình miễn phí: mô hình bận/hết lượt thì tự chuyển sang mô hình khác */
+  const own=(AI.model||"").trim();
+  const list=own?[own]:(AI.ok?[AI.ok]:[]).concat(["gemini-flash-latest","gemini-2.5-flash","gemini-flash-lite-latest","gemini-2.5-flash-lite","gemini-2.0-flash"]).filter((x,i,a)=>a.indexOf(x)===i);
+  const body=JSON.stringify({systemInstruction:{parts:[{text:system}]},
       contents:msgs.map(m=>({role:m.role==="user"?"user":"model",parts:[{text:m.text}]})),
-      generationConfig:{temperature:.6,maxOutputTokens:1200}})});
-  const j=await r.json().catch(()=>({}));
-  if(!r.ok){const m=(j.error&&j.error.message)||("HTTP "+r.status);
-    if(r.status===429)throw new Error("LIMIT");
-    throw new Error(m)}
+      generationConfig:{temperature:.6,maxOutputTokens:1200}});
+  let r,j,last="";
+  for(let i=0;i<list.length;i++){
+    r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(list[i])+":generateContent",
+      {method:"POST",headers:{"content-type":"application/json","x-goog-api-key":AI.key.trim()},body:body});
+    j=await r.json().catch(()=>({}));
+    if(r.ok){if(!own&&AI.ok!==list[i]){AI.ok=list[i];aiSave()}break}
+    last=(j.error&&j.error.message)||("HTTP "+r.status);
+    const retry=r.status===429||r.status===503||r.status===500||r.status===404||/high demand|overloaded|unavailable|not found|not supported/i.test(last);
+    if(!retry||i===list.length-1){
+      if(r.status===429)throw new Error("LIMIT");
+      if(r.status===503||/high demand|overloaded/i.test(last))throw new Error("BUSY");
+      throw new Error(last)}
+  }
   const c=j.candidates&&j.candidates[0];
   const t=c&&c.content&&c.content.parts?c.content.parts.map(p=>p.text||"").join(""):"";
   if(!t)throw new Error("AI không trả lời (có thể nội dung bị chặn). Thử hỏi cách khác.");
@@ -3433,6 +3442,7 @@ async function aiCall(system,msgs){
 }
 function aiErr(e){const m=String(e&&e.message||e);
   if(m==="NOKEY")return 'Chưa có khoá AI. Vào ⚙ Cài đặt → <b>Trợ lý AI</b> để dán khoá Gemini (miễn phí).';
+  if(m==="BUSY")return "Máy chủ Gemini đang quá tải (tất cả mô hình miễn phí đều bận). Đợi một phút rồi thử lại.";
   if(m==="LIMIT")return "Đã chạm giới hạn lượt dùng miễn phí. Đợi một lát (hoặc sang ngày mai) rồi thử lại.";
   if(/API key not valid|API_KEY_INVALID|invalid x-api-key|authentication/i.test(m))return "Khoá AI không đúng. Kiểm tra lại trong ⚙ Cài đặt → Trợ lý AI.";
   if(/not found|is not supported/i.test(m))return "Tên mô hình không dùng được ("+aiModel()+"). Xoá ô Mô hình trong cài đặt để dùng mặc định.";
@@ -3635,7 +3645,7 @@ document.getElementById("aiMode").addEventListener("click",e=>{const b=e.target.
     document.getElementById("aiProv").value=AI.prov;
     document.getElementById("aiKeyIn").value=AI.key?"••••••••••••":"";
     document.getElementById("aiModelIn").value=AI.model||"";
-    document.getElementById("aiModelIn").placeholder="mặc định: "+AIDEF[AI.prov];
+    document.getElementById("aiModelIn").placeholder=AI.prov==="gemini"?"để trống: tự chọn mô hình còn rảnh":"mặc định: "+AIDEF[AI.prov];
     document.getElementById("aiState").textContent=aiOn()?("Đang bật · "+(AI.prov==="claude"?"Claude":"Gemini")+" · "+aiModel()):"Chưa bật — cần khoá API";
     document.getElementById("aiFab").style.opacity=aiOn()?"1":".55"};
   paint();
@@ -3649,7 +3659,7 @@ document.getElementById("aiMode").addEventListener("click",e=>{const b=e.target.
     if(!AI.key){msg.textContent="Chưa có khoá.";return}
     msg.innerHTML='<span class="aidots">Đang thử kết nối</span>';
     try{const r=await aiCall("Trả lời đúng một từ.",[{role:"user",text:"Nói 'xin chào' bằng tiếng Trung."}]);
-      msg.innerHTML="✓ Kết nối được. AI trả lời: <b>"+aiEsc(r.slice(0,40))+"</b>"}
+      msg.innerHTML="✓ Kết nối được ("+aiEsc(aiModel())+"). AI trả lời: <b>"+aiEsc(r.slice(0,40))+"</b>";paint()}
     catch(e){msg.innerHTML=aiErr(e)}});
   document.getElementById("aiDel").addEventListener("click",()=>{AI.key="";aiSave();paint();
     document.getElementById("aiMsg").textContent="Đã xoá khoá khỏi máy này."});
